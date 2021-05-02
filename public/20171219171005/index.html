@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yu-sen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="Angular数据绑定、响应式编程、管道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular4——5.数据绑定、响应式编程和管道">
+<meta property="og:url" content="https://yu-sen.github.io/20171219171005/index.html">
+<meta property="og:site_name" content="昱森笔记">
+<meta property="og:description" content="Angular数据绑定、响应式编程、管道">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-12-19T09:10:05.000Z">
+<meta property="article:modified_time" content="2017-12-22T06:17:30.000Z">
+<meta property="article:author" content="昱森">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://yu-sen.github.io/20171219171005/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20171219171005&#x2F;&quot;,&quot;path&quot;:&quot;20171219171005&#x2F;&quot;,&quot;title&quot;:&quot;Angular4——5.数据绑定、响应式编程和管道&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Angular4——5.数据绑定、响应式编程和管道 | 昱森笔记</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">昱森笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A"><span class="nav-number">1.</span> <span class="nav-text">数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%80%BC%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.</span> <span class="nav-text">插值表达式、属性绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">DOM属性绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">HTML属性绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8HTML%E5%B1%9E%E6%80%A7%E7%BB%91%E5%AE%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">什么时候使用HTML属性绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A"><span class="nav-number">1.2.</span> <span class="nav-text">事件绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A"><span class="nav-number">1.3.</span> <span class="nav-text">双向绑定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">响应式编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B8%8ERxJS"><span class="nav-number">2.1.</span> <span class="nav-text">观察者模式与RxJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E7%89%88%E6%9C%AC%E5%9C%B0%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">模版本地变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%A4%84%E7%90%86DOM%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">使用响应式编程处理DOM事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%95%E5%85%A5ReactiveFormsModule%E6%A8%A1%E5%9D%97"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.引入ReactiveFormsModule模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8FormControl%E7%B1%BB%E7%BB%91%E5%AE%9AHtml%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.使用FormControl类绑定Html元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">3.</span> <span class="nav-text">管道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AE%A1%E9%81%93"><span class="nav-number">3.1.</span> <span class="nav-text">自定义管道</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="昱森"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">昱森</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yu-sen.github.io/20171219171005/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="昱森">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="昱森笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular4——5.数据绑定、响应式编程和管道
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-19 17:10:05" itemprop="dateCreated datePublished" datetime="2017-12-19T17:10:05+08:00">2017-12-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2017-12-22 14:17:30" itemprop="dateModified" datetime="2017-12-22T14:17:30+08:00">2017-12-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Angular数据绑定、响应式编程、管道</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h1><p>angularJS默认使用双向绑定，angular默认使用单向绑定</p>
+<h2 id="插值表达式、属性绑定"><a href="#插值表达式、属性绑定" class="headerlink" title="插值表达式、属性绑定"></a>插值表达式、属性绑定</h2><p>属性表达式和插值表达式是一个东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img [src]&#x3D;&quot;url&quot;&gt;</span><br><span class="line">&#x2F;&#x2F;</span><br><span class="line">&lt;img src&#x3D;&quot;&#123;&#123;url&#125;&#125;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Angular的模版绑定是通过DOM属性和事件来工作的，而不是HTML属性。</strong></p>
+<h3 id="DOM属性绑定"><a href="#DOM属性绑定" class="headerlink" title="DOM属性绑定"></a>DOM属性绑定</h3><p>插值表达式是DOM属性绑定。</p>
+<p>Html属性和DOM属性的区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;input value&#x3D;&quot;Tom&quot; (change)&#x3D;&quot;inputChange($event)&quot;&gt;</span><br><span class="line"></span><br><span class="line">inputChange(event:any)&#123;</span><br><span class="line">  console.log(event.target.value);			&#x2F;&#x2F;这是DOM属性，value会随着输入的值而变化。DOM属性表示当前的值，DOM属性的值可以改变</span><br><span class="line">  console.log(event.target.getAttribute(&#39;value&#39;));	&#x2F;&#x2F;这是Html属性，value不变。Html属性指定初始值，html属性的值不能改变</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTML属性绑定"><a href="#HTML属性绑定" class="headerlink" title="HTML属性绑定"></a>HTML属性绑定</h3><ol>
+<li><p>基本html属性绑定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;td [attr.colspan]&#x3D;&quot;tableColspan&quot;&gt;Something&lt;&#x2F;td&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>css类绑定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; [class]绑定的样式会替换class的样式，[class]等号右边的表达式的值字符串，内容是要绑定的样式名称</span><br><span class="line">&lt;div class&#x3D;&quot;aaa bbb&quot; [class]&#x3D;&quot;someExpression&quot;&gt;Something&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;[class.样式名称]不会覆盖已有的样式，等号右边是一个boolean值，为true则绑定样式</span><br><span class="line">&lt;div class&#x3D;&quot;a b&quot; [class.special]&#x3D;&quot;isSpecial&quot;&gt;Something&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;[ngClass]管理多个样式，等号右边是一个对象，key是样式名，值是表达式，返回true则绑定</span><br><span class="line">&lt;div [ngClass]&#x3D;&quot;&#123;aaa:isA, bbb:isB&#125;&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>样式绑定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button [style.color]&#x3D;&quot;isRed?&#39;red&#39;:&#39;blue&#39;&quot;&gt;&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;button [ngStyle]&#x3D;&quot;&#123;&#39;color&#39;:isRed?&#39;red&#39;:&#39;green&#39;&#125;&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="什么时候使用HTML属性绑定"><a href="#什么时候使用HTML属性绑定" class="headerlink" title="什么时候使用HTML属性绑定"></a>什么时候使用HTML属性绑定</h3><p>应当优先使用DOM属性绑定，没有DOM属性的时候，使用HTML属性绑定。</p>
+<p>例如：</p>
+<p>表格的colspan属性是HTML属性，DOM属性中没有这个属性，如果使用DOM属性绑定，也就是插值表达式绑定该属性的话，浏览器会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">	&lt;tr&gt;&lt;td colspan&#x3D;&quot;&#123;&#123;2&#125;&#125;&quot;&gt;Hello world&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于td的colspan属性不是DOM属性，使用DOM属性绑定当然就会报错。</p>
+<p>改成HTML属性绑定就正确了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">	&lt;tr&gt;&lt;td [attr.colspan]&#x3D;&quot;2&quot;&gt;Hello world&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;table&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)&#x3D;&quot;onButtonClick($event)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>()</code>表示这是一个angular的事件绑定；</p>
+<p><code>(click)</code>括号中的内容是事件的名称，这里是一个click事件</p>
+<p><code>=</code>等号右侧是事件表达式，当绑定的事件触发时，右侧的事件表达式会被执行。表达式是组件控制器中的一个方法；</p>
+<p><code>$event</code>是一个浏览器事件对象。如果处理事件的方法需要拿到事件本身这个对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button (click)&#x3D;&quot;save &#x3D; true&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>=</code>等号右侧的表达式不用必须是一个函数调用，也可以是一个赋值表达式。</p>
+<p>被绑定的事件不一定必须是标准的DOM事件，也可以是一个自定义事件。</p>
+<h2 id="双向绑定"><a href="#双向绑定" class="headerlink" title="双向绑定"></a>双向绑定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input [(ngModel)]&#x3D;&quot;name&quot;&gt;&#123;&#123;name&#125;&#125;&lt;&#x2F;input&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="响应式编程"><a href="#响应式编程" class="headerlink" title="响应式编程"></a>响应式编程</h1><h2 id="观察者模式与RxJS"><a href="#观察者模式与RxJS" class="headerlink" title="观察者模式与RxJS"></a>观察者模式与RxJS</h2><p><a target="_blank" rel="noopener" href="https://buctwbzs.gitbooks.io/rxjs/content/observer.html">RxJS中文文档</a>。</p>
+<p>观察者模式由可观察对象和观察者对象两个对象组成。</p>
+<p>一般在初始化可观察对象时，会向可观察对象中注册一些观察者对象。</p>
+<p>当可观察对象发生变化时，会调用观察者对象中相应的方法，来处理这些变化。</p>
+<p>这种模式就叫观察者模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var subscription &#x3D; Observable.from([1,2,3,4])&#x2F;&#x2F;Observable.from方法从数组[1,2,3,4]中创建一个流</span><br><span class="line">					.filter((e) &#x3D;&gt; e%2&#x3D;&#x3D;0) &#x2F;&#x2F;调用filter方法过滤这个流，把偶数选出来</span><br><span class="line">					.map((e) &#x3D;&gt; e*e)	&#x2F;&#x2F;调用map方法映射这个流，求偶数的平方</span><br><span class="line">					.subscribe(	&#x2F;&#x2F;经过上面操作，此时拿到了一个包含偶数平方的流，订阅这个流，打印出来</span><br><span class="line">						e &#x3D;&gt; console.log(e),	&#x2F;&#x2F; 4 16</span><br><span class="line">						error &#x3D;&gt; console.error(error),</span><br><span class="line">						() &#x3D;&gt; console.log(&quot;结束啦“)</span><br><span class="line">					);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>可观察对象Observable（流）：表示一组值或事件的集合。可观察对象也叫流，因为它会像水流一样不停的依次发送值。</p>
+<p>本例中1，2，3，4这四个值组成了一个可观察对象。也可以用事件生成一个可观察对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var button &#x3D; document.querySelector(&#39;button&#39;);</span><br><span class="line">Observable.from(button,&#39;click&#39;)</span><br></pre></td></tr></table></figure></li>
+<li><p>观察者对象Observer：一个回调函数的集合，它知道怎样去监听被Observable发送的值。</p>
+<p>在本例中<code>.subscribe()</code>方法的参数是三个函数，这三个函数组成的回调函数集合就是可观察对象<code>[1,2,3,4]</code>的观察者。当可观察对象发射出<code>1</code>这个值的时候，这个值就会被交给观察者的第一个回调函数处理<code>console.log(1)</code>。</p>
+</li>
+<li><p>订阅Subscription：表示一个可观察对象，主要用于取消注册。</p>
+<p>当一个可观察对象调用<code>subscribe()</code>方法，也就是被订阅以后，会返回一个可观察对象，本例中就是<code>subscription</code>。这个可观察对象可以调用<code>unsubscribe()</code>方法取消订阅：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subscription.unsubscribe();</span><br></pre></td></tr></table></figure>
+
+<p>观察者里有三个回调函数，分别表示<code>next</code>、<code>error</code>、<code>complete</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var observer &#x3D; &#123;</span><br><span class="line">  next: x &#x3D;&gt; console.log(&#39;Observer got a next value: &#39; + x),</span><br><span class="line">  error: err &#x3D;&gt; console.error(&#39;Observer got an error: &#39; + err),</span><br><span class="line">  complete: () &#x3D;&gt; console.log(&#39;Observer got a complete notification&#39;),</span><br><span class="line">&#125;;</span><br><span class="line">observable.subscribe(observer);</span><br></pre></td></tr></table></figure>
+
+<p>后两个可以省略。</p>
+</li>
+<li><p>操作符 Operators：纯粹的函数，使开发者可以以函数编程的方式处理集合。</p>
+<p>在本例中，<code>filter()</code>、<code>map()</code>都是操作符，它们可以处理流中的数据。</p>
+</li>
+</ul>
+<p>Observable对象是Rxjs库提供的，在angular中使用Observable进行响应式编程时需要引入RxJS库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123;Observable&#125; from &#39;rxjs&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模版本地变量"><a href="#模版本地变量" class="headerlink" title="模版本地变量"></a>模版本地变量</h2><p>angular中提供了一个叫做<em>模版本地变量</em>的语法来方便获得Html元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;事件对象</span><br><span class="line">&lt;input (keyup)&#x3D;&quot;onKey($event)&quot;&gt;</span><br><span class="line">onKey(event:any)&#123;</span><br><span class="line">  console.log(event.target.value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模版本地变量</span><br><span class="line">&lt;input #myFiled (keyup)&#x3D;&quot;myFiled.value&gt;</span><br><span class="line">onKey(value:string)&#123;</span><br><span class="line">  console.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>声明模版本地变量用<code>#</code>号，<code>#myFiled</code>。</p>
+<p>使用模版本地变量时不需要加<code>#</code>号，<code>myFiled</code>就是input标签。<code>myFiled.value</code>就能直接拿到input元素的值。</p>
+<h2 id="使用响应式编程处理DOM事件"><a href="#使用响应式编程处理DOM事件" class="headerlink" title="使用响应式编程处理DOM事件"></a>使用响应式编程处理DOM事件</h2><p>传统JS中，对DOM事件的处理是一次性的。例如click事件，每点击一次鼠标，所对应的方法被调用一次。</p>
+<p>在Angular中，将事件作为永不结束的流来处理。</p>
+<h3 id="1-引入ReactiveFormsModule模块"><a href="#1-引入ReactiveFormsModule模块" class="headerlink" title="1.引入ReactiveFormsModule模块"></a>1.引入ReactiveFormsModule模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; app.module.ts</span><br><span class="line">import &#123;ReactiveFormsModule&#125; from &#39;@angular&#x2F;forms&#39;;</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  imports:[ReavtiveFormsModule]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这个模块是angular中用来做响应式编程的模块。</p>
+<h3 id="2-使用FormControl类绑定Html元素"><a href="#2-使用FormControl类绑定Html元素" class="headerlink" title="2.使用FormControl类绑定Html元素"></a>2.使用FormControl类绑定Html元素</h3><p>FormControl是angular进行表单处理时常用的类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ex.html</span><br><span class="line">&lt;input [formControl]&#x3D;&quot;searchInput&quot; (keyup)&#x3D;&quot;onKey()&quot;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ex.component.ts</span><br><span class="line">export class ExComponent implements OnInit&#123;</span><br><span class="line">  searchInput: FormControl &#x3D; new FormControl();</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    this.searchInput.valueChanges.debounceTime(500).subscribe(</span><br><span class="line">    	e &#x3D;&gt; console.log(e)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>valueChanges是一个Observable可观察对象，每当被控制的元素的值发生变化，valueChanges就会发射一个流。</p>
+<p>debounceTime是Observable可观察对象的方法，作用是延迟。该方法不属于angular，来自RxJS库的Observable对象，因此使用该方法要引入RxJS库。</p>
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ts</span><br><span class="line">birthday:Date &#x3D; new Date();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;div&gt;我的生日是：&#123;&#123;birthday&#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 我的生日是：Thu Dec 21 2017 15:01:10 GMT+0800 (CST)</span><br></pre></td></tr></table></figure>
+
+<p>使用管道格式化数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;div&gt;我的生日是：&#123;&#123;birthday | date&#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 我的生日是：Dec 21,2017</span><br></pre></td></tr></table></figure>
+
+<p>多个管道可以组合使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;div&gt;我的生日是：&#123;&#123;birthday | date | uppercase&#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 我的生日是：DEC 21,2017</span><br></pre></td></tr></table></figure>
+
+<p>angular内置了一些管道，如date，uppercase，lowercase等。</p>
+<p>一些复杂的管道可以接受参数，比如date管道：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; html</span><br><span class="line">&lt;div&gt;我的生日是：&#123;&#123;birthday | date:&#39;yyyy-MM-dd HH:mm:ss&#39;&#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 我的生日是：2017-12-21 16:00:00</span><br></pre></td></tr></table></figure>
+
+<p>date管道接受一个参数，该参数指定当前的日期格式化的形式，yyyy表示年（2017），大写的MM表示月（12），dd表示日（21），大写的HH表示24小时制的时（16），相反小写的hh表示12小时制的时（04），小写的mm表示分（00），ss表示秒（00）。</p>
+<h2 id="自定义管道"><a href="#自定义管道" class="headerlink" title="自定义管道"></a>自定义管道</h2><p>一 生成管道文件</p>
+<p><code>ng g pipe XXXX</code></p>
+<p>管道需要声明在模块中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; app.module.ts</span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declaration:[XXXXPipe]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; pipeName.pipe.ts</span><br><span class="line">import &#123;Pipe,PipeTransform&#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line"></span><br><span class="line">@Pipe(&#123;</span><br><span class="line">  name: &#39;XXXX&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export class XXXXPipe implements PipeTransform&#123;</span><br><span class="line">  transform(value: any, arg?: any): any&#123;</span><br><span class="line">    return undefined</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>value参数是在模版中，传入管道的原始值。</p>
+<p>arg参数是管道可接受的参数，比如date管道接受的<code>&#39;yyyy-MM-dd HH:mm:ss&#39;</code>。</p>
+<p>管道可以接收多个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">transform(value:any, arg?;any, arg2?:any...):any&#123;</span><br><span class="line">  return undefined</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;&#123;&#123;value | pipe:arg:arg2:....&#125;&#125;&lt;&#x2F;div&gt; </span><br></pre></td></tr></table></figure>
+
+<p>例子：写一个乘法管道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; multiply.pipe.ts</span><br><span class="line">@Pipe(&#123;</span><br><span class="line">  name:&#39;multiply&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export class MultiplyPipe implements PipeTransform&#123;</span><br><span class="line">  transform(value:any, arg?:any):any&#123;</span><br><span class="line">    if(!arg)&#123;</span><br><span class="line">      arg &#x3D; 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return value * arg;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; ex.component.html</span><br><span class="line">&#x2F;&#x2F; 假设num的值为 5</span><br><span class="line">&lt;div&gt;&#123;&#123;num | multiply&#125;&#125;&lt;&#x2F;div&gt;	&#x2F;&#x2F; 5</span><br><span class="line">&lt;div&gt;&#123;&#123;num | nultiply:&#39;2&#39;&#125;&#125;&lt;&#x2F;div&gt;	&#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20171219145009/" rel="prev" title="Angular4——4.依赖注入">
+                  <i class="fa fa-chevron-left"></i> Angular4——4.依赖注入
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/20171222141815/" rel="next" title="Angular4——6.组件间通讯">
+                  Angular4——6.组件间通讯 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">昱森</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
