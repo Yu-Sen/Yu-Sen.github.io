@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yu-sen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="promise.then()的回调函数返回Promise.resolve(res.data)和直接返回res.data有何区别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="return Promise.resolve(res.data)和return res.data的区别">
+<meta property="og:url" content="https://yu-sen.github.io/2018_03_11_12_05_53">
+<meta property="og:site_name" content="昱森笔记">
+<meta property="og:description" content="promise.then()的回调函数返回Promise.resolve(res.data)和直接返回res.data有何区别">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-11T04:05:53.000Z">
+<meta property="article:modified_time" content="2018-03-12T07:18:56.000Z">
+<meta property="article:author" content="昱森">
+<meta property="article:tag" content="问题积累">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://yu-sen.github.io/2018_03_11_12_05_53">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;2018_03_11_12_05_53&quot;,&quot;path&quot;:&quot;2018_03_11_12_05_53&quot;,&quot;title&quot;:&quot;return Promise.resolve(res.data)和return res.data的区别&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>return Promise.resolve(res.data)和return res.data的区别 | 昱森笔记</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">昱森笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%94%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">答案</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="昱森"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">昱森</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yu-sen.github.io/2018_03_11_12_05_53">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="昱森">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="昱森笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          return Promise.resolve(res.data)和return res.data的区别
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-11 12:05:53" itemprop="dateCreated datePublished" datetime="2018-03-11T12:05:53+08:00">2018-03-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-03-12 15:18:56" itemprop="dateModified" datetime="2018-03-12T15:18:56+08:00">2018-03-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">promise.then()的回调函数返回Promise.resolve(res.data)和直接返回res.data有何区别</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>一个axios异步请求函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getDiscList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> url = <span class="string">&#x27;/api/getDiscList&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> data = <span class="built_in">Object</span>.assign(&#123;&#125;, commonParams, &#123;</span><br><span class="line">    platform: <span class="string">&#x27;yqq&#x27;</span>,</span><br><span class="line">    hostUin: <span class="number">0</span>,</span><br><span class="line">    sin: <span class="number">0</span>,</span><br><span class="line">    ein: <span class="number">29</span>,</span><br><span class="line">    sortId: <span class="number">5</span>,</span><br><span class="line">    needNewCode: <span class="number">0</span>,</span><br><span class="line">    categoryId: <span class="number">10000000</span>,</span><br><span class="line">    rnd: <span class="built_in">Math</span>.random(),</span><br><span class="line">    format: <span class="string">&#x27;json&#x27;</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> axios.get(url, &#123;</span><br><span class="line">    params: data</span><br><span class="line">  &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组件里调用这个异步请求获取数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getDiscList().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (res.code === ERR_OK) &#123;</span><br><span class="line">            <span class="built_in">this</span>.discList = res.data.list</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>为何在请求函数中，最后的then方法里return的是Promise.resolve(res.data)，而不是直接return res.data?</strong></p>
+<p><strong>两种return对请求的调用有什么影响吗？</strong></p>
+<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>ok，一步一步分析：</p>
+<ol>
+<li><p>先搞清楚这个请求的返回是什么：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> axios.get(url, &#123;</span><br><span class="line">    params: data</span><br><span class="line">  &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这一坨就是getDiscList这个函数返回的东西，axios是一个ajax请求第三方库，根据官方ReadMe可知道，axios.get()方法返回一个promise，并且这个promise的resolve回调函数的参数就是请求返回的数据res</p>
+</li>
+<li><p>那么这个return相当于这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">/*异步请求*／</span></span><br><span class="line"><span class="comment">  。。。</span></span><br><span class="line"><span class="comment">    if(/*请求成功*/</span>)&#123;</span><br><span class="line">         resolve(res)</span><br><span class="line">       &#125;</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>现在return的就是new Promise().then()，为什么在请求函数里就then而不是在调用请求的时候再then？我猜是由于axios.get()这个promise返回的res不是作者需要的数据，res.data才是。因此作者在这里就先then一次，相当于对请求结果做个预处理，把真正需要的res.data传出去。这样在调用请求的时候直接拿到的就是res.data。起到简化代码的目的。</p>
+<p>那么问题来了，既然出于这样的目的，为什么作者不直接return res.data呢？return Promise.resolve(res.data)有什么别的用意吗？</p>
+</li>
+<li><p>接着分析，现在知道return的是一个promise调用then()方法。那这个then()方法的返回结果又是什么？</p>
+<blockquote>
+<p>then方法返回一个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>，而它的行为与then中的回调函数的返回值有关：</p>
+<ul>
+<li>如果then中的回调函数返回一个值，那么then返回的Promise将会成为接受状态，并且将返回的值作为接受状态的回调函数的参数值。</li>
+<li>如果then中的回调函数返回一个已经是接受状态的Promise，那么then返回的Promise也会成为接受状态，并且将那个Promise的接受状态的回调函数的参数值作为该被返回的Promise的接受状态回调函数的参数值。</li>
+</ul>
+</blockquote>
+<p>根据官方文档，then()方法返回的也是一个promise，并且这个promise的状态，resolve函数的参数和then()方法中的回调函数的返回值有关。</p>
+</li>
+<li><p>return res.data就是文档中所说的<code>如果then中的回调函数返回一个值</code>这种情况，return Promise.resolve(res.data)就是文档中所说的<code>如果then中的回调函数返回一个已经是接受状态的Promise</code>这种情况。</p>
+<p>因为Promise.resolve(res.data)返回的就是一个已经是接受状态的Promise</p>
+<blockquote>
+<p><code>Promise.resolve(value)</code>方法返回一个以给定值解析后的Promise对象。但如果这个值是个thenable（即带有then方法），返回的promise会“跟随”这个thenable的对象，采用它的最终状态（指resolved/rejected/pending/settled）；否则以该值为成功状态返回promise对象。</p>
+</blockquote>
+</li>
+<li><p>既然两个return方式最终都是使then()返回接受状态的Promise，并且这个Promise的接受状态回调函数的参数都是res.data，那为何一定要采用return Promise.resolve(res.data)这种方式呢？</p>
+</li>
+</ol>
+<h1 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h1><p><code>.then((res) =&gt; &#123;return res.data&#125;)</code>和<code>.then((res) =&gt; &#123;return Promise.resolve(res.data)&#125;)</code>返回的都是一个接受状态的promise<code>new Promise((resolve) =&gt; &#123;resolve(res.data)&#125;)</code>，那我猜测作者之所以那么写，可能是他觉得这样看起来更严谨。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%97%AE%E9%A2%98%E7%A7%AF%E7%B4%AF/" rel="tag"># 问题积累</a>
+              <a href="/tags/ES6/" rel="tag"># ES6</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018_01_20_13_15_23" rel="prev" title="RxJS">
+                  <i class="fa fa-chevron-left"></i> RxJS
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021_04_29_17_12_01" rel="next" title="【数据分析】第一阶段：数据分析思维与业务流程">
+                  【数据分析】第一阶段：数据分析思维与业务流程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">昱森</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
