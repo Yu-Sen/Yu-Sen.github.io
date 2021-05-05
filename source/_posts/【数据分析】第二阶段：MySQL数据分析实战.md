@@ -210,9 +210,9 @@ SELECT ename , salary + 1000 FROM emp;
 | Or \|\|            | 多个条件任一成立                                             |
 | Not                | 不成立，取反。<br />和IS NULL组合使用，就是查询字段不是Null的数据。<br />where dept_name IS NOT NULL; |
 
-##核心查询
+## 核心查询
 
-###排序
+### 排序
 
 ```sql
 -- SELECT 字段名 FROM 表名 [WHERE 字段 = 值] ORDER BY 字段名 [ASC / DESC]
