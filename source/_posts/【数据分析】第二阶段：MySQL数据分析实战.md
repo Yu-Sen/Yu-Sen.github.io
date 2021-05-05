@@ -68,7 +68,7 @@ MySQL Server安装目录下，bin目录下的mysql就是自带的命令行客户
 - -uroot：登陆用户是root
 - -p123456：登陆密码是123456
 
-#SQL语句
+# SQL语句
 
 SQL语句按功能分为以下几类：
 
@@ -79,7 +79,7 @@ SQL语句按功能分为以下几类：
 
 **SQL语句的执行顺序：1、最先执行from tab；2、where语句是对条件加以限定；3、分组语句【group by…… having】；4、聚合函数；5、select语句；6、order by排序语句。**
 
-##增删改
+## 增删改
 
 ```sql
 -- 新建数据库 create database 数据库名;
