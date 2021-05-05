@@ -705,3 +705,99 @@ SELECT 字段名 FROM 左表 RIGHT [OUTER] JOIN 右表 ON 条件
 
 ![img](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-05_21-50-07.jpg)
 
+2个以上表如何多表查询，思路是先选2个进行查询，将查询结果当作一个新的表，再和下一个表进行多表查询，以此类推。
+
+## 合并查询
+
+union和union all
+
+union/union all操作符用来合并多个select语句的结果集（就是查询结果）。
+
+union 和 union all 都要满足以下条件才能合并：
+
+- 要合并的结果集，列数必须相同，列的顺序必须一致，列的字段类型也必须相似。
+
+union 和 union all 的区别：
+
+- union：消除重复行，重复检查期间，null值会被算在内。
+- union all：不消除重复行，只是将结果集合并后就返回。
+- 执行效率上，union all 要比 union 快很多。
+
+```sql
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+UNION / UNION ALL
+SELECT column1 [, column2 ]
+FROM table1 [, table2 ]
+[WHERE condition]
+```
+
+## 子查询
+
+子查询概念：一条select 查询语句的结果, 作为另一条 select 语句的一部分。
+
+特点：
+
+- 子查询必须放在小括号中
+- 整个sql至少会有两个select关键字
+
+子查询常见分类
+
+- **where型子查询**：将子查询的结果, 作为父查询的比较条件
+- **from型子查询 **：将子查询的结果, 作为 一张表,提供给父层查询使用
+- **exists型子查询**：子查询的结果是单列多行, 类似一个数组, 父层查询使用 IN 函数 ,包含子查询的结果
+
+### where型子查询
+
+当子查询的结果是一个值时（单行单列）
+
+```
+SELECT 查询字段 FROM 表 WHERE 字段 = (子查询);
+```
+
+```sql
+# 子查询的方式, 查询价格最高的商品信息
+select * from products where price = (select max(price) from products);
+
+# 查询化妆品分类下的 商品名称 商品价格
+-- 子查询
+select p.pname, p.price from products p where p.category_id = (select cid from category where cname = '化妆品');
+-- 内连接查询
+select  p.pname,p.price from products p join category c on p.category_id = c.cid where c.cname = '化妆品';
+```
+
+### exists型子查询
+
+当子查询的结果是一个集合时（多行单列），需要用where ... in (子查询)
+
+```
+SELECT 查询字段 FROM 表 WHERE 字段 in (子查询);
+```
+
+```sql
+# 查询价格小于两千的商品,来自于哪些分类(名称)
+select cname from category where cid in (select category_id from products where price < 2000);
+
+# 查询家电类 与 鞋服类下面的全部商品信息
+select * from products where category_id in (select cid from category where cname in('家电','鞋服'));
+```
+
+### from型子查询
+
+当子查询的结果是一个表（多列多行）
+
+```
+SELECT 查询字段 FROM (子查询)表别名 WHERE 条件;
+```
+
+```sql
+# 查询商品中,价格大于500的商品信息,包括 商品名称 商品价格 商品所属分类名称
+-- 子查询
+select p.pname,p.price,c.cname from (select * from products where price > 500) p join category c on p.category_id = c.cid;
+-- 内连接查询
+select p.pname,p.price,c.cname from products p  join category c on p.category_id = c.cid where p.price > 500;
+```
+
+**当子查询作为一张表的时候，需要起别名，否则无法访问表中的字段。**
+
