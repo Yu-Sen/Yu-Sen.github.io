@@ -214,8 +214,11 @@ SELECT ename , salary + 1000 FROM emp;
 
 ### 排序
 
+```
+SELECT 字段名 FROM 表名 [WHERE 字段 = 值] ORDER BY 字段名 [ASC / DESC]
+```
+
 ```sql
--- SELECT 字段名 FROM 表名 [WHERE 字段 = 值] ORDER BY 字段名 [ASC / DESC]
 -- 默认升序排序 ASC
 SELECT * FROM emp ORDER BY salary;
 -- 降序排序
@@ -238,9 +241,11 @@ Order by不会影响源数据，只用于展示结果。
 - min(字段) 计算指定列的最小值。
 - avg(字段) 计算指定列的平均值
 
-```sql
--- SELECT 聚合函数(字段名) FROM 表名;
+```
+SELECT 聚合函数(字段名) FROM 表名;
+```
 
+```sql
 #1 查询员工的总数
 -- 统计表中的记录条数 使用 count()
 SELECT COUNT(eid) FROM emp; -- 使用某一个字段 
