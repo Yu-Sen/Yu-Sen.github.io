@@ -664,7 +664,7 @@ SELECT 字段名 FROM 左表 LEFT [OUTER] JOIN 右表 ON 条件
 特点：
 
 - 左表为基准, 右表去查询左表
-- 返回结果时，左表数据正常展示，右表在左表中查询得到的数据正常展示，查询不到的展示位Null
+- 返回结果时，左表数据正常展示，右表在左表中查询得到的数据正常展示，查询不到的展示为Null
 
 ```sql
 # 左外连接查询
@@ -706,6 +706,20 @@ SELECT 字段名 FROM 左表 RIGHT [OUTER] JOIN 右表 ON 条件
 ![img](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-05_21-50-07.jpg)
 
 2个以上表如何多表查询，思路是先选2个进行查询，将查询结果当作一个新的表，再和下一个表进行多表查询，以此类推。
+
+### join on and 和 join on where and
+
+在使用left join时，on和where条件的区别如下：  
+
+1、on条件是在生成临时表时使用的条件，它不管on中的条件是否为真，都会返回左边表中的记录。（实际上左连接中如果and语句是对左表进行过滤的，那么不管真假都不起任何作用。如果是对右表过滤的，那么左表所有记录都返回，右表筛选以后再与左表连接返回） 
+
+2、where条件是在临时表生成好后，再对临时表进行过滤的条件。这时已经没有left join的含义（必须返回左边表的记录）了，条件不为真的就全部过滤掉，on后的条件用来生成左右表关联的临时表，where后的条件对临时表中的记录进行过滤。
+
+ 在使用inner join时，不管是对左表还是右表进行筛选，on and和on where都会对生成的临时表进行过滤。
+
+————————————————
+版权声明：本文为CSDN博主「行者摩罗」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/xingzhemoluo/article/details/39677891
 
 ## 合并查询
 
@@ -800,4 +814,131 @@ select p.pname,p.price,c.cname from products p  join category c on p.category_id
 ```
 
 **当子查询作为一张表的时候，需要起别名，否则无法访问表中的字段。**
+
+# 案例1
+
+```sql
+# 查询线索(二级渠道jdsc)后续转化成交车型详情。
+-- 在二级渠道jdsc下，成交的线索，的车型详情
+-- 线索表中二级渠道下的线索 和 订单表中的线索 的 交集。所以使用内连接查询。
+select * from clue_day c, order_day o where c.clue_id = o.clue_id and c.ca_n = 'jdsc';
+select * from clue_day c join order_day o on c.clue_id = o.clue_id where c.ca_n = 'jdsc';
+```
+
+# 案例2
+
+```sql
+# 统计所有渠道(按照二级渠道)的转化率
+-- 转化率 = 该渠道下订单数/该渠道下线索数。订单数是线索数的子集，所以使用外连接查询。
+-- 统计每一个二级渠道的转化率：按二级渠道分组聚合统计
+select c.ca_n, count(o.order_id)/count(c.clue_id) 
+from clue_day c left join order_day o 
+on c.clue_id = o.clue_id 
+group by c.ca_n;
+```
+
+# 案例3
+
+```sql
+# 查询各城市线索数并计算所有城市线索总数
+-- 各城市线索数只需要用到clue表一张表，因此不需要多表查询
+-- 各城市线索数，需要按城市分组求和
+-- 各城市线索数，加起来就是所有城市线索总数，因此是子查询❌
+-- 错误原因：子查询无法将两个结果展示在一张表中
+-- 使用合并查询，将两个结果拼在一张表中。
+-- 所有城市线索总数，也不需要先计算各城市线索数再求和，直接对clue表的线索求和即可。
+
+select c.city_id,count(c.clue_id)clue_num from clue_day c group by c.city_id
+union
+select '总计',count(c.clue_id) from clue_day c;
+```
+
+# 案例4
+
+日期直接相减做了一个隐式转换操作，将时间转换为整数，但并不是用unix_timestamp转换，而是直接把年月日时分秒拼起来，如2013-04-21 16:59:33 直接转换为20130421165933，所以得到的结果是错误的。
+
+Unix_timestamp([日期])函数：返回自'1970-01-01 00:00:00'的到当前日期[指定日期]的秒数差。
+
+Datediff(d1,d2)函数：返回d1-d2的天数差
+
+Ceil()函数：向上取整
+
+```sql
+-- 找出优质渠道，做重点投入
+-- 我们对于优质渠道(以二级渠道来说)的定义: 
+-- 该二级渠道内平均转化周期< 整体平均转化周期
+-- 该二级渠道的线索量 > 各二级渠道平均线索量
+
+/*
+	针对《二级渠道内平均转化周期》和《二级渠道的线索量》的分析
+	转化周期:成单日期 — 线索创建日期 平均:avg
+	渠道线索量:分组 count统计
+*/
+-- 这里需要注意：二级渠道线索量是所有二级渠道的，其中包括未成单的二级渠道。
+-- 因此这里使用关联查询时，首先排除内连接，因为内连接只能查出成单的二级渠道
+-- 其次使用外连接时，clue表应该作为主表将渠道全部展示出来
+select ca_n, avg(datediff(created_at,clue_created_at)), count(c.clue_id) 
+from clue_day c left join order_day o on c.clue_id = o.clue_id
+where created_at is not null and clue_created_at is not NULL
+group by ca_n
+
+-- 二级渠道平均线索量
+select ceil(avg(clue_num)) from (
+  select ca_n, avg(datediff(created_at,clue_created_at)), count(c.clue_id) 
+  from clue_day c left join order_day o 	on c.clue_id = o.clue_id
+  where created_at is not null and clue_created_at is not NULL
+  group by ca_n
+)a -- 子查询作为一张表时，必须有别名才能访问其中的字段
+
+-- 整体平均转化周期
+SELECT avg(datediff( created_at, clue_created_at )) 
+FROM clue_day c LEFT JOIN order_day o ON c.clue_id = o.clue_id 
+WHERE created_at IS NOT NULL AND clue_created_at IS NOT NULL
+
+-- 查询结果
+select ca_n, avg_time, clue_num from (
+  -- 《二级渠道内平均转化周期》和《二级渠道的线索量》
+  select ca_n, avg(datediff(created_at,clue_created_at)), count(c.clue_id) 
+  from clue_day c left join order_day o on c.clue_id = o.clue_id
+  where created_at is not null and clue_created_at is not NULL
+  group by ca_n
+)
+WHERE avg_time < (
+  -- 整体平均转化周期
+	SELECT avg(datediff( created_at, clue_created_at )) 
+	FROM clue_day c LEFT JOIN order_day o ON c.clue_id = o.clue_id 
+	WHERE created_at IS NOT NULL AND clue_created_at IS NOT NULL 
+	) 
+AND clue_num > (
+  -- 二级渠道平均线索量
+  select ceil(avg(clue_num)) from (
+    select ca_n, avg(datediff(created_at,clue_created_at)), count(c.clue_id) 
+    from clue_day c left join order_day o 	on c.clue_id = o.clue_id
+    where created_at is not null and clue_created_at is not NULL
+    group by ca_n
+	)a 
+);
+```
+
+一段sql查询多次作为子查询被使用，可以用with 别名 as (子查询) 优化：
+
+```sql
+-- 《二级渠道内平均转化周期》和《二级渠道的线索量》
+with ca_value as (
+  select ca_n, avg(datediff(created_at,clue_created_at)), count(c.clue_id) 
+  from clue_day c left join order_day o on c.clue_id = o.clue_id
+  where created_at is not null and clue_created_at is not NULL
+  group by ca_n
+)
+-- 查询结果
+select ca_n, avg_time, clue_num from ca_value
+WHERE avg_time < (
+	SELECT avg(datediff( created_at, clue_created_at )) 
+	FROM clue_day c LEFT JOIN order_day o ON c.clue_id = o.clue_id 
+	WHERE created_at IS NOT NULL AND clue_created_at IS NOT NULL 
+	) 
+AND clue_num > (SELECT ceil(avg( clue_num )) FROM ca_value);
+```
+
+**⚠️注意**：[with...as...的用法](https://bbs.csdn.net/topics/390280176)
 
