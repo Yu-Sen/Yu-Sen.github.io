@@ -25,15 +25,15 @@ A$1//绝对行引用
 
 练习：制作一个9x9乘法表
 
-![](Xnip2021-05-08_20-36-59)
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-36-59.jpg)
 
 1. 先写一个公式
 
-   ![](Xnip2021-05-08_20-39-20)
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-39-20.jpg)
 
    这时如果直接填充复制的话，会发现是错误的。每一个单元格所引用的单元格位置都相对最开始做了平移。
 
-   ![](Xnip2021-05-08_20-42-02)
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-42-02.jpg)
 
    这是因为写公式时用的是相对引用，当把公式复制到其他单元格时，公式里所引用的单元格位置按照现在的位置和最开始的位置平行移动。如果不想移动，就需要用绝对引用锁定引用的位置。
 
@@ -41,14 +41,14 @@ A$1//绝对行引用
 
    通过观察发现，两两相乘的时候，第一个乘数都在F列里，第二个乘数都在26行里，这两个位置是固定不变的。只要该位置需要固定不变，我们就给他加锁。
 
-   ![](Xnip2021-05-08_20-52-22)
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-52-22.jpg)
 
    拖动填充
 
-   ![](Xnip2021-05-08_20-53-46)
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-53-46.jpg)
 
    这样就正确了。乘数一的列和乘数二的行都固定，但乘数一的行和乘数二的列都随着公式的位置而变动。
 
 3. 优化一下
 
-   
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-08_20-56-42.jpg)
