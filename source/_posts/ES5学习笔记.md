@@ -2,7 +2,7 @@
 title: ES5学习笔记
 date: 2017-06-01 12:52:28
 tags:
-- JavaScript
+- javaScript
 - ES5
 categories:
 - 学习笔记
