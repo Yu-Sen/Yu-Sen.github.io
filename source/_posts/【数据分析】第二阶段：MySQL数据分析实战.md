@@ -5,7 +5,7 @@ tags:
 - 学习笔记
 categories:
 - 数据分析
-description: 数据分析学习笔记
+description: 基础语句、聚合、分组、约束、多表查询
 ---
 
 # MySQL基础
@@ -293,6 +293,7 @@ SELECT 分组字段/聚合函数 FROM 表名 [where 条件] GROUP BY 分组字�
 -- 只分组不统计 这样写没有意义
 SELECT * FROM emp GROUP BY sex; 
 -- 分组返回每组的第一条数据
+```
 
 示例：
 
