@@ -2,9 +2,9 @@
 title: node安装开发环境搭建
 date: 2017-10-04 17:24:57
 tags:
-- 环境搭建
-categories:
 - Node
+categories:
+- 环境搭建
 description: 介绍安装、卸载node的几种方法
 ---
 

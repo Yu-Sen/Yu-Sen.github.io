@@ -2,10 +2,9 @@
 title: return Promise.resolve(res.data)和return res.data的区别
 date: 2018-03-11 12:05:53
 tags:
-- 问题积累
-- ES6
+- javaScript
 categories:
-- JavaScript
+- 问题记录
 description: promise.then()的回调函数返回Promise.resolve(res.data)和直接返回res.data有何区别
 ---
 

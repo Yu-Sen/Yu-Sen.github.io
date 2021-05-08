@@ -2,9 +2,9 @@
 title: Angular4——7.表单处理
 date: 2017-12-26 16:19:44
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular表单处理模块
 ---
 

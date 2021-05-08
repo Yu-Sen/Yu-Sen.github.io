@@ -2,9 +2,9 @@
 title: 【数据分析】第二阶段：MySQL数据分析实战（一）
 date: 2021-05-04 17:40:02
 tags:
-- 学习笔记
-categories:
 - 数据分析
+categories:
+- 学习笔记
 description: 基础语句、聚合、分组、约束、多表查询
 ---
 

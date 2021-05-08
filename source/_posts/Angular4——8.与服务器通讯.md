@@ -2,9 +2,9 @@
 title: Angular4——8.与服务器通讯
 date: 2018-01-10 17:15:25
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: angular与服务器通讯，http，websocket
 ---
 

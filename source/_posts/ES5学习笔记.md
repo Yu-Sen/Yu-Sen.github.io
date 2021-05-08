@@ -2,10 +2,10 @@
 title: ES5学习笔记
 date: 2017-06-01 12:52:28
 tags:
-- 学习笔记
+- JavaScript
 - ES5
 categories:
-- JavaScript
+- 学习笔记
 description: 《JavaScript教程-阮一峰》《JavaScript高级程序设计》ES5要点总结
 ---
 

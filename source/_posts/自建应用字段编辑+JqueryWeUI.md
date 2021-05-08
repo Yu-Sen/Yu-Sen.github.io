@@ -1,10 +1,10 @@
 ---
 title: 自建应用字段编辑+JqueryWeUI
 date: 2017-06-15 16:53:15
-categories:
-- UI组件
 tags:
 - WeUI
+categories:
+- 问题记录
 description: 使用JQueryWeUI时遇到select组件没有提供点击蒙版关闭组件，以及不点击确定关闭控件后再次打开控件默认值的问题
 ---
 > 在使用JqueryWeUI做自建应用各种字段编辑交互的时候遇到不少问题

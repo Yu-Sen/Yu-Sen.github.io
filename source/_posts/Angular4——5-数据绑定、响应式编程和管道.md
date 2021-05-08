@@ -2,9 +2,9 @@
 title: Angular4——5.数据绑定、响应式编程和管道
 date: 2017-12-19 17:10:05
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular数据绑定、响应式编程、管道
 ---
 

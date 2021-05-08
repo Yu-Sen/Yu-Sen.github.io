@@ -2,9 +2,9 @@
 title: Angular4——3.路由导航
 date: 2017-12-09 15:21:37
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: 使用Angular Router模块路由导航
 ---
 

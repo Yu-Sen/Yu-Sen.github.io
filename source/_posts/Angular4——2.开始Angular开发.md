@@ -2,9 +2,9 @@
 title: Angular4——2.开始Angular开发
 date: 2017-10-06 15:50:21
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular框架理解，Angular开发环境搭建（node,IDE,angular-cli），Angular项目结构解析
 ---
 

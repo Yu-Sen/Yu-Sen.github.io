@@ -2,10 +2,10 @@
 title: ES6学习笔记
 date: 2017-11-08 09:43:41
 tags:
-- 学习笔记
+- javaScript
 - ES6
 categories:
-- JavaScript
+- 学习笔记
 description: 《ECMAScript6入门——阮一峰》学习笔记
 ---
 

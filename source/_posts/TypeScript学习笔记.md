@@ -2,9 +2,9 @@
 title: TypeScript学习笔记
 date: 2017-10-03 16:26:54
 tags:
-- 学习笔记
+- typeScript
 categories:
-- typescript
+- 学习笔记
 description: typescript语法简介
 ---
 

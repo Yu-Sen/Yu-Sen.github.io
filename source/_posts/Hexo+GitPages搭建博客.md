@@ -2,9 +2,9 @@
 title: Hexo+GitPages搭建个人博客
 date: 2017-06-02 17:02:53
 tags:
-- 学习笔记
-categories:
 - hexo
+categories:
+- 环境搭建
 description: GitHub + Hexo + Next 搭建个人博客
 ---
 > Git命令、Hexo框架、Markdown语句

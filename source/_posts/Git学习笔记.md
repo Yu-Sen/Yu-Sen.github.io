@@ -2,9 +2,9 @@
 title: Git学习笔记
 date: 2017-10-03 22:46:03
 tags:
-- 学习笔记
-categories:
 - git
+categories:
+- 学习笔记
 description: Git学习笔记	
 ---
 

@@ -2,9 +2,9 @@
 title: Angular4——6.组件间通讯
 date: 2017-12-22 14:18:15
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular组件间通讯
 ---
 

@@ -2,9 +2,9 @@
 title: Angular4——1.介绍Angular4
 date: 2017-10-04 17:49:26
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular4学习+项目实战笔记
 ---
 

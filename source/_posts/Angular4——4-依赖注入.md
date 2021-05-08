@@ -2,9 +2,9 @@
 title: Angular4——4.依赖注入
 date: 2017-12-19 14:50:09
 tags:
-- 学习笔记
-categories:
 - Angular
+categories:
+- 学习笔记
 description: Angular依赖注入
 ---
 
