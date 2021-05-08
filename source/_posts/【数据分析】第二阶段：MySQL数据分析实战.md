@@ -274,7 +274,7 @@ SELECT COUNT(*) FROM emp WHERE dept_name = '教学部';
 AVG(salary) AS '市场部平均薪资' FROM emp WHERE dept_name = '市场部';
 ```
 
-**where中不能使用聚合函数，只能通过子查询来实现**。[https://blog.csdn.net/fanbaodan/article/details/84304782](https://blog.csdn.net/fanbaodan/article/details/84304782)
+**⚠️注意：where中不能使用聚合函数，只能通过子查询实现**。[https://blog.csdn.net/fanbaodan/article/details/84304782](https://blog.csdn.net/fanbaodan/article/details/84304782)
 
 ### 分组
 
