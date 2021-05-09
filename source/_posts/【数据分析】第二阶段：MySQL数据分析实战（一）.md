@@ -287,6 +287,19 @@ SELECT 分组字段/聚合函数 FROM 表名 [where 条件] GROUP BY 分组字�
 -- where先对源数据过滤，having对分组聚合统计后的数据再过滤
 ```
 
+Group by 后可以跟多个字段，按照多个字段进行分组
+
+```sql
+SELECT 分组字段1, 分组字段2, 聚合函数 FROM 表名 [where 条件] GROUP BY 分组字段1, 分组字段2 [HAVING 条件];
+```
+
+```sql
+# store_id 和 salesdate 相同的分为一组
+select store_id, sum(sales_volume), salesdate
+from store_table
+group by store_id, salesdate
+```
+
 分组的目的是为了统计，所以分组一般会与聚合函数一起使用。只进行分组是没有意义的。
 
 ```sql
@@ -639,7 +652,7 @@ AND p.pname = '格力空调';
 使用**[inner] join ... on ...关键字**。
 
 ```
-SELECT 字段名 FROM 左表 [INNER] JOIN 右表 ON 条件 -- inner 可以省略
+SELECT 字段名 FROM 左表 [INNER] JOIN 右表 ON 条件 [and 条件2] [where 条件 [and 条件2]] -- inner 可以省略
 ```
 
 ```sql
@@ -661,7 +674,7 @@ WHERE p.price > 500 AND cname = '鞋服';
 使用left [outer] join ... on ...关键字
 
 ```
-SELECT 字段名 FROM 左表 LEFT [OUTER] JOIN 右表 ON 条件
+SELECT 字段名 FROM 左表 LEFT [OUTER] JOIN 右表 ON 条件 [and 条件2] [where 条件 [and 条件2]]
 ```
 
 特点：
@@ -699,7 +712,7 @@ group by c.cname;
 使用 right [outer] join ... on ... 关键字
 
 ```
-SELECT 字段名 FROM 左表 RIGHT [OUTER] JOIN 右表 ON 条件
+SELECT 字段名 FROM 左表 RIGHT [OUTER] JOIN 右表 ON 条件 [and 条件2] [where 条件 [and 条件2]]
 ```
 
 特点：和左外连接一样，只是以右表为基准。
