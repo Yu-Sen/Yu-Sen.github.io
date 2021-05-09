@@ -90,7 +90,7 @@ from user_trade
 where year(pay_time) = 2019
 group by month(pay_time)
 # 这么写的想法：group by分组已经取得了月份、每个月支付总额，那么再直接用窗口函数就能取得每个月的累计支付总额
-# 错误原因：group by只是完成了按月分组，必须还要完成select month(pay_time), sum(pay_amount)才能获取最终的数据集，如果在\\select中加入窗口函数，此时并没有取得数据集，窗口函数也就无法执行。所以需要子查询的方式，先让group by完成select取得数据集，再将数据集作为表通过子查询执行窗口函数
+# 错误原因：group by只是完成了按月分组，必须还要完成select month(pay_time), sum(pay_amount)才能获取最终的数据集，如果在 select中加入窗口函数，此时并没有取得数据集，窗口函数也就无法执行。所以需要子查询的方式，先让group by完成select取得数据集，再将数 据集作为表通过子查询执行窗口函数
 
 # 需求2：查询出2018-2019年每月的支付总额和当年累积支付总额
 select a._year,a._month,sum(a.pay_amount_sum) over(partition by a._year order by a._month)
