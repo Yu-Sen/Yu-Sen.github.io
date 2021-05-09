@@ -193,46 +193,6 @@ from (
 where a.level < 4
 ```
 
-## 小结
-
-- 聚合窗口函数 不能 在第一次select时同时执行，必须先select完毕，结果集再作为新表通过子查询使用聚合窗口函数。
-
-```sql
-# 报错❌
-select month(pay_time) as _month, sum(pay_amount) over(order by month(pay_time))
-from user_trade
-where year(pay_time) = 2019
-group by month(pay_time)
-
-# 正确✅
-select a._month, a._pay_mount_sum, sum(a._pay_amount_sum) over(order by a._month)
-from (
-	select month(pay_time) as _month, sum(pay_amount) as _pay_amount_sum
-	from user_trade
-	where year(pay_time) = 2019
-	group by month(pay_time)
-)a
-```
-
-- 排序窗口函数 可以 在第一次select时同时执行。
-
-```sql
-# ✅
-SELECT
-	user_name,
-	count( DISTINCT goods_category ) goods_c_count,
-	row_number() over ( ORDER BY count( DISTINCT goods_category ) ) _row_number,
-	rank() over ( ORDER BY count( DISTINCT goods_category ) ) _rank,
-	dense_rank() over ( ORDER BY count( DISTINCT goods_category ) ) _dense_rank 
-FROM
-	user_trade 
-WHERE
-	YEAR ( pay_time ) = 2020 
-	AND MONTH ( pay_time ) = 1 
-GROUP BY
-	user_name
-```
-
 ## 1.3 偏移分析函数
 
 ### lag、lead
@@ -331,3 +291,53 @@ group by year(b.pay_time)
 select user_id报错
 
 ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-10_00-09-15.jpg)
+
+## 小结
+
+- 聚合窗口函数 不能 在第一次select时同时执行，必须先select完毕，结果集再作为新表通过子查询使用聚合窗口函数。
+
+```sql
+# 报错❌
+select 
+	month(pay_time) as _month, 
+	sum(pay_amount) over(order by month(pay_time))
+from user_trade
+where year(pay_time) = 2019
+group by month(pay_time)
+
+# 正确✅
+select a._month, a._pay_mount_sum, sum(a._pay_amount_sum) over(order by a._month)
+from (
+	select month(pay_time) as _month, sum(pay_amount) as _pay_amount_sum
+	from user_trade
+	where year(pay_time) = 2019
+	group by month(pay_time)
+)a
+```
+
+- 排序窗口函数、偏移分析函数 可以 在第一次select时同时执行。
+
+```sql
+# ✅
+SELECT
+	user_name,
+	count( DISTINCT goods_category ) goods_c_count,
+	row_number() over ( ORDER BY count( DISTINCT goods_category ) ) _row_number,
+	rank() over ( ORDER BY count( DISTINCT goods_category ) ) _rank,
+	dense_rank() over ( ORDER BY count( DISTINCT goods_category ) ) _dense_rank 
+FROM
+	user_trade 
+WHERE
+	YEAR ( pay_time ) = 2020 
+	AND MONTH ( pay_time ) = 1 
+GROUP BY
+	user_name
+	
+# ✅
+select 
+ 	user_name,pay_time, 
+ 	lead(pay_time,1) over(partition by user_name order by pay_time) lead_time 
+from user_trade
+```
+
+## 
