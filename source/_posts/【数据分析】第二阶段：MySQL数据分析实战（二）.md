@@ -8,7 +8,7 @@ categories:
 description: 窗口函数、索引、视图
 ---
 
-# 1. 窗口函数
+# 窗口函数
 
 窗口函数（也叫分析函数），从MySQL8.0开始支持。
 
@@ -59,7 +59,7 @@ rows between 3 preceding and 1 following # 范围：当前查询位置的前3行
 
 **⚠️注意：where优先级>over，where是对源数据进行过滤，过滤后的结果集再执行over或group by等操作。**
 
-## 1.1 聚合类窗口函数
+## 聚合类窗口函数
 
 - sum()
 - count()
@@ -114,7 +114,7 @@ from (
 )a
 ```
 
-## 1.2 排序窗口函数
+## 排序窗口函数
 
 ### rank、dense_rank、row_number
 
@@ -193,7 +193,7 @@ from (
 where a.level < 4
 ```
 
-## 1.3 偏移分析函数
+## 偏移分析函数
 
 ### lag、lead
 
@@ -340,4 +340,168 @@ select
 from user_trade
 ```
 
-## 
+# 索引
+
+字典的目录就是一种索引机制，提高检索的效率。
+
+- 索引可以提升查询速度，会影响where和order by。
+- 索引是针对字段的，需要添加到字段上。给某一列添加索引的时候，数据库会将这一列的数据进行提取、转换、再存储。存储下来的数据就是索引。当查询的时候，会先查询索引数据，能够更快速的找到相关信息。
+- 索引在大量数据场景下效果明显。
+
+## 常见索引分类
+
+- 从索引的存储结构划分:B Tree索引、Hash索引、fulltext全文索引、R Tree索引(了解) 
+
+- **从应用层次划分:主键索引、唯一索引、普通索引、复合索引** 
+
+- 从索引的键值(字段)类型划分:主键索引、辅助索引(二级索引) 
+
+- 从索引数据和内容数据逻辑关系划分:聚集索引(聚簇索引)、非聚集索引(非聚簇索 引)
+
+## 主键索引(primary key)
+
+- 数据表添加主键的时候，会自动穿件逐渐索引，主键索引也是一种唯一索引。
+- 一个表可以没有主见，但最多只能有一个主键，且主键是唯一的、不能为Null。
+- 根据主键进行where条件查询，效率高。
+
+## 唯一索引(unique)
+
+特点：索引列的值只能出现一次，不能重复，保证唯一。
+
+在许多场合，人们创建唯一索引不是为了提高查询速度，而是为了避免数据重复。（使用唯一约束效果相同）
+
+```sql
+# 创建表的时候直接添加唯一索引
+CREATE TABLE 表名( 
+  列名 类型(长度),
+	UNIQUE [索引名称] (列名)
+);
+
+# 在已有的表上创建索引
+create unique index 索引名 on 表名(列名[长度])
+create unique index index_dname on test_index(dname);
+
+# 修改表结构添加索引
+ALTER TABLE 表名 ADD UNIQUE 索引名( 列名 )
+```
+
+## 普通索引(normal index)
+
+普通索引的唯一任务是加快检索的速度。一般为需要where条件查询或order by排序的列添加普通索引。
+
+普通索引不要求数据唯一、非空。
+
+```sql
+# 在已有的表上创建索引
+create index 索引名 on 表名(列名[长度])
+
+# 修改表结构添加索引
+alter table 表名 add index 索引名 (列名)
+```
+
+## 复合索引
+
+创建普通索引时，同时写入多个字段。
+
+复合索引一般用在，需要对多个字段进行where条件查询或order by排序。
+
+```sql
+# 在已有的表上创建索引
+create index 索引名 on 表名(列名1, 列名2,...)
+
+# 修改表结构添加索引
+alter table 表名 add index 索引名 (列名1， 列名2,...)
+```
+
+⚠️注意：创建复合索引时要注意字段顺序，创建索引时字段的顺序，要和查询条件中字段的顺序保持一致。
+
+```sql
+where 字段1=‘’ and 字段2=‘’	-- 字段1，字段2
+
+create index 索引名 on 表名(字段1, 字段2) -- 字段1，字段2；不能写成 字段2，字段1
+```
+
+⚠️注意：区别复合索引和多个单列索引。
+
+```sql
+# 复合索引
+create index 索引名 on 表名(列名1, 列名2) -- 字段顺序要和查询条件中保持一致
+
+# 多个单列索引
+create index 索引名 on 表名(列名1) -- 不需要考虑字段顺序
+create index 索引名 on 表名(列名2)
+```
+
+## 删除索引
+
+```sql
+alter table 表名 drop index 索引名;
+```
+
+# 视图
+
+概念：
+
+- 视图是一种虚拟表。（与之对应的是实体表，比如通过create语句创建的表）
+- 视图建立在已有表的基础上, 视图赖以建立的这些表称为基表。
+-  向视图提供数据内容的语句为 SELECT 语句, 可以将视图理解为存储起来的 SELECT 语句。
+- 视图向用户提供基表（实体表或者其他视图）数据的另一种表现形式。
+
+```sql
+create view 视图名 [column_list] as select语句;
+view: 表示视图
+column_list: 可选参数，表示属性清单，指定视图中各个属性的名称，默认情况下，与 SELECT语句中查询的属性相同
+as : 表示视图要执行的操作
+select语句: 向视图提供数据内容
+```
+
+作用：
+
+- 权限控制时可以使用
+- 简化复杂的多表查询
+
+sql中视图的概念类似于编程中封装函数的概念，将一段复杂的sql语句封装成一个视图，之后只需通过引用视图名进行查询就能得到结果。并且可以决定从视图中只查询某几个字段的数据，做到权限控制，就像函数可以指定返回的值一样。
+
+```sql
+# 需求1: 查询各个分类下的商品平均价格
+create view cp_view as
+select *
+from category c
+join products p
+on c.cid = p.category_id; -- 注意这里必须有分号;结束
+
+select cname, avg(price)
+from cp_view
+group by cname
+
+# 普通写法
+select cname, avg(price)
+from products p left join category c
+on p.category_id = c.cid
+group by c.cname
+```
+
+```sql
+# 需求2: 查询鞋服分类下最贵的商品的全部信息
+create view cp_view2 as 
+select c.cid, c.cname, p.pid,p.pname, p.price, p.flag, rank() over(partition by c.cname order by p.price desc) _rank
+from products p left join category c 
+on p.category_id = c.cid;
+
+select * from cp_view2 where cname = '鞋服' and _rank = 1
+
+# 普通写法
+select *
+from (
+select c.cid, c.cname, p.pid,p.pname, p.price, p.flag, rank() over(partition by c.cname order by p.price desc) _rank
+from products p left join category c 
+on p.category_id = c.cid 
+)a
+where a.cname = '鞋服' and a._rank = 1
+```
+
+视图和表的区别：
+
+- 视图是建立在表的基础上，表存储数据库中的数据，而视图只是做一个数据的展示 。
+- 通过视图不能改变表中数据(一般情况下视图中的数据都是表中的列 经过计算得到的结果, 不允许更新)。
+-  删除视图，表不受影响，而删除表，视图不再起作用。
