@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/20210429171201_2.jpg">
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/20210429171201_3.jpg">
 <meta property="article:published_time" content="2021-04-29T09:12:01.000Z">
-<meta property="article:modified_time" content="2021-05-08T15:03:26.427Z">
+<meta property="article:modified_time" content="2021-05-11T02:25:08.334Z">
 <meta property="article:author" content="昱森">
 <meta property="article:tag" content="数据分析">
 <meta name="twitter:card" content="summary">
@@ -123,7 +123,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.</span> <span class="nav-text">一些术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80-%E6%9F%90%E7%BA%BF%E4%B8%8B%E8%BF%9E%E9%94%81%E6%B0%B4%E6%9E%9C%E5%BA%97%E9%94%80%E5%94%AE%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">案例一 某线下连锁水果店销售数据分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C-%E6%9F%90%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E6%9C%BA%E6%9E%84%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">案例二 某在线教育机构经营分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="nav-number">2.</span> <span class="nav-text">一些术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%B8%80-%E6%9F%90%E7%BA%BF%E4%B8%8B%E8%BF%9E%E9%94%81%E6%B0%B4%E6%9E%9C%E5%BA%97%E9%94%80%E5%94%AE%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">案例一 某线下连锁水果店销售数据分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E4%BA%8C-%E6%9F%90%E5%9C%A8%E7%BA%BF%E6%95%99%E8%82%B2%E6%9C%BA%E6%9E%84%E7%BB%8F%E8%90%A5%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">案例二 某在线教育机构经营分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%86%E8%A7%A3%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">拆解问题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -222,7 +222,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-08 23:03:26" itemprop="dateModified" datetime="2021-05-08T23:03:26+08:00">2021-05-08</time>
+        <time title="修改时间：2021-05-11 10:25:08" itemprop="dateModified" datetime="2021-05-11T10:25:08+08:00">2021-05-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -368,7 +368,7 @@
 <p>在确认数据源没问题之后，我们认为渠道问题是主要原因。假设渠道中存在一些销量高但是毛利很低的渠道是造成问题一的主要原因，通过矩阵分析找出销量高、毛利低的渠道。</p>
 <p>问题二逻辑树拆解</p>
 <p><img src="https://gitee.com/ethan-H/imghost/raw/master/blog/20210429171201_3.jpg" alt="逻辑树2"></p>
-<p>拆解出三个组问题。</p>
+<p>拆解出三个子问题。</p>
 <p>我们认为最应该去实现的是提升销量。</p>
 <p>提升销量中优先考虑的是营销优化。</p>
 <p>其中核心是增加优质渠道投放，通过综合排名分析找到转化高、成本低、流量大的优质渠道增加投放。</p>
@@ -381,6 +381,16 @@
 <p>除了产品本身的成本之外，作为互联网公司营销成本是最主要的，比如渠道成本，广告成本等。</p>
 <p>一个公司可能有多个产品，每个产品的定位都是不同的。一些低端产品可能单价低，单品成本也低。一些高端产品就可能单价高，单品成本越高。所以按照统一的单价和单品成本来计算是不对的。</p>
 </blockquote>
+<h1 id="拆解问题"><a href="#拆解问题" class="headerlink" title="拆解问题"></a>拆解问题</h1><p>拆解问题：</p>
+<ol>
+<li>按照指标的组成来拆解</li>
+<li>通过业务流程来拆解</li>
+</ol>
+<p>拆解后的问题，需要重点分析哪一个，是根据需求背景、业务背景来判断的。</p>
+<p>搭建指标</p>
+<p>指标背后一定是有业务意义的，指标不能是空的。</p>
+<p>拆解问题是数据分析的核心能力。</p>
+<p>费米问题。</p>
 </li>
 </ul>
 
