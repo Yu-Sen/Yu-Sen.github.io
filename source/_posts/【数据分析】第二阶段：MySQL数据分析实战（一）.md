@@ -151,7 +151,7 @@ ALTER TABLE category CHANGE cdesc description VARCHAR(30);
 -- 删除列 alter table 表名 drop 列名;
 ALTER TABLE category DROP description;
 
--- 插入数据
+-- 插入数据，插入数据是插入一行数据
 -- insert into 表名 (字段名1，字段名2...) values(字段值1，字段值2...);
 -- 方式1: 插入全部字段， 将所有字段名都写出来
 INSERT INTO student (sid,sname,age,sex,address) VALUES(1,'孙悟 空 ',20,'男 ','花 果 山 ');
@@ -160,7 +160,7 @@ INSERT INTO student VALUES(2,'孙悟饭',10,'男','地球');
 -- 方式3:插入指定字段的值
 INSERT INTO category (cname) VALUES('白骨精');
 
--- 更改数据
+-- 更改数据，更新数据是更新某一列数据
 -- 不带条件的修改 update 表名 set 列名 = 值
 UPDATE student SET sex = '女';
 -- 带条件的修改 update 表名 set 列名 = 值 [where 条件表达式:字段名 = 值 ]
