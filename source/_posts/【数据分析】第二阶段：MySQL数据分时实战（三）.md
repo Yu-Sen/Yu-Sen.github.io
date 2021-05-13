@@ -80,17 +80,9 @@ visit depth，浏览深度（访问深度）。dv = pv / uv。用户在一次浏
 
 留存率是用于反映网站、互联网应用或网络游戏的运营情况的统计指标，其具体含义为在统计周期（周/月）内，每日活跃用户数在第N日仍启动该App的用户数占比的平均值。其中N通常取2、3、7、14、30，分别对应次日留存率、三日留存率、周留存率、半月留存率和月留存率。留存率常用于反映用户粘性，当N取值越大、留存率越高时，用户粘性越高。
 
-##### 自连接
-
-![](Xnip2021-05-11_23-14-54)
-
-![](Xnip2021-05-11_23-15-26)
-
-##### 计算次日留存率、2日留存率...n日留存率
-
 先计算各日留存，进而就可以求出各日留存率。
 
-**❌错误思路：**
+**❌错误思路：统计出每日活跃用户数，再按照日期筛选出对应日期的活跃用户数。**
 
 ```sql
 -- 先对源数据按日期分组，然后count每日的user_id并去重，得到每日的活跃用户数。
@@ -100,7 +92,7 @@ from temp_trade
 group by dates
 ```
 
-![](Xnip2021-05-12_18-47-58)
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_18-47-58.jpg)
 
 ```sql
 -- 然后根据需求，筛选出对应日期的活跃用户数即可。
@@ -113,4 +105,145 @@ select
 from wrong1
 ```
 
-![](Xnip2021-05-12_19-12-56)
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_19-12-56.jpg)
+
+**错误原因：**
+
+> 第一步统计每日活跃用户数看似正确，但这并不能计算出留存。
+>
+> 比如，计算出1号有100个用户，2号有100个用户，那么1号的次日留存就是2号的100吗？并不是。
+>
+> 留存计算的是相对于基准日，n天后返回的用户数。重点在“返回”二字。基准日1号有100个用户，次日2号100个用户中，可能有80个是1号100个用户中的，剩下20个是2号新增的用户。所以1号的次日留存只有80，而不是100。
+>
+> 所以计算留存，并不是简单的统计出每日的活跃用户数，然后按照日期筛选。
+>
+> 而是要统计1号的user_id，在这批user_id中看2号出现了多少个、3号出现了多少个。再统计2号的user_id、3号的user_id...以此类推。
+
+**✅正确思路：统计每个日期有多少user_id，再统计每个日期的所有user_id在之后的2日、3日、...n日中出现的个数。**
+
+1. ```sql
+   select user_id, dates from temp_trade group by user_id,dates
+   -- 按user_id,dates分组，得到全部日期-每个日期的全部活跃用户 结果集
+   ```
+
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-42-45.jpg) ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-43-07.jpg)
+
+2. ```sql
+   select *
+   from 
+   (select user_id, dates from temp_trade group by user_id,dates) a 
+   left join 
+   (select user_id, dates from temp_trade group by user_id,dates) b 
+   on a.user_id = b.user_id
+   -- 1结果集自关联，得到全部活跃用户-每个用户全部活跃日期-某个用户某一个活跃日期-某个用户全部活跃日期
+   ```
+
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-52-09.jpg)
+
+3. ```sql
+   select *
+   from 
+   (select user_id, dates from temp_trade group by user_id,dates) a 
+   left join 
+   (select user_id, dates from temp_trade group by user_id,dates) b 
+   on a.user_id = b.user_id
+   where b.dates >= a.dates
+   -- where过滤，得到全部活跃用户-每个用户全部活跃日期-某个用户某一个活跃日期-某个用户在该日期之后的全部活跃日期
+   ```
+
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_23-02-23.jpg)
+
+4. ```sql
+   select 
+   	a.dates,
+   	count(distinct a.user_id) device_v
+   from 
+   (select user_id, dates from temp_trade group by user_id,dates) a
+   left join 
+   (select user_id, dates from temp_trade group by user_id,dates) b 
+   on a.user_id = b.user_id
+   where b.dates >= a.dates
+   group by a.dates
+   -- 按日期分组，每个分组就是-每个日期全部活跃用户-每个用户大于该日期的全部活跃日期
+   -- count(distinct a.user_id) 统计每个日期的活跃用户数，即基准日活跃用户数
+   ```
+
+   ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_23-06-28.jpg)
+
+5. ```sql
+   select 
+   	a.dates,
+   	count(distinct a.user_id) device_v,
+   	count(if(datediff(b.dates,a.dates)=1,a.user_id,null)) remain1
+   from 
+   (select user_id, dates from temp_trade group by user_id,dates) a
+   left join 
+   (select user_id, dates from temp_trade group by user_id,dates) b 
+   on a.user_id = b.user_id
+   where b.dates >= a.dates
+   group by a.dates
+   -- 每个分组-每个日期全部活跃用户-每个用户大于该日期的全部活跃日期-每个用户大于该日期1天的记录-每个日期1天后还有多少用户
+   ```
+
+6. 以此类推
+
+   ```sql
+   create view user_remain_view as
+   select 
+   	a.dates,
+   	count(distinct a.user_id) device_v,
+   	count(if(datediff(b.dates,a.dates)=1,a.user_id,null)) remain1,
+   	count(if(datediff(b.dates,a.dates)=2,a.user_id,null)) remain2,
+   	count(if(datediff(b.dates,a.dates)=3,a.user_id,null)) remain3,
+   	count(if(datediff(b.dates,a.dates)=4,a.user_id,null)) remain4,
+   	count(if(datediff(b.dates,a.dates)=5,a.user_id,null)) remain5,
+   	count(if(datediff(b.dates,a.dates)=6,a.user_id,null)) remain6,
+   	count(if(datediff(b.dates,a.dates)=7,a.user_id,null)) remain7,
+   	count(if(datediff(b.dates,a.dates)=15,a.user_id,null)) remain15,
+   	count(if(datediff(b.dates,a.dates)=30,a.user_id,null)) remain30
+   from correct1 a left join correct1 b 
+   on a.user_id = b.user_id
+   where b.dates >= a.dates
+   group by a.dates
+   ```
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-13_14-28-07.jpg)
+
+留存率
+
+```sql
+select 
+	dates, 
+	device_v,
+	concat(cast((remain1/device_v*100) as decimal(10,2)),'%') day_1,
+	concat(cast((remain2/device_v*100) as decimal(10,2)),'%') day_2,
+	concat(cast((remain3/device_v*100) as decimal(10,2)),'%') day_3,
+	concat(cast((remain4/device_v*100) as decimal(10,2)),'%') day_4,
+	concat(cast((remain5/device_v*100) as decimal(10,2)),'%') day_5,
+	concat(cast((remain6/device_v*100) as decimal(10,2)),'%') day_6,
+	concat(cast((remain7/device_v*100) as decimal(10,2)),'%') day_7,
+	concat(cast((remain15/device_v*100) as decimal(10,2)),'%') day_15,
+	concat(cast((remain30/device_v*100) as decimal(10,2)),'%') day_30
+from user_remain_view
+```
+
+cast()函数将（任何类型的）值转换为指定的数据类型。
+
+```sql
+-- cast(值 as 数据类型)
+-- 将值转换为DATE数据类型：
+SELECT CAST("2017-08-29" AS DATE); 
+```
+
+decimal数据类型，decimal是比dobule类型精度更高的浮点类型
+
+```sql
+decimal(p, d)
+-- p表示有效位数
+-- d是表示小数点后的位数
+```
+
+
+
+
+
