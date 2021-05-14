@@ -123,7 +123,7 @@ from wrong1
 
 1. ```sql
    select user_id, dates from temp_trade group by user_id,dates
-   -- 按user_id,dates分组，得到全部日期-每个日期的全部活跃用户 结果集
+   -- 按user_id,dates分组，得到全部日期-每个日期的全部活跃用户(无重复) 结果集
    ```
 
    ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-42-45.jpg) ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-43-07.jpg)
@@ -135,7 +135,7 @@ from wrong1
    left join 
    (select user_id, dates from temp_trade group by user_id,dates) b 
    on a.user_id = b.user_id
-   -- 1结果集自关联，得到全部活跃用户-每个用户全部活跃日期-某个用户某一个活跃日期-某个用户全部活跃日期
+   -- 1结果集on user_id自关联，得到全部活跃用户-每个用户全部活跃日期-某个用户某一个活跃日期-某个用户全部活跃日期
    ```
 
    ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-12_22-52-09.jpg)
@@ -243,7 +243,196 @@ decimal(p, d)
 -- d是表示小数点后的位数
 ```
 
+#### RFM
 
+- 统计出所有用户的r值、f值、m值，各个值取平均值，以高于或低于平均值为标准评价用户质量。
 
+- RFM八大用户分类：
 
+  ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-13_15-57-06.jpg)
 
+**R（recency) 最近一次购买**
+
+- R ，统计每个用户的r值——统计每个用户最近的发生购买的日期——统计每个用户最近的购买日期和标准日期的天数差——按天数差给每个用户打分，得分就是每个用户r值。
+
+```sql
+-- 按user_id分组，找出每个用户最近一次发生购买的日期
+drop view if exists user_recency;
+create view user_recency as
+select user_id, max(dates) recency_date 
+from temp_trade 
+where behavior_type = 2 
+group by user_id 
+order by recency_date desc
+
+-- 假设2019-12-18是统计日期，计算每个用户的最近购买日期和统计日期差多少天，按天数打分，打分就是r值
+create view r_level as
+select 
+	user_id, 
+	recency_date, 
+	datediff('2019-12-18',recency_date) recen_num,
+	(case
+		when datediff('2019-12-18',recency_date) <=2 then 5
+		when datediff('2019-12-18',recency_date) <=4 then 4
+		when datediff('2019-12-18',recency_date) <=6 then 3
+		when datediff('2019-12-18',recency_date) <=8 then 2
+		else 1 end
+	) r_value
+from user_recency
+```
+
+**F（frequency）购买频率**
+
+- F ，统计一定时间范围内（本案例中为整张表时间范围）每个用户发生购买的记录数，对记录数打分，分值就是F值 
+
+```sql
+drop view if exists user_buy_fre_view;
+create view user_buy_fre_view as
+select user_id,count(user_id) buy_frequency
+from temp_trade 
+where behavior_type = 2
+group by user_id
+
+create view f_level as
+select user_id, buy_frequency,
+	(case
+		when buy_frequency <=2 then 1
+		when buy_frequency <=4 then 2
+		when buy_frequency <=6 then 3
+		when buy_frequency <=8 then 4
+		else 5 end
+	)f_value
+from user_buy_fre_view
+```
+
+**M（monetary）购买金额**
+
+本案例数据中没有消费金额数据，所以本案例中不统计M指标。
+
+用R、F值建立4大用户分类。（因为只有2个指标，每个指标有2种结果，组合就是2^2次方，4个结果。如果是3个指标，就是2^3次方，8个结果）
+
+**整合结果**
+
+本次数据中通过最近消费(R)和消费频率(F)建立RFM模型
+
+- 重要高价值客户：指最近一次消费较近而且消费频率较高的客户
+- 重要唤回客户：指最近一次消费较远且消费频率较高的客户
+- 重要深耕客户：指最近一次消费较近且消费频率较低的客户 
+- 重要挽留客户：指最近一次消费较远且消费频率较低的客户
+
+我们按照最近一次消费的均值和消费频率的均值定高低界限。
+
+```sql
+-- 求R、F均值
+select avg(r_value) r_avg from r_level -- 2.7939
+select avg(f_value) f_avg from f_level -- 2.2606
+
+select r_level.user_id, r_value, f_value,
+( case 
+	when r_value >2.7939 and f_value > 2.2606 then '重要高价值客户'
+	when r_value <2.7939 and f_value > 2.2606 then '重要换回客户'
+	when r_value >2.7939 and f_value < 2.2606 then '重要深耕客户'
+	when r_value <2.7939 and f_value < 2.2606 then '重要挽留客户'
+	end
+	) user_class
+from r_level, f_level
+where r_level.user_id = f_level.user_id
+```
+
+### 商品指标
+
+本案例数据中没有商品金额，因此只能从现有的数据中寻找分析指标：
+
+商品id，用户行为类型(1-曝光、2-购买、3-加入购物⻋、4-加入收藏夹)，品类id
+
+两个维度：商品维度和品类维度
+
+- 商品维度
+
+  商品点击量（曝光量），收藏量，加购量，购买次数，购买转化（该商品的所有用户中有购买转化的用户比）
+
+  ```sql
+  -- 商品
+  select 
+  	item_id, 
+  	count(if(behavior_type=1,item_id,null)),
+  	sum(if(behavior_type=1,1,0)) pv,
+  	sum(if(behavior_type=4,1,0)) fav,
+  	sum(if(behavior_type=3,1,0)) cart,
+  	sum(if(behavior_type=2,1,0)) buy,
+  	count(distinct if(behavior_type=2,user_id,null))/count(distinct user_id) buy_rate
+  	from temp_trade group by item_id
+  ```
+
+- 品类维度
+
+  品类点击量（曝光量），收藏量，加购量，购买次数，购买转化（该商品品类的所有用户中有购买转化的用户比)
+
+  ```sql
+  -- 品类 
+  select 
+  	item_category, 
+  	count(if(behavior_type=1,item_category,null)),
+  	sum(if(behavior_type=1,1,0)) pv,
+  	sum(if(behavior_type=4,1,0)) fav,
+  	sum(if(behavior_type=3,1,0)) cart,
+  	sum(if(behavior_type=2,1,0)) buy,
+  	count(distinct if(behavior_type=2,user_id,null))/count(distinct user_id) buy_rate
+  	from temp_trade group by item_category
+  ```
+
+### 平台指标
+
+两个维度
+
+- 平台维度：平台每日的点击次数、收藏次数、加购次数、购买次数、购买转化
+
+  ```sql
+  	select 
+  		dates, 
+  		sum(if(behavior_type=1,1,0)) pv,
+  		sum(if(behavior_type=4,1,0)) fav,
+  		sum(if(behavior_type=3,1,0)) cart,
+  		sum(if(behavior_type=2,1,0)) buy,
+  		count(distinct if(behavior_type=2,user_id,null))/count(distinct user_id) buy_rate
+  	from temp_trade 
+  	group by dates
+  ```
+
+- 用户路径维度：
+
+  用户行为路径是针对某一个用户购买某一件商品。
+
+  ```sql
+  drop view if exists path_base_view;
+  create view path_base_view as
+  select a.*
+  from(
+  select 
+  	user_id,item_id,
+  	lag(behavior_type,4) over(partition by user_id,item_id order by date_time) lag4,
+  	lag(behavior_type,3) over(partition by user_id,item_id order by date_time) lag3,
+  	lag(behavior_type,2) over(partition by user_id,item_id order by date_time) lag2,
+  	lag(behavior_type,1) over(partition by user_id,item_id order by date_time) lag1,
+  	behavior_type,
+  	rank() over(partition by user_id,item_id order by date_time desc) rank_number
+  from temp_trade
+  )a
+  where a.behavior_type = 2 and a.rank_number = 1
+  
+  select 
+  	concat(ifnull(lag4,'空'),'-',ifnull(lag3,'空'),'-',ifnull(lag2,'空'),'-',ifnull(lag1,'空'),'-',behavior_type),
+  	count(distinct user_id)
+  from path_base_view
+  group by concat(ifnull(lag4,'空'),'-',ifnull(lag3,'空'),'-',ifnull(lag2,'空'),'-',ifnull(lag1,'空'),'-',behavior_type)
+  ```
+
+  ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-14_15-25-13.jpg)
+
+  为什么要分析用户行为路径？
+
+  根据分析结果可以看到，空-空-空-空-2 这个路径的用户是最多的，也就是直接购买涉及的用户最多。这也反映出加入购物车、收藏等功能大家用的少。
+
+  那在进行产品体验优化的时候就应该考虑，应该把购物车、收藏等功能丰富一下，看看怎么优化一下，让大家把它给用起来。
+
+  为什么要让大家把购物车、收藏功能用起来呢。试想一下，你可能直接购买了一个商品，然后就去支付。是你也支付了，也在平台消费了，但是你毕竟买的是一个商品。如果有购物车功能，并且大家把它都用起来的话，就如同你去超市推了一个购物车，我们不由自主的就想往购物车里放更多的商品，那当你最终购买的时候，相比于你花了好几分钟时间只够买了一个商品，给平台带来的利益更大。
