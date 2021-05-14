@@ -1003,7 +1003,7 @@ case
  when 条件1 then 结果1
  when 条件2 then 结果2
  ...
- else 结果else -- 上面条件都不满足时，返回else；如果不写else，默认返回null
+ else 结果（默认null） -- 上面条件都不满足时，返回else结果；如果不写else，默认也返回null
  end
 ```
 
