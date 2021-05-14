@@ -996,3 +996,16 @@ AND clue_num > (SELECT ceil(avg( clue_num )) FROM ca_value);
 
 **⚠️注意**：[with...as...的用法](https://bbs.csdn.net/topics/390280176)
 
+# 扩展
+
+```sql
+case
+ when 条件1 then 结果1
+ when 条件2 then 结果2
+ ...
+ else 结果else -- 上面条件都不满足时，返回else；如果不写else，默认返回null
+ end
+```
+
+
+

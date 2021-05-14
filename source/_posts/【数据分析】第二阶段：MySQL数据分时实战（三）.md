@@ -418,7 +418,7 @@ where r_level.user_id = f_level.user_id
   	rank() over(partition by user_id,item_id order by date_time desc) rank_number
   from temp_trade
   )a
-  where a.behavior_type = 2 and a.rank_number = 1
+  where a.behavior_type = 2 and a.rank_number = 1 -- 只统计每个用户商品分组中，最后一次购买的记录
   
   select 
   	concat(ifnull(lag4,'空'),'-',ifnull(lag3,'空'),'-',ifnull(lag2,'空'),'-',ifnull(lag1,'空'),'-',behavior_type),
@@ -436,3 +436,20 @@ where r_level.user_id = f_level.user_id
   那在进行产品体验优化的时候就应该考虑，应该把购物车、收藏等功能丰富一下，看看怎么优化一下，让大家把它给用起来。
 
   为什么要让大家把购物车、收藏功能用起来呢。试想一下，你可能直接购买了一个商品，然后就去支付。是你也支付了，也在平台消费了，但是你毕竟买的是一个商品。如果有购物车功能，并且大家把它都用起来的话，就如同你去超市推了一个购物车，我们不由自主的就想往购物车里放更多的商品，那当你最终购买的时候，相比于你花了好几分钟时间只够买了一个商品，给平台带来的利益更大。
+
+# 案例二 招聘网站岗位数据分析
+
+## 项目背景
+
+某线下培训机构 打算开设数据分析培训课程。需要对数据分析岗位的市场需求、就业情况、岗位技能做深入调研。
+
+公司内已开设学科有：游戏、运维。
+
+数据分析岗位的各项指标与已有学科进行对比。
+
+本次数据范围，仅针对北上广深四个一线城市进行分析。
+
+## 确认问题与目标拆解
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-14_15-54-59.jpg)
+
