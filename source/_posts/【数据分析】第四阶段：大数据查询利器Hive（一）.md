@@ -5,7 +5,7 @@ tags:
 - 数据分析
 categories:
 - 学习笔记
-description: 认识大数据、hive
+description: 了解大数据、hadoop
 ---
 
 excel一个工作表可以存住104万条记录。
