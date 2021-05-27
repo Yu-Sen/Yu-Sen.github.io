@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yu-sen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="神策用户行为分析平台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据分析】第三阶段：BI商业智能工具（三）">
+<meta property="og:url" content="https://yu-sen.github.io/20210522174333/index.html">
+<meta property="og:site_name" content="昱森笔记">
+<meta property="og:description" content="神策用户行为分析平台">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-22T09:43:33.000Z">
+<meta property="article:modified_time" content="2021-05-27T12:21:45.578Z">
+<meta property="article:author" content="昱森">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://yu-sen.github.io/20210522174333/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20210522174333&#x2F;&quot;,&quot;path&quot;:&quot;20210522174333&#x2F;&quot;,&quot;title&quot;:&quot;【数据分析】第三阶段：BI商业智能工具（三）&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>【数据分析】第三阶段：BI商业智能工具（三） | 昱森笔记</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">昱森笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E7%BA%B2"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E3%80%81%E5%90%8E%E7%AB%AF"><span class="nav-number">2.1.</span> <span class="nav-text">前端、后端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%90%E6%9C%AC%E9%83%A8%E9%97%A8%E3%80%81%E5%88%A9%E6%B6%A6%E9%83%A8%E9%97%A8"><span class="nav-number">2.2.</span> <span class="nav-text">成本部门、利润部门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%86%E4%B8%9A%E5%88%86%E6%9E%90%E5%B8%88"><span class="nav-number">2.3.</span> <span class="nav-text">商业分析师</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E6%B6%88%E8%B4%B9%E8%80%85%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E7%B2%BE%E7%BB%86%E5%8C%96%E8%BF%90%E8%90%A5"><span class="nav-number">3.</span> <span class="nav-text">以消费者为中心的精细化运营</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%B8%BA%E4%B8%AD%E5%BF%83"><span class="nav-number">3.1.</span> <span class="nav-text">消费者为中心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E9%87%8F%E7%94%A8%E6%88%B7%E7%B2%BE%E7%BB%86%E5%8C%96%E8%BF%90%E8%90%A5"><span class="nav-number">3.2.</span> <span class="nav-text">存量用户精细化运营</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%85%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">用户全生命周期管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E9%95%BF%E9%BB%91%E5%AE%A2"><span class="nav-number">3.3.1.</span> <span class="nav-text">增长黑客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E7%9A%84AIPL%E7%90%86%E8%AE%BA"><span class="nav-number">3.3.2.</span> <span class="nav-text">阿里的AIPL理论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E6%97%85%E7%A8%8BCXJ%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85%E6%97%B6%E5%88%BBMOT"><span class="nav-number">3.4.</span> <span class="nav-text">消费者旅程CXJ和消费者时刻MOT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E6%80%8E%E4%B9%88%E5%8E%BB%E5%81%9A%E8%BF%90%E8%90%A5"><span class="nav-number">3.5.</span> <span class="nav-text">我们怎么去做运营</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%88%86%E7%BA%A7%E4%BD%93%E7%B3%BB%EF%BC%88%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">用户分级体系（用户画像）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E5%88%B0%E6%A0%87%E7%AD%BE"><span class="nav-number">3.6.1.</span> <span class="nav-text">特征到标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E5%88%B0%E7%94%BB%E5%83%8F"><span class="nav-number">3.6.2.</span> <span class="nav-text">标签到画像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%BB%E5%83%8F%E5%88%B0%E7%AD%96%E7%95%A5"><span class="nav-number">3.6.3.</span> <span class="nav-text">画像到策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E6%95%B0%E6%8D%AE%E4%B8%BA%E6%A0%B8%E5%BF%83%E7%9A%84%E9%A9%B1%E5%8A%A8%E9%97%AD%E7%8E%AF"><span class="nav-number">4.</span> <span class="nav-text">以数据为核心的驱动闭环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Awareness-%E8%AE%A4%E7%9F%A5"><span class="nav-number">5.</span> <span class="nav-text">Awareness 认知</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%A0%E9%81%93%E5%88%86%E6%9E%90"><span class="nav-number">5.1.</span> <span class="nav-text">渠道分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E7%BB%9F%E8%AE%A1%E5%90%84%E6%B8%A0%E9%81%93%E8%8E%B7%E5%AE%A2%E9%87%8F%EF%BC%88%E7%94%A8%E6%88%B7%E9%87%8F%EF%BC%89"><span class="nav-number">5.1.1.</span> <span class="nav-text">事件分析 根据用户行为统计各渠道获客量（用户量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%96%97%E5%88%86%E6%9E%90-%E7%BB%9F%E8%AE%A1%E5%90%84%E6%B8%A0%E9%81%93%E7%94%A8%E6%88%B7%E5%90%84%E7%8E%AF%E8%8A%82%E8%BD%AC%E5%8C%96%EF%BC%88%E8%BD%AC%E5%8C%96%E7%8E%87%EF%BC%89"><span class="nav-number">5.1.2.</span> <span class="nav-text">漏斗分析 统计各渠道用户各环节转化（转化率）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E5%90%84%E6%B8%A0%E9%81%93%E6%96%B0%E7%94%A8%E6%88%B7%E9%A6%96%E6%97%A5APP%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF%EF%BC%88%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF%EF%BC%89"><span class="nav-number">5.1.3.</span> <span class="nav-text">事件分析 各渠道新用户首日APP使用时长（用户使用时长）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E5%90%84%E6%B8%A0%E9%81%93%E6%96%B0%E7%94%A8%E6%88%B7%E9%A6%96%E6%97%A5%E8%AE%BF%E9%97%AE%E6%B7%B1%E5%BA%A6%EF%BC%88%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE%E6%B7%B1%E5%BA%A6%EF%BC%89"><span class="nav-number">5.1.4.</span> <span class="nav-text">事件分析 各渠道新用户首日访问深度（用户访问深度）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E5%90%84%E6%B8%A0%E9%81%93Arppu"><span class="nav-number">5.1.5.</span> <span class="nav-text">事件分析 各渠道Arppu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E5%90%84%E6%B8%A0%E9%81%93Arpu"><span class="nav-number">5.1.6.</span> <span class="nav-text">事件分析 各渠道Arpu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90-%E5%90%84%E6%B8%A0%E9%81%93%E4%BB%98%E8%B4%B9%E7%8E%87"><span class="nav-number">5.1.7.</span> <span class="nav-text">事件分析 各渠道付费率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C-%E6%B8%A0%E9%81%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.1.8.</span> <span class="nav-text">二 渠道连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%88%86%E6%9E%90"><span class="nav-number">5.2.</span> <span class="nav-text">用户分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%A8%E6%88%B7%E6%80%A7%E5%88%AB%E5%88%86%E5%B8%83"><span class="nav-number">5.2.1.</span> <span class="nav-text">新用户性别分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%A8%E6%88%B7%E5%B9%B4%E9%BE%84%E5%88%86%E5%B8%83"><span class="nav-number">5.2.2.</span> <span class="nav-text">新用户年龄分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%A8%E6%88%B7%E7%9C%81%E4%BB%BD%E5%88%86%E5%B8%83"><span class="nav-number">5.2.3.</span> <span class="nav-text">新用户省份分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%A8%E6%88%B7%E5%81%8F%E5%A5%BD%E5%86%85%E5%AE%B9%E5%88%86%E5%B8%83"><span class="nav-number">5.2.4.</span> <span class="nav-text">新用户偏好内容分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E7%94%A8%E6%88%B7%E6%B4%BB%E8%B7%83%E6%97%B6%E9%97%B4%E5%88%86%E5%B8%83"><span class="nav-number">5.2.5.</span> <span class="nav-text">新用户活跃时间分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%81%87%E6%B5%81%E9%87%8F"><span class="nav-number">5.3.</span> <span class="nav-text">虚假流量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E8%99%9A%E5%81%87%E6%B5%81%E9%87%8F"><span class="nav-number">5.3.1.</span> <span class="nav-text">识别虚假流量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7%E8%AF%86%E5%88%AB"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">通过基本属性识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%BA%A7%E5%93%81%E5%8F%82%E4%B8%8E%E5%BA%A6%E8%AF%86%E5%88%AB"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">通过产品参与度识别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%BD%AC%E5%8C%96%E6%83%85%E5%86%B5%E8%AF%86%E5%88%AB"><span class="nav-number">5.3.1.3.</span> <span class="nav-text">通过转化情况识别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%AD%96%E7%94%A8%E6%88%B7%E5%88%86%E7%BE%A4%E6%89%BE%E5%87%BA%E8%99%9A%E5%81%87%E6%B5%81%E9%87%8F"><span class="nav-number">5.3.2.</span> <span class="nav-text">神策用户分群找出虚假流量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%AD%96%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">神策底层数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%AD%96%E7%94%A8userEvent%E6%A8%A1%E5%9E%8B%E6%8F%8F%E8%BF%B0%E7%94%A8%E6%88%B7%E5%90%84%E7%A7%8D%E8%A1%8C%E4%B8%BA"><span class="nav-number">6.1.</span> <span class="nav-text">神策用userEvent模型描述用户各种行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%AD%96users%E8%A1%A8%E5%92%8Cevents%E8%A1%A8"><span class="nav-number">6.2.</span> <span class="nav-text">神策users表和events表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%8B%E7%82%B9%E6%96%B9%E6%A1%88%E3%80%81%E4%BA%8B%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="nav-number">7.</span> <span class="nav-text">埋点方案、事件设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Interest%E5%85%B4%E8%B6%A3%EF%BC%88%E5%86%85%E5%AE%B9%E5%AA%92%E4%BD%93%E6%A1%88%E4%BE%8B%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">Interest兴趣（内容媒体案例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%88%86%E6%9E%90-1"><span class="nav-number">8.1.</span> <span class="nav-text">用户分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E6%95%B0"><span class="nav-number">8.1.1.</span> <span class="nav-text">日活跃用户数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%80%81%E7%94%A8%E6%88%B7%E7%95%99%E5%AD%98%E7%8E%87"><span class="nav-number">8.1.2.</span> <span class="nav-text">老用户留存率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%A4%8D%E6%9C%88%E7%8E%87"><span class="nav-number">8.1.3.</span> <span class="nav-text">内容复月率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF"><span class="nav-number">8.1.4.</span> <span class="nav-text">app使用时长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app%E6%B5%8F%E8%A7%88%E6%B7%B1%E5%BA%A6"><span class="nav-number">8.1.5.</span> <span class="nav-text">app浏览深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app%E7%9A%84%E8%B7%B3%E5%87%BA%E7%8E%87"><span class="nav-number">8.1.6.</span> <span class="nav-text">app的跳出率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E7%9A%84%E7%94%A8%E6%88%B7%E6%95%B0%EF%BC%88%E6%A0%B8%E5%BF%83%E8%A1%8C%E4%B8%BA%E7%9A%84%E7%94%A8%E6%88%B7%E9%87%8F%EF%BC%89"><span class="nav-number">8.1.7.</span> <span class="nav-text">阅读的用户数（核心行为的用户量）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E7%8E%87"><span class="nav-number">8.1.8.</span> <span class="nav-text">转化率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B4%BB%E8%B7%83%E7%94%A8%E6%88%B7%E5%88%86%E5%B8%83%E6%83%85%E5%86%B5"><span class="nav-number">8.1.9.</span> <span class="nav-text">活跃用户分布情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%88%86%E6%9E%90"><span class="nav-number">8.2.</span> <span class="nav-text">内容分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%86%85%E5%AE%B9%E7%9A%84%E9%98%85%E8%AF%BB%E7%94%A8%E6%88%B7%E6%95%B0"><span class="nav-number">8.2.1.</span> <span class="nav-text">不同内容的阅读用户数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E6%96%87%E7%AB%A0%E7%9A%84%E7%95%99%E5%AD%98%E7%8E%87"><span class="nav-number">8.2.2.</span> <span class="nav-text">不同文章的留存率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E5%93%81%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90"><span class="nav-number">8.3.</span> <span class="nav-text">产品优化分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%89%88%E6%9C%ACapp%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF"><span class="nav-number">8.3.1.</span> <span class="nav-text">各版本app使用时长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%98%E8%B4%B9%E5%86%85%E5%AE%B9%E8%B4%AD%E4%B9%B0%E6%BC%8F%E6%96%97"><span class="nav-number">8.3.2.</span> <span class="nav-text">付费内容购买漏斗</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Purchase%E8%B4%AD%E4%B9%B0"><span class="nav-number">9.</span> <span class="nav-text">Purchase购买</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BB%98%E8%B4%B9%E5%88%86%E6%9E%90"><span class="nav-number">9.1.</span> <span class="nav-text">用户付费分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GMV-%E6%88%90%E4%BA%A4%E6%80%BB%E9%A2%9D"><span class="nav-number">9.1.1.</span> <span class="nav-text">GMV 成交总额</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E4%BB%98%E8%AE%A2%E5%8D%95%E7%94%A8%E6%88%B7%E6%95%B0"><span class="nav-number">9.1.2.</span> <span class="nav-text">支付订单用户数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95%E9%87%8F"><span class="nav-number">9.1.3.</span> <span class="nav-text">订单量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E5%8D%95%E4%BB%B7"><span class="nav-number">9.1.4.</span> <span class="nav-text">客单价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%98%E8%B4%B9%E7%8E%87%EF%BC%88%E7%9C%8B%E4%BB%98%E8%B4%B9%E4%BA%BA%E7%BE%A4%E5%8D%A0%E6%AF%94%E6%83%85%E5%86%B5%EF%BC%89"><span class="nav-number">9.1.5.</span> <span class="nav-text">付费率（看付费人群占比情况）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%BA%E5%9D%87%E8%AE%A2%E5%8D%95%E9%87%8F%EF%BC%88%E7%9C%8B%E6%88%90%E4%BA%A4%E8%AE%A2%E5%8D%95%E6%98%AF%E9%9B%86%E4%B8%AD%E5%9C%A8%E4%B8%AA%E5%88%AB%E4%BA%BA%E8%BA%AB%E4%B8%8A%EF%BC%8C%E8%BF%98%E6%98%AF%E5%B9%BF%E6%B3%9B%E7%94%A8%E6%88%B7%EF%BC%89"><span class="nav-number">9.1.6.</span> <span class="nav-text">人均订单量（看成交订单是集中在个别人身上，还是广泛用户）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%94%E5%8D%95%E4%BB%B7"><span class="nav-number">9.1.7.</span> <span class="nav-text">笔单价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E8%B4%AD%E7%8E%87"><span class="nav-number">9.1.8.</span> <span class="nav-text">复购率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0%E9%A2%91%E6%AC%A1%E5%88%86%E5%B8%83"><span class="nav-number">9.1.9.</span> <span class="nav-text">购买频次分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0%E8%BD%AC%E5%8C%96"><span class="nav-number">9.1.10.</span> <span class="nav-text">购买转化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%86%E5%93%81%E5%88%86%E6%9E%90"><span class="nav-number">9.2.</span> <span class="nav-text">商品分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E4%BB%98%E8%B4%B9%E8%BD%AC%E5%8C%96"><span class="nav-number">9.3.</span> <span class="nav-text">如何提高付费转化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Loyalty%E5%BF%A0%E8%AF%9A"><span class="nav-number">10.</span> <span class="nav-text">Loyalty忠诚</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%A0%E5%AE%9E%E7%94%A8%E6%88%B7%E6%8C%96%E6%8E%98"><span class="nav-number">10.1.</span> <span class="nav-text">忠实用户挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%85%E6%AF%92%E7%B3%BB%E6%95%B0K"><span class="nav-number">10.1.1.</span> <span class="nav-text">病毒系数K</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="昱森"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">昱森</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yu-sen.github.io/20210522174333/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="昱森">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="昱森笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【数据分析】第三阶段：BI商业智能工具（三）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-22 17:43:33" itemprop="dateCreated datePublished" datetime="2021-05-22T17:43:33+08:00">2021-05-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-27 20:21:45" itemprop="dateModified" datetime="2021-05-27T20:21:45+08:00">2021-05-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">神策用户行为分析平台</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>通过学习神策数据分析工具来解决前端业务的问题。</p>
+<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><p>现代商业运营需要对消费者做精细化运营——各种理论的各种模型为精细化运营提供思路依据（增长黑客烂大街，我们主要讲解的是阿里的AIPL）——精细化运营落地的操作步骤</p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="前端、后端"><a href="#前端、后端" class="headerlink" title="前端、后端"></a>前端、后端</h2><p>在企业的角度上，我们所说的前端是指面向市场的部分。不管是toB还是toC，面对这些企业或消费者的业务部门叫前端业务部门。</p>
+<p>后端是指产品设计、产品研发工程师这一部分的工作，后端部门就是负责这些工作的部门。</p>
+<p>因此我们说的前端问题就一定是面向市场的问题。 </p>
+<p>那么刚才说要用神策数据工具解决前端业务的问题，更准确讲就是要解决面向市场、面向消费者的问题。</p>
+<p>我们如何获取、运营我们的消费者，如何建立企业与消费者之间的关系，这个是我们前端工作所关注的重点。</p>
+<h2 id="成本部门、利润部门"><a href="#成本部门、利润部门" class="headerlink" title="成本部门、利润部门"></a>成本部门、利润部门</h2><p>企业会把不同的部门分成不同的单元：</p>
+<ul>
+<li>成本部门：一般来说后端部门，像技术部、财务部、综合部等这些部门，企业会定义为成本部门。这些部门是必须的，企业没有技术、没有财务，产品根本没有办法做的。</li>
+<li>利润部门：一般前端部门，像产品、运营、市场等部门，企业定义成利润部门。这些部门负责给企业创造利润。</li>
+</ul>
+<p>所以前端部门的目标就一个，如何从消费正身上挖掘更多价值。</p>
+<p>因此我们需要非常了解消费值，知道消费者的需求是什么、喜好是什么。我们做的东西才能跟消费者match上，那么才能使消费者对我们的东西有粘性。</p>
+<p>我们的工作重点就是围绕消费者，把我们的工作做起来。</p>
+<h2 id="商业分析师"><a href="#商业分析师" class="headerlink" title="商业分析师"></a>商业分析师</h2><p>商业分析师要懂2个点：</p>
+<ul>
+<li>数据底层和数据分析本身</li>
+<li>要非常非常了解前端的业务</li>
+</ul>
+<p>数据分析师真正的价值是，你知道如何通过数据来做用户增长，来解决你企业中或者产品中的运营问题。</p>
+<p>问题大家谁都会提，关键还要有解决方案。所以一个好的数据分析师，不光会提问题，还要会做策略。</p>
+<h1 id="以消费者为中心的精细化运营"><a href="#以消费者为中心的精细化运营" class="headerlink" title="以消费者为中心的精细化运营"></a>以消费者为中心的精细化运营</h1><h2 id="消费者为中心"><a href="#消费者为中心" class="headerlink" title="消费者为中心"></a>消费者为中心</h2><p>消费者主权崛起</p>
+<p>工业革命初期，整个世界生产力不能满足用户的需求，那个时期是卖家为主导的卖放市场。</p>
+<p>随着工业革命发展，从开始的机械到现在的人工智能，企业和用户联系越来越多。</p>
+<p>电视媒体——网站——自媒体/短视频，抖音、快手、小红书、公众号等。</p>
+<p>KOL——李嘉琦/李子柒带货专家。评价KOL看粉丝、流量、转化。</p>
+<p>KOC——圈子类的社交意见领袖。比如说二手车圈，李老鼠很懂二手车，他就是这个圈子的KOC。</p>
+<p>信息爆炸的时代，产品不光要符合消费者需求，还要潜移默化影响消费者的感情。</p>
+<p>CRM：customer relationship managerment</p>
+<p>SCRM：social customer relationship managerment</p>
+<p>CDP：customer data platform</p>
+<p>CEM：customer experience managerment</p>
+<h2 id="存量用户精细化运营"><a href="#存量用户精细化运营" class="headerlink" title="存量用户精细化运营"></a>存量用户精细化运营</h2><p>人口红利降低，难以获得新客，整个市场进入非常饱和状态。</p>
+<h2 id="用户全生命周期管理"><a href="#用户全生命周期管理" class="headerlink" title="用户全生命周期管理"></a>用户全生命周期管理</h2><p>做用户精细化运营，需要从各个角度切入。首先切入的点就是用户全生命周期管理。</p>
+<h3 id="增长黑客"><a href="#增长黑客" class="headerlink" title="增长黑客"></a>增长黑客</h3><p>概念源于美国硅谷。</p>
+<p>增长黑客的核心是驱动用户飞涨。</p>
+<p>增长黑客指的是：创业型团队在数据分析的基础上，利用产品或技术手段来获取自发增长的运营手段。</p>
+<p>产品手段是指：基于数据分析，按照行业经验去做的增长方式</p>
+<p>技术手段是指：完全依赖机器学习、监督学习的方式。这个最成功的案例是字节跳动，做的抖音和今日头条的推荐算法。</p>
+<p>增长黑客最经典的是AARRR模型。在增长黑客中管他叫增长模型，有些领域管他叫海盗指标理论。有些地方叫用户全生命周期管理。</p>
+<p>AARRR：Acquisition<strong>获取用户</strong>、Activation<strong>激发激活</strong>、Retention<strong>提高留存</strong>、Revenue<strong>增加收入</strong>、Refer<strong>推荐传播</strong></p>
+<p>随着时代发展，整个市场越发碎片化。</p>
+<p>整合营销</p>
+<p>链路营销，5A理论</p>
+<h3 id="阿里的AIPL理论"><a href="#阿里的AIPL理论" class="headerlink" title="阿里的AIPL理论"></a>阿里的AIPL理论</h3><p>AIPL和AARRR的不同是，AIPL的核心目的是把用户培养成“品牌人群资产”，AARRR的目的还是做一个增长模型，如何让用户更加活跃、附更多的钱。</p>
+<p>可口可乐就是把和可口可乐的人变成了“品牌人群资产”。</p>
+<p>AIPL:</p>
+<ul>
+<li>awareness：品牌认知人群。</li>
+<li>interest：品牌兴趣人群。</li>
+<li>purchase：品牌购买人群。</li>
+<li>loyalty：品牌忠实人群。</li>
+</ul>
+<h2 id="消费者旅程CXJ和消费者时刻MOT"><a href="#消费者旅程CXJ和消费者时刻MOT" class="headerlink" title="消费者旅程CXJ和消费者时刻MOT"></a>消费者旅程CXJ和消费者时刻MOT</h2><p>消费者旅程：就是消费者从了解产品一直到购买产品以及最后推广产品的整个过程。和之前的用户生命周期一回事。</p>
+<p>消费者时刻：消费者时刻是“CXJ”中一些关键的节点。比如阿里的AIPL模型，就有A、I、P、L这四个节点。</p>
+<p>我们做运营、做用户增长就是要控制消费者从认知到购买的一个流程。消费者旅程就是能把这个流程化出来的一个方法论。</p>
+<h2 id="我们怎么去做运营"><a href="#我们怎么去做运营" class="headerlink" title="我们怎么去做运营"></a>我们怎么去做运营</h2><p>第一 要有用户全生命周期管理的概念。</p>
+<p>第二 要有对用户全生命周期管理的一个管理工具，以及我们要设计一个用户旅程以及各个阶段的MOT。</p>
+<h2 id="用户分级体系（用户画像）"><a href="#用户分级体系（用户画像）" class="headerlink" title="用户分级体系（用户画像）"></a>用户分级体系（用户画像）</h2><p>除了通过消费者旅程对用户全生命周期进行管理。</p>
+<p>我们还有一个方向的精细化运营的一种方法，就是用户分级体系，也叫用户标签、用户画像。</p>
+<p>特征——标签——画像</p>
+<h3 id="特征到标签"><a href="#特征到标签" class="headerlink" title="特征到标签"></a>特征到标签</h3><p>特征不一定具有现实意义，标签一定具有现实意义。</p>
+<p>比如某个用户有性别男这个特征，这个特征就可以直接当做标签。</p>
+<p>比如某个用户有历史消费次数10次这个特征，这个特征就不能直接当做标签，因为没有现实意义。但是如果我们约定，历史消费次数大于5次以上的用户就是忠实用户，那么这个用户就有了忠实用户这个标签，这个没意义的特征就转变成了有意义的标签。</p>
+<h3 id="标签到画像"><a href="#标签到画像" class="headerlink" title="标签到画像"></a>标签到画像</h3><p>有了标签以后，我们才可以描述一个用户、或者一群用户，即画像。</p>
+<h3 id="画像到策略"><a href="#画像到策略" class="headerlink" title="画像到策略"></a>画像到策略</h3><p>基于不同人群的画像，进行不同的运营策略，达到精细化运营。</p>
+<h1 id="以数据为核心的驱动闭环"><a href="#以数据为核心的驱动闭环" class="headerlink" title="以数据为核心的驱动闭环"></a>以数据为核心的驱动闭环</h1><p>PDCA</p>
+<h1 id="Awareness-认知"><a href="#Awareness-认知" class="headerlink" title="Awareness 认知"></a>Awareness 认知</h1><p>采用阿里AIPL模型来分析。</p>
+<p>第一步awareness，目的是让更多的用户认识知道我们的产品。这一步最常见的做法是通过各种渠道投放广告来获客。</p>
+<p>因此这一步需要分析的角度：</p>
+<ul>
+<li>渠道：对渠道各种指标进行统计分析，找出哪些渠道获客数量大，质量好。</li>
+<li>用户：了解用户特征，对用户分群或者画像，针对不同的用户推不同的广告，做到精细化运营。</li>
+</ul>
+<p>最后一点，识别虚假流量。</p>
+<h2 id="渠道分析"><a href="#渠道分析" class="headerlink" title="渠道分析"></a>渠道分析</h2><p>分组&gt;&gt;概览</p>
+<p>创建awareness认知分组，创建渠道分析概览并添加到awareness分组中。</p>
+<h3 id="事件分析-根据用户行为统计各渠道获客量（用户量）"><a href="#事件分析-根据用户行为统计各渠道获客量（用户量）" class="headerlink" title="事件分析 根据用户行为统计各渠道获客量（用户量）"></a>事件分析 根据用户行为统计各渠道获客量（用户量）</h3><p>接下来我们想统计不同渠道的获客量有多少。事件分析。一般来说统计级的数据都是通过事件分析来做的。</p>
+<p>神策的数据结构都是userEvent的结构。核心点事event，即用户行为。所以我们所有的统计都是基于用户行为做的。</p>
+<p>用户通过渠道来到我们的app，第一个事件就是启动app事件。</p>
+<p>事件：app启动，用户数。是否首日访问，真。按广告系列来源。</p>
+<h3 id="漏斗分析-统计各渠道用户各环节转化（转化率）"><a href="#漏斗分析-统计各渠道用户各环节转化（转化率）" class="headerlink" title="漏斗分析 统计各渠道用户各环节转化（转化率）"></a>漏斗分析 统计各渠道用户各环节转化（转化率）</h3><p>按广告系列来源。</p>
+<h3 id="事件分析-各渠道新用户首日APP使用时长（用户使用时长）"><a href="#事件分析-各渠道新用户首日APP使用时长（用户使用时长）" class="headerlink" title="事件分析 各渠道新用户首日APP使用时长（用户使用时长）"></a>事件分析 各渠道新用户首日APP使用时长（用户使用时长）</h3><p>事件：app退出，事件使用时长的人均值。是否首日访问，真。按广告系列来源。</p>
+<h3 id="事件分析-各渠道新用户首日访问深度（用户访问深度）"><a href="#事件分析-各渠道新用户首日访问深度（用户访问深度）" class="headerlink" title="事件分析 各渠道新用户首日访问深度（用户访问深度）"></a>事件分析 各渠道新用户首日访问深度（用户访问深度）</h3><p>访问深度是拿session做出来的。</p>
+<p>session。事件：app基础session，session总体，session深度的人均值。是否首日访问，真。按广告系列来源。</p>
+<h3 id="事件分析-各渠道Arppu"><a href="#事件分析-各渠道Arppu" class="headerlink" title="事件分析 各渠道Arppu"></a>事件分析 各渠道Arppu</h3><p>Arppu：付费人群人均付费值，average revenue per paying user。</p>
+<h3 id="事件分析-各渠道Arpu"><a href="#事件分析-各渠道Arpu" class="headerlink" title="事件分析 各渠道Arpu"></a>事件分析 各渠道Arpu</h3><p>Arpu：所有人群人均付费均值，average revenue per user。</p>
+<h3 id="事件分析-各渠道付费率"><a href="#事件分析-各渠道付费率" class="headerlink" title="事件分析 各渠道付费率"></a>事件分析 各渠道付费率</h3><p>付费率：付费人群数/所有人群数。</p>
+<h3 id="二-渠道连接"><a href="#二-渠道连接" class="headerlink" title="二 渠道连接"></a>二 渠道连接</h3><p>第一步搭建好了各渠道的各种统计指标。</p>
+<p>接下来需要在神策平台生成各种渠道打开你的推广页的链接。</p>
+<p>用这个链接放在对应的渠道推广页，当用户点击链接后，神策就能收集到该渠道的用户行为数据。</p>
+<h2 id="用户分析"><a href="#用户分析" class="headerlink" title="用户分析"></a>用户分析</h2><p>分布分析。</p>
+<h3 id="新用户性别分布"><a href="#新用户性别分布" class="headerlink" title="新用户性别分布"></a>新用户性别分布</h3><h3 id="新用户年龄分布"><a href="#新用户年龄分布" class="headerlink" title="新用户年龄分布"></a>新用户年龄分布</h3><h3 id="新用户省份分布"><a href="#新用户省份分布" class="headerlink" title="新用户省份分布"></a>新用户省份分布</h3><h3 id="新用户偏好内容分布"><a href="#新用户偏好内容分布" class="headerlink" title="新用户偏好内容分布"></a>新用户偏好内容分布</h3><h3 id="新用户活跃时间分布"><a href="#新用户活跃时间分布" class="headerlink" title="新用户活跃时间分布"></a>新用户活跃时间分布</h3><h2 id="虚假流量"><a href="#虚假流量" class="headerlink" title="虚假流量"></a>虚假流量</h2><p>广告作弊的一种方式。</p>
+<p>CPA：广告术语，全称Cost per action，即每次行动成本，Action指你的最终目标行为可以是一次购买、一次注册等等；</p>
+<p>CPS：全称Cost Per Sale ，每次销售成本，专指一次购买的成本；</p>
+<p>CPM：广告术语，全称cost per   mille impression，即千次展示成本 ，表示你的广告展示每一千次的花费成本；</p>
+<p>CPC：广告术语，全称cost per click，即每次点击成本，比如一次点击收取1美金；</p>
+<p>CPT：苹果平台（APP）广告术语，全称cost per tap，其实和cpc是一个意思，只是苹果APP的一个点击（click），它叫做“tap”，就是app store里面点击一次广告的价格</p>
+<h3 id="识别虚假流量"><a href="#识别虚假流量" class="headerlink" title="识别虚假流量"></a>识别虚假流量</h3><h4 id="通过基本属性识别"><a href="#通过基本属性识别" class="headerlink" title="通过基本属性识别"></a>通过基本属性识别</h4><p>时间、地域维度，终端类型，操作系统，联网方式，IP集中等。</p>
+<h4 id="通过产品参与度识别"><a href="#通过产品参与度识别" class="headerlink" title="通过产品参与度识别"></a>通过产品参与度识别</h4><p>跳出率，平均访问深度，平均访问时长、用户行为路径、页面点击情况、流量留存情况、单页面人均访问次数等。</p>
+<h4 id="通过转化情况识别"><a href="#通过转化情况识别" class="headerlink" title="通过转化情况识别"></a>通过转化情况识别</h4><p>这是最直接的方式。</p>
+<h3 id="神策用户分群找出虚假流量"><a href="#神策用户分群找出虚假流量" class="headerlink" title="神策用户分群找出虚假流量"></a>神策用户分群找出虚假流量</h3><p>用户分群——新建分群——行为序列。行为序列用的最多的地方就是找虚假流量。</p>
+<p>在用户行为统计的事件分析设置中，可以在全局筛选里把虚假用户群-为假作为筛选条件。看看剔除掉这部分虚假用户后用户行为、活跃时常等指标的表现是否回归正常。</p>
+<h1 id="神策底层数据结构"><a href="#神策底层数据结构" class="headerlink" title="神策底层数据结构"></a>神策底层数据结构</h1><p>用神策平台统计分析用户行为，需要知道如何进行事件设计。了解神策平台底层的用户行为逻辑，可以帮助我们进行事件设计。</p>
+<p>用户分析的步骤：</p>
+<ol>
+<li>提出问题：比如新上线一个产品功能，每天有多少用户在用？</li>
+<li>定义问题的分析对象：根据问题，要分析的是老用户还是新用户、还是面向活动的用户？</li>
+<li>对行为进行统计分析：确定了问题及分析对象后，就对用户的行为进行统计分析。</li>
+</ol>
+<h2 id="神策用userEvent模型描述用户各种行为"><a href="#神策用userEvent模型描述用户各种行为" class="headerlink" title="神策用userEvent模型描述用户各种行为"></a>神策用userEvent模型描述用户各种行为</h2><p>event：event就是行为</p>
+<ul>
+<li>who：参与事件的用户</li>
+<li>when：事件发生的时间</li>
+<li>where：事件发生的地点</li>
+<li>how：用户进行事件的方式，比如用户的设备、操作系统、从什么渠道来的等等</li>
+<li>what：描述用户所做的事件的具体内容</li>
+</ul>
+<p>user：</p>
+<ul>
+<li>记录和收集用户的长期属性</li>
+<li>通过ID与相关的event关联</li>
+</ul>
+<h2 id="神策users表和events表"><a href="#神策users表和events表" class="headerlink" title="神策users表和events表"></a>神策users表和events表</h2><p>在自定义查询中，可以使用sql查询这两张表。</p>
+<h1 id="埋点方案、事件设计"><a href="#埋点方案、事件设计" class="headerlink" title="埋点方案、事件设计"></a>埋点方案、事件设计</h1><p>通过前面学习了如何用数据进行用户行为分析，以及神策底层用户行为数据表的结构。</p>
+<p>那么如何获取用户行为数据，就需要设计事件，设计埋点方案。</p>
+<h1 id="Interest兴趣（内容媒体案例）"><a href="#Interest兴趣（内容媒体案例）" class="headerlink" title="Interest兴趣（内容媒体案例）"></a>Interest兴趣（内容媒体案例）</h1><p>用户、内容、产品三个角度</p>
+<ul>
+<li>用户分析：分析用户的各种行为指标，查看我的产品内容在用户群体中的表现如何，存在哪些问题。</li>
+<li>内容分析：分析内容对用户指标的影响，不同内容用户的表现差异，什么类型的内容用户更感兴趣。</li>
+<li>产品分析：分析产品对用户的影响，产品中哪个功能、哪个环节用户表现很差，让用户失去兴趣。</li>
+</ul>
+<p>新建interest分组，新建用户活跃概览。</p>
+<h2 id="用户分析-1"><a href="#用户分析-1" class="headerlink" title="用户分析"></a>用户分析</h2><h3 id="日活跃用户数"><a href="#日活跃用户数" class="headerlink" title="日活跃用户数"></a>日活跃用户数</h3><p>事件分析，事件：app启动，用户数。</p>
+<h3 id="老用户留存率"><a href="#老用户留存率" class="headerlink" title="老用户留存率"></a>老用户留存率</h3><p>留存分析，初始事件：app启动，筛选条件：是否首日访问，假（剔除基准日的新用户）。后续事件：app启动。</p>
+<h3 id="内容复月率"><a href="#内容复月率" class="headerlink" title="内容复月率"></a>内容复月率</h3><p>留存分析。初始事件：内容详情浏览，筛选条件：是否首日访问，假。后续事件：内容详情浏览。</p>
+<h3 id="app使用时长"><a href="#app使用时长" class="headerlink" title="app使用时长"></a>app使用时长</h3><p>事件分析。事件：app推出，事件时长，人均值。</p>
+<h3 id="app浏览深度"><a href="#app浏览深度" class="headerlink" title="app浏览深度"></a>app浏览深度</h3><p>事件分析，session分析，事件：app默认session，session总体，session深度，人均值。</p>
+<h3 id="app的跳出率"><a href="#app的跳出率" class="headerlink" title="app的跳出率"></a>app的跳出率</h3><p>事件分析，session分析，事件：app默认session，session总体，跳出率。</p>
+<h3 id="阅读的用户数（核心行为的用户量）"><a href="#阅读的用户数（核心行为的用户量）" class="headerlink" title="阅读的用户数（核心行为的用户量）"></a>阅读的用户数（核心行为的用户量）</h3><p>事件分析。事件：内容详情浏览，用户数。</p>
+<p>案例是某在线阅读app，所以阅读是核心行为，也就是内容详情浏览事件。</p>
+<h3 id="转化率"><a href="#转化率" class="headerlink" title="转化率"></a>转化率</h3><p>漏斗分析。事件：浏览互动。漏斗个环节：app启动——内容详情浏览——浏览互动。</p>
+<h3 id="活跃用户分布情况"><a href="#活跃用户分布情况" class="headerlink" title="活跃用户分布情况"></a>活跃用户分布情况</h3><p>分布分析。事件：app启动，的次数，的天数</p>
+<p>分布分析，是一个专门做用户分层的分析方法。</p>
+<h2 id="内容分析"><a href="#内容分析" class="headerlink" title="内容分析"></a>内容分析</h2><p>内容分析就是把用户分析的各种指标下钻到不同的内容，看不同内容下用户的指标表现情况。</p>
+<h3 id="不同内容的阅读用户数"><a href="#不同内容的阅读用户数" class="headerlink" title="不同内容的阅读用户数"></a>不同内容的阅读用户数</h3><p>事件分析。事件：内容详情浏览，用户数。分组：内容名称。</p>
+<h3 id="不同文章的留存率"><a href="#不同文章的留存率" class="headerlink" title="不同文章的留存率"></a>不同文章的留存率</h3><p>留存分析。初始事件：内容详情浏览。后续事件：app启动。分组：内容名称。</p>
+<h2 id="产品优化分析"><a href="#产品优化分析" class="headerlink" title="产品优化分析"></a>产品优化分析</h2><p>产品优化分析中，主要关注的点是两个：</p>
+<ul>
+<li>迭代过程中活跃用户的数据，就是之前的那些数据，活跃数啊、留存啊、使用时长啊、跳出率啊等等</li>
+<li>核心流程的转化。</li>
+</ul>
+<h3 id="各版本app使用时长"><a href="#各版本app使用时长" class="headerlink" title="各版本app使用时长"></a>各版本app使用时长</h3><p>事件分析。事件：app推出，事件时长，人均值。分组：app的版本。</p>
+<h3 id="付费内容购买漏斗"><a href="#付费内容购买漏斗" class="headerlink" title="付费内容购买漏斗"></a>付费内容购买漏斗</h3><p>漏斗分析。事件：付费内容购买转化。</p>
+<h1 id="Purchase购买"><a href="#Purchase购买" class="headerlink" title="Purchase购买"></a>Purchase购买</h1><p>购买环节分析的角度：</p>
+<ul>
+<li>用户：用户在购买环节的表现，哪些是高价值用户。</li>
+<li>商品：不同商品、不同商品品类对用户在购买环节的表现有何影响，哪些是用户愿意购买的爆款商品，哪些是热门品类。</li>
+</ul>
+<h2 id="用户付费分析"><a href="#用户付费分析" class="headerlink" title="用户付费分析"></a>用户付费分析</h2><p>常用的四个指标：GMV（总收入），支付订单用户数，订单量，客单价。</p>
+<h3 id="GMV-成交总额"><a href="#GMV-成交总额" class="headerlink" title="GMV 成交总额"></a>GMV 成交总额</h3><p>Gross Merchandise Volume，成交总额。</p>
+<p>事件分析。事件：支付订单，订单实付金额，的总和。</p>
+<h3 id="支付订单用户数"><a href="#支付订单用户数" class="headerlink" title="支付订单用户数"></a>支付订单用户数</h3><p>事件分析。事件：支付订单，用户数。</p>
+<h3 id="订单量"><a href="#订单量" class="headerlink" title="订单量"></a>订单量</h3><p>事件分析。事件：支付订单，总次数。</p>
+<h3 id="客单价"><a href="#客单价" class="headerlink" title="客单价"></a>客单价</h3><p>客单价一般指的是成交客户的客单价。</p>
+<p>事件分析。事件：支付订单，订单实付金额，的人均值。</p>
+<h3 id="付费率（看付费人群占比情况）"><a href="#付费率（看付费人群占比情况）" class="headerlink" title="付费率（看付费人群占比情况）"></a>付费率（看付费人群占比情况）</h3><p>事件分析。自定义事件：支付订单，的用户数，/，启动app，的用户数。</p>
+<h3 id="人均订单量（看成交订单是集中在个别人身上，还是广泛用户）"><a href="#人均订单量（看成交订单是集中在个别人身上，还是广泛用户）" class="headerlink" title="人均订单量（看成交订单是集中在个别人身上，还是广泛用户）"></a>人均订单量（看成交订单是集中在个别人身上，还是广泛用户）</h3><p>事件分析。事件：支付订单，的人均次数。</p>
+<h3 id="笔单价"><a href="#笔单价" class="headerlink" title="笔单价"></a>笔单价</h3><p>事件分析。事件：支付订单，订单实付金额，的均值。</p>
+<h3 id="复购率"><a href="#复购率" class="headerlink" title="复购率"></a>复购率</h3><p>留存分析。初始事件：支付订单。后续事件：支付订单。</p>
+<h3 id="购买频次分布"><a href="#购买频次分布" class="headerlink" title="购买频次分布"></a>购买频次分布</h3><p>分布分析。事件：支付订单，次数。</p>
+<h3 id="购买转化"><a href="#购买转化" class="headerlink" title="购买转化"></a>购买转化</h3><p>漏斗分析。购买转化漏斗：浏览商品详情——加入购物车——提交订单——支付订单。</p>
+<h2 id="商品分析"><a href="#商品分析" class="headerlink" title="商品分析"></a>商品分析</h2><p>对用户分析时的各个指标，再按照商品、品类分组下钻。统计分析各商品、各商品品类下的用户指标。</p>
+<h2 id="如何提高付费转化"><a href="#如何提高付费转化" class="headerlink" title="如何提高付费转化"></a>如何提高付费转化</h2><p>facebook，魔法数字，7</p>
+<p>我们在做用户留存的时候，应该重点关注留下来的那部分人他们做了什么，而不是流失的那部分人。</p>
+<p> 因为用户流失的影响因素有很多，但是用户留存的原因，永远就只有一个:<strong>感受到了产品的价值</strong>。</p>
+<p>魔法数字是特征识别，而不是增长方式。</p>
+<h1 id="Loyalty忠诚"><a href="#Loyalty忠诚" class="headerlink" title="Loyalty忠诚"></a>Loyalty忠诚</h1><p>病毒系数k：用来表达，现有忠诚用户能给你带来多少新的用户。</p>
+<p>custs(0)：初始种子用户。</p>
+<p>i：每个用户发送的邀请数量。</p>
+<p>conv%：每个用户邀请成功转化率。</p>
+<p>k = i * conv% 或者 成功分享的人数/分享的总次数</p>
+<p>假设：我们10个初始用户，每个用户发送10个邀请，每个用户邀请成功的转化率是20%，病毒系数k=10*20%=2。即每个现有用户带来两个新用户。 </p>
+<h2 id="忠实用户挖掘"><a href="#忠实用户挖掘" class="headerlink" title="忠实用户挖掘"></a>忠实用户挖掘</h2><h3 id="病毒系数K"><a href="#病毒系数K" class="headerlink" title="病毒系数K"></a>病毒系数K</h3><p>事件分析。自定义指标。指标名：病毒系数k。计算公式：app激活（广告系列来源.等于.h5定向页面）的用户数/点击分享的总次数。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20210516110243/" rel="prev" title="【数据分析】第三阶段：BI商业智能工具（一）">
+                  <i class="fa fa-chevron-left"></i> 【数据分析】第三阶段：BI商业智能工具（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">昱森</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
