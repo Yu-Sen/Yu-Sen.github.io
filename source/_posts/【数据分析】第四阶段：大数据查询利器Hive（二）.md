@@ -5,7 +5,7 @@ tags:
 - 数据分析
 categories:
 - 学习笔记
-description: apache hive
+description: hive、hql
 ---
 
 # Hive简介
