@@ -84,15 +84,24 @@ use lagou;
 
 ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-28_00-36-23.jpg)
 
-- array类型：个数可以不同，类型必须相同。array<元素的类型>。
+- array类型：array<元素的类型>。数据中每一行array字段的数据，元素个数可以不同，元素类型必须和定义的相同。
 
 - map类型：类似js中的对象，kv键值对。map<key的类型,value的类型>
 
-- struct类型：个数相同，类型相同
+- struct类型：数据中每一行struct字段的数据，元素个必须相同，元素类型必须和定义的相同。
 
-  比如有一条数据：zss 26,123456,shanghai,695
+  比如有一条数据：zss|26,123456,shanghai,695
 
-  建表语句：`create table stu_info(name string, info struct<age:int,id:string,address:string,score:double>)`
+  建表语句：
+
+  ```
+  create table stu_info(
+  name string, 
+  info struct<age:int,id:string,address:string,score:double>)
+  row format delimited 
+  fields terminated by '|'
+  collection items terminated by ',';
+  ```
 
 - uniontype类型：可以理解为泛型，创建表的时候不确定这个字段到底是什么类型的时候可以用联合体uniontype。
 
@@ -110,7 +119,7 @@ Hive默认建立的表是内部表，内部表create之后，然后load加载hdf
 
 ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-28_17-35-31.jpg)
 
-# 数据表
+# hive中DDL数据定义语言
 
 ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-29_21-51-20.jpg)
 
@@ -332,7 +341,7 @@ load data语句导入数据
 load data inpath '/user/Hl18011401591/data1.txt' overwrite into table sales_info;
 ```
 
-如果数据放在本地目录，不是hdfs目录，语句是load local data...
+如果是本地虚拟机创建的服务器，data1.txt上传到服务器本地目录下，在hive目录下load local data...
 
 overwrite是重写，由于表中没有数据，所以加不加overwrite都没影响
 
@@ -707,4 +716,704 @@ insert into test_buckets select sku_id,sku_name from sales_info;
 在test_buckets表目录下，按照分桶数生成了3个数据文件，每个文件存储着随机分割的数据。
 
 由于分桶是随机分割的，所以分桶的作用主要是随机抽样，和提高join查询效率。
+
+# hive -f执行文件中的sql语句创建数据库
+
+当要创建的数据库、数据表非常多时，通过命令行手动输入语句的方式就很麻烦。
+
+可以将sql语句都写在一个文件中，在hive中通过hive -f '文件路径' 命令直接执行文件中的sql语句。
+
+本地虚拟机环境，在服务器其他目录上写入sql文件，在hive安装目录下，执行`hive -f 'sql文件路径'`即可。
+
+# hive中DML数据操作语言
+
+## 装载数据
+
+### **从本地装载数据**
+
+1. 普通表：load data local inpath '数据文件路径' [overwrite] into table 表名 ; 
+
+   overwrite 关键字表示覆盖原有数据,没有此关键字表示追加数据
+
+   ```
+   load data local inpath '/home/hadoop/datas/payments.txt' into table payments;
+   ```
+
+2. 分区表：load data local inpath '数据文件路径' [overwrite] into table 表名 partition (分区字段=值);
+
+   **分区表加载数据不支持动态分区**，load的时候必须要写明是哪个分区。
+
+   ```
+   load data local inpath '/home/hadoop/datas/product_category_level1.txt' into table product_category partition(level=1); 
+   ```
+
+   虽然分区表load时只能静态，但insert时可以动态，所以可以变相的实现分区表动态load数据。实现原理就是，建一个中间表，把数据load到中间表上，再把中间表的数据insert到分区表上，达到动态分区的目的。
+
+   ```
+   # 目前有一个分区表，分区字段为A，现在实现向分区表中加载数据同时动态分区
+   
+   -- 建中间表，中间表不用分区，只用来临时存储数据
+   create table 中间表(字段和字段类型与分区表保持一致);
+   
+   -- load数据到中间表
+   load data inpath '...' into table 中间表;
+   
+   -- 把中间表数据 insert 到分区表中，同时动态分区
+   insert overwrite table 分区表 partition(分区字段A) select *,分区值 from 中间表;
+   ```
+
+3. 分桶表：load data local inpath '数据文件路径' [overwrite] into table 表名;
+
+   ```
+   --开启分桶功能  
+   set hive.enforce.bucketing=true  
+   -- 忽略掉安全检查  
+   hive.strict.checks.bucketing=false;  
+   
+   load data local inpath '/home/hadoop/datas/shop.txt' into table shops; 
+   ```
+
+### 从HDFS装载数据
+
+不写local，其他一样。同理分区表要指定分区，分桶表与普通表加载数据一样。
+
+1. liunx 本地文件上传到HDFS文件系统
+
+   hdfs dfs -put 本地文件路径 hdfs路径
+
+   ```
+   #本地路径文件上传到hdfs路径下
+   hdfs dfs -put '/home/hadoop/datas/product_info.txt' '/datas' 
+   #命令查看文件目录
+   hdfs dfs -ls /datas
+   ```
+
+2. 文件数据装载到hive表中
+
+   load data inpath 'hdfs数据文件路径' into table 表名;
+
+   ```
+   load data inpath '/datas/product_info.txt' into table product_info;
+   ```
+
+## 插入数据
+
+1. 普通表：
+
+   追加数据：insert into [table] 表名 values(值)
+
+   重写数据：insert overwrite table 表名 values(值)
+
+   注意 insert overwrite 时 table 关键字不可省略
+
+   ```
+   --插入数据
+   insert into sales_info(sku_id,sku_name) values(1,'sku_new');
+   --查看插入的数据
+   insert into sales_info(sku_id,sku_name) select sku_id,sku_name from sales_info;
+   ```
+
+2. 分区表：insert into 表名 partition (分区字段=字段值) values()
+
+   ```
+   --静态分区
+   insert into test_partition1 partition(sku_class="xiaomi") values(1,'sku_new');
+   --动态分区
+   insert into test_partition1 partition(sku_class) values(1,'sku_new','苹果');
+   ```
+
+   静态分区插入一个不存在的分区，也会创建该分区：
+
+   比如表中没有sku_class='xiaomi'这样的分区，使用静态分区插入数据的方式partition(sku_class='xiaomi')，会发现依然能够插入成功，并且添加了sku_class='xiaomi'的分区。
+
+   所以静态分区和动态分区的区别在于：静态分区是通过语句写死的，动态分区是通过数据动态生成的。并不是说静态分区必须通过alter语句提前添加好分区才能插入数据，插入数据时一样可以添加。
+
+3. 分桶表：insert into 分桶表表名 select * from 中间表
+
+   ```
+   #插入数据
+   insert into test_buckets values(1,'sku_new');
+   # 查看插入的中间数据
+   select * from test_buckets;
+   ```
+
+## 导出数据
+
+### 导出到本地文件系统
+
+insert overwrite local directory '文件夹路径' row format delimited fields terminated by '字段分隔符' select * from 要导出的表;
+
+注意:
+
+overwrite把指定的文件夹重写了 (一定要小心覆盖掉有用的文件) 
+
+默认分隔符是用系统指定的，和本身建表语句指定的没有关系 
+
+有新建文件夹功能
+
+导出的文件都名都为000000_0
+
+```
+INSERT OVERWRITE LOCAL DIRECTORY '/home/hadoop/datas/test_output' ROW FORMAT
+DELIMITED FIELDS TERMINATED by '\t'
+select * from sales_info;
+```
+
+### 导出到HDFS
+
+insert overwrite directory '文件夹路径' 查询语句;
+
+```
+insert overwrite  directory  '/datas'  select * from sales_info;
+```
+
+## 删除
+
+### 删除表中所有数据
+
+#### 删除内部表数据
+
+hive不支持delete，删除内部表数据只能用truncate
+
+```
+truncate table 表名
+```
+
+#### 删除外部表数据
+
+在linux系统下，使用shell命令删除外部表数据(hdfs dfs -rm -r 外部表路径)
+
+```
+hdfs dfs -rm -r /datas/表名称/*
+```
+
+### 删除表中部分数据
+
+hive不支持delete，只能通过insert overwrite重写的方式达到删除部分数据的目的。
+
+#### 分区表
+
+1. 删除分区：alter table table_name drop partition(partiton_name='value'))
+
+   ```
+   --删除指定分区
+   alter table test_partition1 drop partition(sku_class = 'xiaomi');
+   ```
+
+2. 删除分区内部分数据：
+
+   ```
+   -- 对test_partition_mul表的sku_class='xiaomi',sku_label='dianzi'分区进行重写
+   insert overwrite table test_partition_mul partition(sku_class='xiaomi',sku_lable='dianzi')
+   select sku_id,sku_name from test_partition_mul
+   where sku_id='1235';
+   ```
+
+   重新把对应的partition信息写一遍，通过WHERE 来限定需要留下的信息，没有留下的信息就被删 除了。
+
+#### 普通表/分桶表
+
+insert overwrite table 表名 select * from 表名 where 条件;
+
+```
+--删除不为2的数据
+Insert overwrite table sales_info(sku_id,sku_name) select sku_id,sku_name from sales_info where sku_id='2';
+```
+
+### 删除表
+
+drop table 表名
+
+```
+drop table test_external;
+```
+
+# hive运算符和函数
+
+## 运算符
+
+### 关系运算符
+
+| 运算符                  | 操作         | 描述                                                         |
+| ----------------------- | ------------ | ------------------------------------------------------------ |
+| A =B                    | 所有基本类型 | 如果表达A等于表达B，结果TRUE ，否则FALSE。                   |
+| A != B                  | 所有基本类型 | 如果A不等于表达式B表达返回TRUE ，否则FALSE。                 |
+| A <B                    | 所有基本类型 | 如果表达式A小于表达式B为TRUE，否则FALSE。                    |
+| A <= B                  | 所有基本类型 | 如果表达式A小于或等于表达式B为TRUE，否则FALSE                |
+| A >B                    | 所有基本类型 | 如果表达式A大于表达式B为TRUE，否则FALSE。                    |
+| A >= B                  | 所有基本类型 | 如果表达式A大于或等于表达式B为TRUE，否则FALSE。              |
+| A [NOT] BETWEEN B AND C | 基本数据类型 | 如果A，B或者C任一为NULL，则结果为NULL。<br />如果A的值大于等于B而且 小于或等于C，则结果为TRUE，反之为FALSE。<br />如果使用NOT关键字则可 达到相反的效果。 |
+| A IS [NOT] NULL         | 所有类型     | 如果A等于NULL，则返回TRUE，反之返回FALSE, NOT 正好相反。     |
+| A IN(数值 1, 数值2)     | 所有类型     | 如果A存在指定的数据中，则返回TRUE，反之返回FALSE             |
+| A [NOT] LIKE B          | 字符串       | 如果A与B匹配的话，则返回TRUE;反之返回FALSE。<br />%代表任意多个字 符，_代表一个字符 |
+| A RLIKE B               | 字符串       | 如果A或B为NULL;如果A任何子字符串匹配Java正则表达式B;否则 FALSE。 |
+| A REGEXP B              | 字符串       | 等同于RLIKE.                                                 |
+
+### 算术运算符
+
+| 运算符 | 操作         | 描述              |
+| ------ | ------------ | ----------------- |
+| A +B   | 所有数字类型 | A加B的结果        |
+| A -B   | 所有数字类型 | A减去B的结果      |
+| A /B   | 所有数字类型 | A除以B的结果      |
+| A %B   | 所有数字类型 | A除以B.产生的余数 |
+
+### 逻辑运算符
+
+| 运算符  | 操作    | 描述                                      |
+| ------- | ------- | ----------------------------------------- |
+| A AND B | boolean | 如果A和B都是TRUE，否则FALSE。             |
+| A && B  | boolean | 类似于 A AND B.                           |
+| A OR B  | boolean | TRUE，如果A或B或两者都是TRUE，否则FALSE。 |
+| A \|\|B | boolean | 类似于 A OR B.                            |
+| NOT A   | boolean | TRUE，如果A是FALSE，否则FALSE。           |
+| !A      | boolean | 类似于 NOT A.                             |
+
+### 复杂运算符
+
+| 运算符 | 操作                                 | 描述                                        |
+| ------ | ------------------------------------ | ------------------------------------------- |
+| A[n]   | A是一个数组，n是一个int              | 它返回数组A的第n个元素，第一个元素的索引0。 |
+| M[key] | M是一个 Map<K, V>，并且key 的类型为K | 它返回对应于映射中关键字的值。              |
+| S.x    | S是一个结构                          | 它返回S的s字段                              |
+
+## 函数
+
+### 数学函数
+
+| 函数                                         | 返回类型            | 描述                                                         |
+| -------------------------------------------- | ------------------- | ------------------------------------------------------------ |
+| round(double a) <br />round(double a, int d) | BIGINT <br />DOUBLE | 返回double类型的整数值部分 (遵循四舍五入) 返回 指定精度d的double类型 |
+| floor(double a)                              | BIGINT              | 返回等于或者小于该double变量的最大的整数                     |
+| ceil(double a)                               | BIGINT              | 返回等于或者大于该double变量的最小的整数                     |
+| rand()<br /> rand(int seed)                  | DOUBLE              | 返回一个0到1范围内的随机数。如果指定种子seed， 则会得到一个稳定的随机数序列. |
+| pow(double a, double p)                      | DOUBLE              | 返回a的p次幂                                                 |
+| sqrt(double a)                               | DOUBLE              | 返回a的平方根                                                |
+| abs(double a) <br />abs(int a)               | DOUBLE <br />INT    | 返回数值a的绝对值                                            |
+
+### 日期函数
+
+| 函数                                                         | 返回类型 | 描述                                                         |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| from_unixtime(bigint unixtime[, string format])              | STRING   | 转化UNIX时间戳(从1970-01-01 00:00:00 UTC到指 定时间的秒数) 到当前时区的时间格式 |
+| unix_timestamp() unix_timestamp(string date) unix_timestamp(string date, string pattern) | BIGINT   | 获得当前时区的UNIX时间戳 转换格式为"yyyy-MM-dd HH:mm:ss"的日期到UNIX时间戳。如果转化失败，则 返回0 转换pattern格式的日期到UNIX时间戳。如果转 化失败，则返回0 |
+| to_date(string timestamp)                                    | STRING   | 返回日期时间字段中的日期部分                                 |
+| year(string date) <br />month (string date) <br />day (string date) | INT      | 分别返回日期中的年 月 天                                     |
+| hour (string date) <br />minute (string date) <br />second (string date) | INT      | 分别返回日期中的时 分 秒                                     |
+| weekofyear (string date)                                     | INT      | 返回日期在当年的第几周                                       |
+| datediff(string enddate, string startdate)                   | INT      | 返回结束日期减去开始日期的天数 日期有格式要求 yyyy-mm-dd hh:MM:ss 或 yyyy-mm-dd |
+| date_add(string startdate, int days)                         | STRING   | days为正数，返回开始日期startdate增加days天后的日期。<br />days为负数，返回开始日期startdate减少days天前的日期。 |
+| date_sub (string startdate, int days)                        | STRING   | 返回开始日期startdate减少days天后的日期                      |
+| add_months(string startdate, int months)                     | STRING   | months为正数，返回开始日期startdate增加months月后的日期。<br />months为负数，返回开始日期startdate减少months月前的日期。 |
+
+### 条件判断函数
+
+| 函数                                                       | 返回类型 | 描述                                                         |
+| ---------------------------------------------------------- | -------- | ------------------------------------------------------------ |
+| if(boolean testCondition, T valueTrue, T valueFalseOrNull) | T        | 当条件testCondition为TRUE时，返回 valueTrue;否则返回valueFalseOrNull |
+| coalesce(T v1, T v2, ...)                                  | T        | 返回参数中的第一个非空值;如果所有值都为 NULL，那么返回NULL   |
+| CASE a WHEN b THEN c [WHEN d THEN e] [ELSE f] END          | T        | 如果a等于b，那么返回c;如果a等于d，那么返 回e;否则返回f       |
+| CASE WHEN a THEN b [WHEN c THEN d] [ELSE e] END            | T        | 如果a为TRUE,则返回b;如果c为TRUE，则返回d;否则返回e           |
+
+### 字符串函数
+
+| 函数                                                         | 返回类型 | 描述                                                         |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| length(string A)                                             | INT      | 返回字符串A的长度                                            |
+| reverse(string A)                                            | STRING   | 返回字符串A的反转结果                                        |
+| concat(string A, string B...)                                | STRING   | 返回输入字符串连接后的结果，支持任意 个输入字符串            |
+| concat_ws(string SEP, string A, string B...)                 | STRING   | 返回输入字符串连接后的结果，SEP表示各个字符串间的分隔符      |
+| substr(string A, int start)<br />substring(string A, int start) <br />substr(string A, int start, int len)<br />substring(string A, int start, int len) | STRING   | 返回字符串A从start位置到结尾的字符串 返回字符串A从start位置开始，长度为 len的字符串 |
+| upper(string A) ucase(string A)                              | STRING   | 返回字符串A的大写格式                                        |
+| lower(string A) lcase(string A)                              | STRING   | 返回字符串A的小写格式                                        |
+| trim(string A) <br />ltrim(string A)<br />rtrim(string A)    | STRING   | 去除字符串两边的空格 除字符串左边的空格 去除字符串右边的空格 |
+| regexp_replace(string A, string B, string C)                 | STRING   | 将字符串A中的符合java正则表达式B的 部分替换为C               |
+| regexp_extract(string subject, string pattern, int index)    | STRING   | 将字符串subject按照pattern正则表达式的规则拆分，返回index指定的字符 |
+| parse_url(string urlString, string partToExtract [, string keyToExtract]) | STRING   | 返回URL中指定的部分。partToExtract 的有效值为:HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, and USERINFO. |
+| get_json_object(string json_string, string path)             | STRING   | 解析json的字符串json_string,返回path 指定的内容。如果输入的json字符串无 效，那么返回NULL |
+| space(int n)                                                 | STRING   | 返回长度为n的空格字符串                                      |
+| repeat(string str, int n)                                    | STRING   | 返回重复n次后的str字符串                                     |
+| lpad(string str, int len, string pad) rpad(string str, int len, string pad) | STRING   | 将str进行用pad进行左补足到len位 将str 进行用pad进行右补足到len位 |
+| split(string str, string pat)                                | ARRAY    | 按照pat字符串分割str，会返回分割后的 字符串数组              |
+| find_in_set(string str, string strList) find_in_set('ab','aa,ab,ac') | INT      | 返回str在strlist第一次出现的位置， strlist是用逗号分割的字符串。如果没有 找该str字符，则返回0 |
+| instr(string str, string substr) instr("abcde","ab")         | INT      | 返回substr在str中第一次出现的位置， 未出现则返回0(如果参数为NULL则返 回NULL;位置从1开始) |
+
+### 统计函数
+
+| 函数                                                         | 返回类型 | 描述                                                         |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| count(*)<br />count(expr)<br />count(DISTINCT expr[, expr_.]) | INT      | count(*)统计检索出的行的个数，包括NULL值的行;<br />count(expr)返回指定字段的非空值的个数;<br />count(DISTINCT expr[, expr_.])返回指定字段的不同的非空值的个数 |
+| sum(col), sum(DISTINCT col)                                  | DOUBLE   | sum(col)统计结果集中col的相加的结果;sum(DISTINCT col)统计结果中col不同值相加的结果 |
+| avg(col), avg(DISTINCT col)                                  | DOUBLE   | avg(col)统计结果集中col的平均值;avg(DISTINCT col)统计 结果中col不同值相加的平均值 |
+| min(col) max(col)                                            | DOUBLE   | 统计结果集中col字段的最小值 统计结果集中col字段的最大 值     |
+| var_pop(col) var_samp (col)                                  | DOUBLE   | 统计结果集中col非空集合的总体方差 统计结果集中col非空 集合的样本变量 |
+| stddev_pop(col) stddev_samp (col)                            | DOUBLE   | 统计结果集中col非空集合的总体标准差 统计结果集中col非 空集合的样本标准差 |
+| percentile(BIGINT col, p)                                    | DOUBLE   | 求准确的第p个百分位数，p必须介于0和1之间，但是col字段 目前只支持整数，不支持浮点数类型 |
+| percentile(BIGINT col, array(p1 [, p2]...))                  | ARRAY    | 功能和上述类似，之后后面可以输入多个百分位数，返回类 型也为array，其中为对应的百分位数 |
+
+### 复合类型构建访问函数
+
+| 函数                                  | 返回类型 | 描述                                           |
+| ------------------------------------- | -------- | ---------------------------------------------- |
+| map (key1, value1, key2, value2, ...) | MAP      | 根据输入的key和value对构建map类型              |
+| struct(val1, val2, val3, ...)         | STRUCT   | 根据输入的参数构建结构体struct类型             |
+| array(val1, val2, ...)                | ARRAY    | 根据输入的参数构建数组array类型                |
+| A[n]                                  |          | 返回数组A中的第n个变量值。数组的起始下标 为0。 |
+| M[key]                                |          | 返回map类型M中，key值为指定值的value值         |
+| S.x                                   |          | 返回结构体S中的x字段                           |
+| size(Map<K.V>) size(Array)            | INT      | 返回map类型的长度 返回array类型的长度          |
+| explode(map\|array)                   |          | 列变行                                         |
+| collect_set ( col)                    | Array    | 对col行变列并 去重                             |
+| collect_list ( col)                   | Array    | 对col行变列并 不去重                           |
+| map_keys(map)                         | Array    | 取map类型的所有Key                             |
+| map_values(map)                       | Array    | 取map类型的所有value                           |
+| array_contains(array,obj)             | T        | 判断指定的obj 是否在数组中                     |
+
+# hive中DQL数据查询语言
+
+## Select语句结构
+
+```
+SELECT [ALL | DISTINCT] select_expr, select_expr, ... FROM table_reference
+[WHERE where_condition]
+[GROUP BY col_list]
+[HAVING having_condition]
+[CLUSTER BY col_list | [DISTRIBUTE BY col_list] [SORT BY col_list]][ORDER BY
+col_list]
+[LIMIT number];
+```
+
+语句的顺序不能错。
+
+## hive中语句执行顺序
+
+可以通过explain关键字查看执行顺序：
+
+```
+explain select * from sales_info;
+```
+
+```
+-- 例如
+explain
+select basic_info.age, count(1) as renshu 
+from test_student
+where id >3
+group by basic_info.age
+having renshu > 1
+order by renshu desc
+limit 10;
+```
+
+hive语句的执行顺序:
+ **from -->where --> select --> group by -->聚合函数--> having --> order by -->limit**
+
+除了select的顺序和mysql不一样，其他都一样。
+
+## hive参数介绍
+
+## 严格模式hive.mapred.mode
+
+### 查看当前是否为严格模式
+
+```
+set hive.mapred.mode
+-- 
+hive.mapred.mode = strict
+```
+
+### 修改为非严格模式或严格模式
+
+```
+set hive.mapred.mode = strict 
+set hive.mapred.mode = nostrict
+```
+
+严格模式下，这三种情况会报错
+
+- 笛卡尔积不能查询(表关联join不写关联条件)
+- order by排序，必须加limit语句
+-  读取partitioned table，但没有指定partition
+
+## hive.remove.orderby.in.subquery
+
+Hive 3.0.0以上 hive.remove.orderby.in.subquery为true，subqueries和views中没有limit的Order by将会被optimizer(优化器)移除。
+
+在子查询和查询视图的时候需要设置为false。
+
+## 普通查询
+
+```
+select * from sales_info;
+
+select sku_id from sales_info;
+
+select sku_id as id from salse_info;
+```
+
+## 查询array
+
+```
+-- sales_info表数据
+ 	sku_id	sku_name	id_array
+1	123	华为Mate10	["1235","345"]
+2	456	华为Mate30	["89","635"]
+3	789	小米5	["452","63"]
+4	1235	小米6	["785","36"]
+5	4562	OPPO Findx	["7875","3563"]
+```
+
+### 返回array字段的某个元素
+
+```
+-- 查询数组字段的第一个元素
+select id_array[0] from sales_info;
+
+1	1235
+2	89
+3	452
+4	785
+5	7875
+```
+
+### explode()展开array成一行
+
+```
+-- 查询数组字段所有数据，并且将数组展开，每个元素在一行展示
+select explode(id_array) from sales_info;
+
+1	1235
+2	345
+3	89
+4	635
+5	452
+6	63
+7	785
+8	36
+9	7875
+10	3563
+```
+
+### lateral view测试图搭配explode()输出array字段完整展开结果
+
+```
+-- 在explode的基础上，每行数组元素还要展示对应的sku_id, sku_name
+select sku_id, sku_name, id_list from sales_info lateral view explode(id_array) ids as id_list;
+
+1 123	华为Mate10	1235
+2	123	华为Mate10	345
+3	456	华为Mate30	89
+4	456	华为Mate30	635
+5	789	小米5	452
+6	789	小米5	63
+7	1235	小米6	785
+8	1235	小米6	36
+9	4562	OPPO Findx	7875
+10	4562	OPPO Findx	3563
+
+语法：select 原表字段1, 原表字段2, 虚拟表字段名 from 原表 lateral view explode(原表数组字段名) 虚拟表名 as 虚拟表字段名。
+lateral view explode(id_array)ids相当于一个虚拟表，与原表sales_info笛卡尔积关联。也可以多重使用
+select ...from ... lateral view ... lateral view ...
+lateral view 测试图。侧视图的意义是配合explode（或者其他的UDTF），一个语句生成把单行数据拆解成多行后的数据结果集。
+```
+
+### collect_set(),collect_list()还原展开后的array
+
+```
+-- sales_info_explode表，sales_info展开后的结果，并且插入了一条重复数据 789 小米5 63
+ 	sku_id sku_name	id_list
+1	123	华为Mate10	1235
+2	123	华为Mate10	345
+3	456	华为Mate30	89
+4	456	华为Mate30	635
+5	789	小米5	452
+6	789	小米5	63
+7	1235	小米6	785
+8	1235	小米6	36
+9	4562	OPPO Findx	7875
+10	4562	OPPO Findx	3563
+11	789	小米5	63
+```
+
+```
+-- 通过letaral view explode能将数组展开，也可以通过collect_set() collect_list()将展开的数组元素再合并回去
+
+-- collect_set()函数 去重
+select sku_id,sku_name, collect_set(id_list) from sales_info_explode group by sku_id,sku_name;
+-- 结果
+ 	sku_id	sku_name	_c2
+1	123	华为Mate10	["1235","345"]
+2	1235	小米6	["785","36"]
+3	456	华为Mate30	["89","635"]
+4	4562	OPPO Findx	["7875","3563"]
+5	789	小米5	["452","63"] --数据中有两条789 小米5 63，这里去重了
+
+-- collect_list()函数 不去重
+select sku_id,sku_name, collect_list(id_list) from sales_info_explode group by sku_id,sku_name;
+-- 结果
+	sku_id	sku_name	_c2
+1	123	华为Mate10	["1235","345"]
+2	1235	小米6	["785","36"]
+3	456	华为Mate30	["89","635"]
+4	4562	OPPO Findx	["7875","3563"]
+5	789	小米5	["452","63","63"] -- 没去重
+```
+
+### concat_ws()数组转字符串，split()字符串转数组
+
+```
+-- concat_ws(分隔字符,字符串1,字符串2...) split(字符串,分隔字符)
+select 
+	sku_id, sku_name, id_array, 
+	concat_ws('_', id_array) as aryToStr, 
+	split(concat_ws('_', id_array), '_') as strToAry 
+from sales_info;
+
+ 	sku_id	sku_name	id_array	arytostr	strtoary
+1	123	华为Mate10	["1235","345"]	1235_345	["1235","345"]
+2	456	华为Mate30	["89","635"]	89_635	["89","635"]
+3	789	小米5	["452","63"]	452_63	["452","63"]
+4	1235	小米6	["785","36"]	785_36	["785","36"]
+5	4562	OPPO Findx	["7875","3563"]	7875_3563	["7875","3563"]
+
+
+```
+
+## 查询map
+
+### 返回map字段某个key的value
+
+```
+-- mapKeys表数据
+ 	sku_id	sku_name	state_map
+1	123	华为Mate10	{"id":"1111","token":"2222","user_name":"zhangsan1 "}
+2	456	华为Mate30	{"id":"1113","token":"2224","user_name":"zhangsan3 "}
+3	789	小米5	{"id":"1114","token":"2225","user_name":"zhangsan4 "}
+4	1235	小米6	{"id":"1115","token":"2226","user_name":"zhangsan5 "}
+5	4562	OPPO Findx	{"id":"1116","token":"2227","user_name":"zhangsan6"}
+```
+
+```
+select state_map['id'] from mapKeys;
+
+ 	_c0
+1	1111
+2	1113
+3	1114
+4	1115
+5	1116
+
+-- 访问不存在的key，会返回null值
+select state_map['user_name'], state_map['name'] from mapkeys;
+1	zhangsan1 	NULL
+2	zhangsan3 	NULL
+3	zhangsan4 	NULL
+4	zhangsan5 	NULL
+5	zhangsan6	  NULL
+
+-- 用if判断，访问不存在的key，返回指定值而非null
+select state_map['user_name'], if(state_map['name'] is null, '无', state_map['name']) from mapkeys;
+1 zhangsan1 	无
+2	zhangsan3 	无
+3	zhangsan4 	无
+4	zhangsan5 	无
+5	zhangsan6	  无
+```
+
+### explode()展开map，每个元素一行，key、value各一列
+
+```
+select explode(state_map) from mapKeys;
+ 
+ 	key	value
+1	id	1111
+2	token	2222
+3	user_name	zhangsan1 
+4	id	1113
+5	token	2224
+6	user_name	zhangsan3 
+7	id	1114
+8	token	2225
+9	user_name	zhangsan4 
+10	id	1115
+11	token	2226
+12	user_name	zhangsan5 
+13	id	1116
+14	token	2227
+15	user_name	zhangsan6
+```
+
+### lateral view测试图搭配explode()输出map字段完整展开结果
+
+```
+select 
+	sku_id, sku_name,stateKey,stateVal 
+from mapkeys lateral view explode(state_map) lt as stateKey, stateVal;
+ 
+ 	sku_id	sku_name	statekey	stateval
+1	123	华为Mate10	id	1111
+2	123	华为Mate10	token	2222
+3	123	华为Mate10	user_name	zhangsan1 
+4	456	华为Mate30	id	1113
+5	456	华为Mate30	token	2224
+6	456	华为Mate30	user_name	zhangsan3 
+7	789	小米5	id	1114
+8	789	小米5	token	2225
+9	789	小米5	user_name	zhangsan4 
+10	1235	小米6	id	1115
+11	1235	小米6	token	2226
+12	1235	小米6	user_name	zhangsan5 
+13	4562	OPPO Findx	id	1116
+14	4562	OPPO Findx	token	2227
+15	4562	OPPO Findx	user_name	zhangsan6
+```
+
+### map_keys()返回map字段全部key数据
+
+```
+select map_keys(state_map) from mapkeys;
+
+1	["id","token","user_name"]
+2	["id","token","user_name"]
+3	["id","token","user_name"]
+4	["id","token","user_name"]
+5	["id","token","user_name"]
+```
+
+### map_values()返回map字段全部值数据
+
+```
+select map_values(state_map) from mapkeys;
+
+1 ["1111","2222","zhangsan1 "]
+2	["1113","2224","zhangsan3 "]
+3	["1114","2225","zhangsan4 "]
+4	["1115","2226","zhangsan5 "]
+5	["1116","2227","zhangsan6"]
+```
+
+### array_contains()判断map_keys()返回的key数组中是否含有某个key
+
+```
+select 
+	array_contains(map_keys(state_map),"id"),
+	array_contains(map_keys(state_map),'name') 
+from mapkeys;
+
+1	true	false
+2	true	false
+3	true	false
+4	true	false
+5	true	false
+```
+
+## 查询struct类型中某个字段的值
+
+```
+-- test_student表中，basic_info字段为struct类型，`basic_info` struct<name:string,age:int>
+
+select basic_info.name from test_student;
+```
+
+## where各种使用
 
