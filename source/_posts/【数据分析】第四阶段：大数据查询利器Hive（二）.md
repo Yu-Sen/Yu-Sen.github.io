@@ -1417,3 +1417,103 @@ select basic_info.name from test_student;
 
 ## where各种使用
 
+```
+-- sales_info表数据
+ 	sku_id sku_name	id_array
+1	123	华为Mate10	["1235","345"]
+2	456	华为Mate30	["89","635"]
+3	789	小米5	["452","63"]
+4	1235	小米6	["785","36"]
+5	4562	OPPO Findx	["7875","3563"]
+```
+
+### like,rlike,instr()字符串中是否包含某个字符
+
+```
+-- 选出sku_name包含A的
+select * from sales_info where sku_name like '%A%';
+
+select * from sales_info where instr(sku_name,'A')>0;
+-- instr(字符串,字符) 返回字符在字符串中首次出现的位置，如果没有返回0
+
+select * from sales_info where sku_name rlike 'A';
+-- rlike 正则表达式。这里用的java正则，和js正则在转义符上不同
+在其他语言中，\\ 表示：我想要在正则表达式中插入一个普通的（字面上的）反斜杠，请不要给它任何特殊的意义。
+在 Java 中，\\ 表示：我要插入一个正则表达式的反斜线，所以其后的字符具有特殊的意义。
+-- js中 \d 表示 0-9
+-- java中 \\d 表示 0-9
+```
+
+### in(),or,find_in_set()值是否存在某个集合中
+
+```
+-- sku_name为小米5或小米6的
+select * from sales_info where sku_name in('小米5','小米6');
+
+select * from sales_info where sku_name='小米5' or sku_name='小米6';
+
+select * from sales_info where find_in_set(sku_name,'小米5,小米6')>0;
+-- find_in_set(字符串,字符串集) 返回字符串在字符串集中首次出现的位置，没有返回0；字符串集是多个字符串用,间隔的字符串
+```
+
+### is null,size()=-1基本类型、数组类型是否为null
+
+```
+-- 基本类型是否为null
+select * from sales_info where sku_id is null;
+
+-- 数组类型是否为null
+select * from sales_info where size(id_array)= -1;
+--size(数组) 返回数组长度，也就是数组元素个数。当值为null时，返回-1
+size(array('')) = 0
+size(array('1')) = 1
+size(null) = -1
+```
+
+### between and, >= and <=值是否在某个范围内
+
+```
+select * from sales_info where sku_id between 100 and 800;
+
+select * from sales_info where sku_id>=100 and sku_id<=800;
+```
+
+### array_contains(),find_in_set()数组中是否含有某个元素
+
+```
+-- id_array中含有89这个元素的
+select * from sales_info where find_in_set('89',concat_ws(',',id_array))>0;
+
+select * from sales_info where array_contains(id_array,'89');
+```
+
+### concat_ws()数组中是否有元素含有某个字符
+
+```
+-- id_array中有元素含有8这个字符
+select * from sales_info where concat_ws('',id_array) like '%8%';
+select * from sales_info where concat_ws('',id_array) rlike '8';
+```
+
+### array_contains()map中是否含有某个key
+
+```
+-- mapkeys表中，state_map列含有'id'这个key的
+select * from mapkeys where array_contains(map_keys(state_map),'id');
+```
+
+### not, ! 取反
+
+```
+-- mapkeys表中，state_map列 不 含有'id'这个key的
+select * from mapkeys where not array_contains(map_keys(state_map),'id');
+select * from mapkeys where ! array_contains(map_keys(state_map),'id');
+```
+
+### map中某个key的值包含某个字符
+
+```
+-- mapkeys表中，state_map列，user_name(key)的值包含'zhang'的
+select * from mapkeys from state_map['user_name'] rlike 'zhang';
+```
+
