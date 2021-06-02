@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yu-sen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="hive、hql">
+<meta name="description" content="hive简介，hql简介，hive中数据类型，hive中DDL、DML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【数据分析】第四阶段：大数据查询利器Hive（二）">
+<meta property="og:title" content="【数据分析】第四阶段：大数据查询利器Hive（二）上">
 <meta property="og:url" content="https://yu-sen.github.io/20210527235833/index.html">
 <meta property="og:site_name" content="昱森笔记">
-<meta property="og:description" content="hive、hql">
+<meta property="og:description" content="hive简介，hql简介，hive中数据类型，hive中DDL、DML">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-28_00-20-08.jpg">
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-28_00-21-46.jpg">
@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-29_21-51-20.jpg">
 <meta property="og:image" content="https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-29_22-02-03.jpg">
 <meta property="article:published_time" content="2021-05-27T15:58:33.000Z">
-<meta property="article:modified_time" content="2021-06-01T12:05:16.802Z">
+<meta property="article:modified_time" content="2021-06-02T07:38:05.310Z">
 <meta property="article:author" content="昱森">
 <meta property="article:tag" content="数据分析">
 <meta name="twitter:card" content="summary">
@@ -49,10 +49,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20210527235833&#x2F;&quot;,&quot;path&quot;:&quot;20210527235833&#x2F;&quot;,&quot;title&quot;:&quot;【数据分析】第四阶段：大数据查询利器Hive（二）&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20210527235833&#x2F;&quot;,&quot;path&quot;:&quot;20210527235833&#x2F;&quot;,&quot;title&quot;:&quot;【数据分析】第四阶段：大数据查询利器Hive（二）上&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>【数据分析】第四阶段：大数据查询利器Hive（二） | 昱森笔记</title><script src="/js/config.js"></script>
+<title>【数据分析】第四阶段：大数据查询利器Hive（二）上 | 昱森笔记</title><script src="/js/config.js"></script>
   
 
 
@@ -130,7 +130,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">Hive运行机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL%E5%92%8CSQL%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">HQL和SQL区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.2.</span> <span class="nav-text">查看数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.3.</span> <span class="nav-text">删除数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%A9%BA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E6%B2%A1%E6%9C%89%E6%95%B0%E6%8D%AE%EF%BC%89%EF%BC%8C%E6%9C%89%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%99%E6%A0%B7%E6%98%AF%E5%88%A0%E4%B8%8D%E6%8E%89%E7%9A%84"><span class="nav-number">4.3.1.</span> <span class="nav-text">删除空数据库（没有数据），有数据的数据库这样是删不掉的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E6%9C%89%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="nav-number">4.3.2.</span> <span class="nav-text">强制删除数据库（有数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.4.</span> <span class="nav-text">使用数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">HQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">hive内部表和外部表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E4%B8%ADDDL%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="nav-number">7.</span> <span class="nav-text">hive中DDL数据定义语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">7.1.</span> <span class="nav-text">创建数据表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E9%83%A8%E8%A1%A8"><span class="nav-number">7.1.1.</span> <span class="nav-text">创建内部表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="nav-number">7.1.2.</span> <span class="nav-text">创建外部表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#like%E5%A4%8D%E5%88%B6%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">7.1.3.</span> <span class="nav-text">like复制表结构创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-table-as-select%E6%9F%A5%E8%AF%A2%E5%BB%BA%E8%A1%A8"><span class="nav-number">7.1.4.</span> <span class="nav-text">create table as select查询建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comment%E5%88%9B%E5%BB%BA%E5%B8%A6%E6%B3%A8%E9%87%8A%E7%9A%84%E8%A1%A8"><span class="nav-number">7.1.5.</span> <span class="nav-text">comment创建带注释的表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%88%97%E8%A1%A8"><span class="nav-number">7.2.</span> <span class="nav-text">查看数据表列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.3.</span> <span class="nav-text">查看表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%88%9B%E5%BB%BA%E8%AF%AD%E5%8F%A5"><span class="nav-number">7.4.</span> <span class="nav-text">查看表创建语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">7.5.</span> <span class="nav-text">insert插入数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">分隔符-创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.1.</span> <span class="nav-text">设置分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%88%86%E9%9A%94%E7%AC%A6%E8%AE%BE%E7%BD%AE"><span class="nav-number">8.2.</span> <span class="nav-text">查看表分隔符设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%88%97%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.3.</span> <span class="nav-text">指定列分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.4.</span> <span class="nav-text">指定数组元素分隔符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%AE%BE%E7%BD%AE%E6%98%AF%E5%90%A6%E6%9C%89%E6%95%88"><span class="nav-number">8.4.1.</span> <span class="nav-text">导入数据，看看设置是否有效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9Amap%E9%94%AE%E5%80%BC%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.5.</span> <span class="nav-text">指定map键值分隔符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">8.5.1.</span> <span class="nav-text">导入数据测试一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%88%86%E9%9A%94%E7%AC%A6%E9%BB%98%E8%AE%A4%E6%8D%A2%E8%A1%8C%E4%B8%8D%E8%83%BD%E4%BF%AE%E6%94%B9"><span class="nav-number">8.6.</span> <span class="nav-text">行分隔符默认换行不能修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%88%86%E9%9A%94%E7%AC%A6%E4%B8%BA%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">8.7.</span> <span class="nav-text">指定分隔符为多个字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%8C%BA"><span class="nav-number">9.</span> <span class="nav-text">分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">9.1.</span> <span class="nav-text">分区的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">9.2.</span> <span class="nav-text">分区的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA"><span class="nav-number">9.3.</span> <span class="nav-text">创建分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA"><span class="nav-number">9.4.</span> <span class="nav-text">添加静态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA"><span class="nav-number">9.4.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">9.4.2.</span> <span class="nav-text">静态分区添加数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#insert%E6%B7%BB%E5%8A%A0"><span class="nav-number">9.4.2.1.</span> <span class="nav-text">insert添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0"><span class="nav-number">9.4.2.2.</span> <span class="nav-text">导入数据文件添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%88%86%E5%8C%BA%E8%A1%A8%E4%B8%AD"><span class="nav-number">9.4.2.3.</span> <span class="nav-text">select查看数据是否添加到分区表中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA"><span class="nav-number">9.5.</span> <span class="nav-text">添加动态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%97%B6%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90%E5%88%86%E5%8C%BA"><span class="nav-number">9.5.1.</span> <span class="nav-text">insert插入数据同时动态生成分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.5.2.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%88%90%E5%8A%9F"><span class="nav-number">9.5.3.</span> <span class="nav-text">select查看数据是否添加成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%AD%97%E6%AE%B5%E5%88%86%E5%8C%BA"><span class="nav-number">9.6.</span> <span class="nav-text">多字段分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">9.6.1.</span> <span class="nav-text">创建分区表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.6.2.</span> <span class="nav-text">添加静态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-2"><span class="nav-number">9.6.2.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE-1"><span class="nav-number">9.6.2.2.</span> <span class="nav-text">insert插入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">9.6.2.3.</span> <span class="nav-text">导入数据文件添加数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.6.3.</span> <span class="nav-text">添加动态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-3"><span class="nav-number">9.6.3.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">9.6.3.2.</span> <span class="nav-text">查看数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E5%8C%BA"><span class="nav-number">9.7.</span> <span class="nav-text">删除分区</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%A1%B6"><span class="nav-number">10.</span> <span class="nav-text">分桶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%A1%B6"><span class="nav-number">10.1.</span> <span class="nav-text">创建分桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E8%87%AA%E5%8A%A8%E5%88%86%E6%A1%B6"><span class="nav-number">10.2.</span> <span class="nav-text">开启自动分桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">10.3.</span> <span class="nav-text">添加数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive-f%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">11.</span> <span class="nav-text">hive -f执行文件中的sql语句创建数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E4%B8%ADDML%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E8%AF%AD%E8%A8%80"><span class="nav-number">12.</span> <span class="nav-text">hive中DML数据操作语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.</span> <span class="nav-text">装载数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%9C%AC%E5%9C%B0%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.1.</span> <span class="nav-text">从本地装载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EHDFS%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.2.</span> <span class="nav-text">从HDFS装载数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">12.2.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">12.3.</span> <span class="nav-text">导出数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E5%88%B0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">12.3.1.</span> <span class="nav-text">导出到本地文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E5%88%B0HDFS"><span class="nav-number">12.3.2.</span> <span class="nav-text">导出到HDFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">12.4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.</span> <span class="nav-text">删除表中所有数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E9%83%A8%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.1.</span> <span class="nav-text">删除内部表数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%96%E9%83%A8%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.2.</span> <span class="nav-text">删除外部表数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.2.</span> <span class="nav-text">删除表中部分数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">12.4.2.1.</span> <span class="nav-text">分区表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E8%A1%A8-%E5%88%86%E6%A1%B6%E8%A1%A8"><span class="nav-number">12.4.2.2.</span> <span class="nav-text">普通表&#x2F;分桶表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">12.4.3.</span> <span class="nav-text">删除表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E5%87%BD%E6%95%B0"><span class="nav-number">13.</span> <span class="nav-text">hive运算符和函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.1.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.1.1.</span> <span class="nav-text">关系运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.1.2.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.1.3.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">13.1.4.</span> <span class="nav-text">复杂运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.1.</span> <span class="nav-text">数学函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.2.</span> <span class="nav-text">日期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.3.</span> <span class="nav-text">条件判断函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.4.</span> <span class="nav-text">字符串函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.5.</span> <span class="nav-text">统计函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B%E6%9E%84%E5%BB%BA%E8%AE%BF%E9%97%AE%E5%87%BD%E6%95%B0"><span class="nav-number">13.2.6.</span> <span class="nav-text">复合类型构建访问函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E4%B8%ADDQL%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="nav-number">14.</span> <span class="nav-text">hive中DQL数据查询语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Select%E8%AF%AD%E5%8F%A5%E7%BB%93%E6%9E%84"><span class="nav-number">14.1.</span> <span class="nav-text">Select语句结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hive%E4%B8%AD%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">14.2.</span> <span class="nav-text">hive中语句执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hive%E5%8F%82%E6%95%B0%E4%BB%8B%E7%BB%8D"><span class="nav-number">14.3.</span> <span class="nav-text">hive参数介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8Fhive-mapred-mode"><span class="nav-number">14.4.</span> <span class="nav-text">严格模式hive.mapred.mode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%98%AF%E5%90%A6%E4%B8%BA%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="nav-number">14.4.1.</span> <span class="nav-text">查看当前是否为严格模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BA%E9%9D%9E%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F%E6%88%96%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="nav-number">14.4.2.</span> <span class="nav-text">修改为非严格模式或严格模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hive-remove-orderby-in-subquery"><span class="nav-number">14.5.</span> <span class="nav-text">hive.remove.orderby.in.subquery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%9F%A5%E8%AF%A2"><span class="nav-number">14.6.</span> <span class="nav-text">普通查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2array"><span class="nav-number">14.7.</span> <span class="nav-text">查询array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9Earray%E5%AD%97%E6%AE%B5%E7%9A%84%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">14.7.1.</span> <span class="nav-text">返回array字段的某个元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explode-%E5%B1%95%E5%BC%80array%E6%88%90%E4%B8%80%E8%A1%8C"><span class="nav-number">14.7.2.</span> <span class="nav-text">explode()展开array成一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lateral-view%E6%B5%8B%E8%AF%95%E5%9B%BE%E6%90%AD%E9%85%8Dexplode-%E8%BE%93%E5%87%BAarray%E5%AD%97%E6%AE%B5%E5%AE%8C%E6%95%B4%E5%B1%95%E5%BC%80%E7%BB%93%E6%9E%9C"><span class="nav-number">14.7.3.</span> <span class="nav-text">lateral view测试图搭配explode()输出array字段完整展开结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#collect-set-collect-list-%E8%BF%98%E5%8E%9F%E5%B1%95%E5%BC%80%E5%90%8E%E7%9A%84array"><span class="nav-number">14.7.4.</span> <span class="nav-text">collect_set(),collect_list()还原展开后的array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat-ws-%E6%95%B0%E7%BB%84%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8Csplit-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%95%B0%E7%BB%84"><span class="nav-number">14.7.5.</span> <span class="nav-text">concat_ws()数组转字符串，split()字符串转数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2map"><span class="nav-number">14.8.</span> <span class="nav-text">查询map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9Emap%E5%AD%97%E6%AE%B5%E6%9F%90%E4%B8%AAkey%E7%9A%84value"><span class="nav-number">14.8.1.</span> <span class="nav-text">返回map字段某个key的value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explode-%E5%B1%95%E5%BC%80map%EF%BC%8C%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%80%E8%A1%8C%EF%BC%8Ckey%E3%80%81value%E5%90%84%E4%B8%80%E5%88%97"><span class="nav-number">14.8.2.</span> <span class="nav-text">explode()展开map，每个元素一行，key、value各一列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lateral-view%E6%B5%8B%E8%AF%95%E5%9B%BE%E6%90%AD%E9%85%8Dexplode-%E8%BE%93%E5%87%BAmap%E5%AD%97%E6%AE%B5%E5%AE%8C%E6%95%B4%E5%B1%95%E5%BC%80%E7%BB%93%E6%9E%9C"><span class="nav-number">14.8.3.</span> <span class="nav-text">lateral view测试图搭配explode()输出map字段完整展开结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map-keys-%E8%BF%94%E5%9B%9Emap%E5%AD%97%E6%AE%B5%E5%85%A8%E9%83%A8key%E6%95%B0%E6%8D%AE"><span class="nav-number">14.8.4.</span> <span class="nav-text">map_keys()返回map字段全部key数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map-values-%E8%BF%94%E5%9B%9Emap%E5%AD%97%E6%AE%B5%E5%85%A8%E9%83%A8%E5%80%BC%E6%95%B0%E6%8D%AE"><span class="nav-number">14.8.5.</span> <span class="nav-text">map_values()返回map字段全部值数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#array-contains-%E5%88%A4%E6%96%ADmap-keys-%E8%BF%94%E5%9B%9E%E7%9A%84key%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E6%9F%90%E4%B8%AAkey"><span class="nav-number">14.8.6.</span> <span class="nav-text">array_contains()判断map_keys()返回的key数组中是否含有某个key</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2struct%E7%B1%BB%E5%9E%8B%E4%B8%AD%E6%9F%90%E4%B8%AA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%80%BC"><span class="nav-number">14.9.</span> <span class="nav-text">查询struct类型中某个字段的值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where%E5%90%84%E7%A7%8D%E4%BD%BF%E7%94%A8"><span class="nav-number">14.10.</span> <span class="nav-text">where各种使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#like-rlike-instr-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">14.10.1.</span> <span class="nav-text">like,rlike,instr()字符串中是否包含某个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-or-find-in-set-%E5%80%BC%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%AD"><span class="nav-number">14.10.2.</span> <span class="nav-text">in(),or,find_in_set()值是否存在某个集合中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#is-null-size-1%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E4%B8%BAnull"><span class="nav-number">14.10.3.</span> <span class="nav-text">is null,size()&#x3D;-1基本类型、数组类型是否为null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#between-and-gt-and-lt-%E5%80%BC%E6%98%AF%E5%90%A6%E5%9C%A8%E6%9F%90%E4%B8%AA%E8%8C%83%E5%9B%B4%E5%86%85"><span class="nav-number">14.10.4.</span> <span class="nav-text">between and, &gt;&#x3D; and &lt;&#x3D;值是否在某个范围内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#array-contains-find-in-set-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">14.10.5.</span> <span class="nav-text">array_contains(),find_in_set()数组中是否含有某个元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat-ws-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E5%85%83%E7%B4%A0%E5%90%AB%E6%9C%89%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">14.10.6.</span> <span class="nav-text">concat_ws()数组中是否有元素含有某个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#array-contains-map%E4%B8%AD%E6%98%AF%E5%90%A6%E5%90%AB%E6%9C%89%E6%9F%90%E4%B8%AAkey"><span class="nav-number">14.10.7.</span> <span class="nav-text">array_contains()map中是否含有某个key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-%E5%8F%96%E5%8F%8D"><span class="nav-number">14.10.8.</span> <span class="nav-text">not, ! 取反</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%E4%B8%AD%E6%9F%90%E4%B8%AAkey%E7%9A%84%E5%80%BC%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">14.10.9.</span> <span class="nav-text">map中某个key的值包含某个字符</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Hive简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">Hive运行机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL%E5%92%8CSQL%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">HQL和SQL区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.2.</span> <span class="nav-text">查看数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.3.</span> <span class="nav-text">删除数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%A9%BA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E6%B2%A1%E6%9C%89%E6%95%B0%E6%8D%AE%EF%BC%89%EF%BC%8C%E6%9C%89%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%99%E6%A0%B7%E6%98%AF%E5%88%A0%E4%B8%8D%E6%8E%89%E7%9A%84"><span class="nav-number">4.3.1.</span> <span class="nav-text">删除空数据库（没有数据），有数据的数据库这样是删不掉的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E6%9C%89%E6%95%B0%E6%8D%AE%EF%BC%89"><span class="nav-number">4.3.2.</span> <span class="nav-text">强制删除数据库（有数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.4.</span> <span class="nav-text">使用数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">HQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E5%86%85%E9%83%A8%E8%A1%A8%E5%92%8C%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">hive内部表和外部表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E4%B8%ADDDL%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="nav-number">7.</span> <span class="nav-text">hive中DDL数据定义语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">7.1.</span> <span class="nav-text">创建数据表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%86%85%E9%83%A8%E8%A1%A8"><span class="nav-number">7.1.1.</span> <span class="nav-text">创建内部表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%96%E9%83%A8%E8%A1%A8"><span class="nav-number">7.1.2.</span> <span class="nav-text">创建外部表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#like%E5%A4%8D%E5%88%B6%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">7.1.3.</span> <span class="nav-text">like复制表结构创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-table-as-select%E6%9F%A5%E8%AF%A2%E5%BB%BA%E8%A1%A8"><span class="nav-number">7.1.4.</span> <span class="nav-text">create table as select查询建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#comment%E5%88%9B%E5%BB%BA%E5%B8%A6%E6%B3%A8%E9%87%8A%E7%9A%84%E8%A1%A8"><span class="nav-number">7.1.5.</span> <span class="nav-text">comment创建带注释的表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%88%97%E8%A1%A8"><span class="nav-number">7.2.</span> <span class="nav-text">查看数据表列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">7.3.</span> <span class="nav-text">查看表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%88%9B%E5%BB%BA%E8%AF%AD%E5%8F%A5"><span class="nav-number">7.4.</span> <span class="nav-text">查看表创建语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">7.5.</span> <span class="nav-text">insert插入数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">分隔符-创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.1.</span> <span class="nav-text">设置分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%A1%A8%E5%88%86%E9%9A%94%E7%AC%A6%E8%AE%BE%E7%BD%AE"><span class="nav-number">8.2.</span> <span class="nav-text">查看表分隔符设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%88%97%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.3.</span> <span class="nav-text">指定列分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.4.</span> <span class="nav-text">指定数组元素分隔符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%AE%BE%E7%BD%AE%E6%98%AF%E5%90%A6%E6%9C%89%E6%95%88"><span class="nav-number">8.4.1.</span> <span class="nav-text">导入数据，看看设置是否有效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9Amap%E9%94%AE%E5%80%BC%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.5.</span> <span class="nav-text">指定map键值分隔符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="nav-number">8.5.1.</span> <span class="nav-text">导入数据测试一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9Astruct%E5%88%86%E9%9A%94%E7%AC%A6"><span class="nav-number">8.6.</span> <span class="nav-text">指定struct分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%88%86%E9%9A%94%E7%AC%A6%E9%BB%98%E8%AE%A4%E6%8D%A2%E8%A1%8C%E4%B8%8D%E8%83%BD%E4%BF%AE%E6%94%B9"><span class="nav-number">8.7.</span> <span class="nav-text">行分隔符默认换行不能修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E5%88%86%E9%9A%94%E7%AC%A6%E4%B8%BA%E5%A4%9A%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">8.8.</span> <span class="nav-text">指定分隔符为多个字符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%8C%BA"><span class="nav-number">9.</span> <span class="nav-text">分区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">9.1.</span> <span class="nav-text">分区的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">9.2.</span> <span class="nav-text">分区的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA"><span class="nav-number">9.3.</span> <span class="nav-text">创建分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA"><span class="nav-number">9.4.</span> <span class="nav-text">添加静态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA"><span class="nav-number">9.4.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">9.4.2.</span> <span class="nav-text">静态分区添加数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#insert%E6%B7%BB%E5%8A%A0"><span class="nav-number">9.4.2.1.</span> <span class="nav-text">insert添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0"><span class="nav-number">9.4.2.2.</span> <span class="nav-text">导入数据文件添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%88%86%E5%8C%BA%E8%A1%A8%E4%B8%AD"><span class="nav-number">9.4.2.3.</span> <span class="nav-text">select查看数据是否添加到分区表中</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA"><span class="nav-number">9.5.</span> <span class="nav-text">添加动态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E5%90%8C%E6%97%B6%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90%E5%88%86%E5%8C%BA"><span class="nav-number">9.5.1.</span> <span class="nav-text">insert插入数据同时动态生成分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.5.2.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%88%90%E5%8A%9F"><span class="nav-number">9.5.3.</span> <span class="nav-text">select查看数据是否添加成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%AD%97%E6%AE%B5%E5%88%86%E5%8C%BA"><span class="nav-number">9.6.</span> <span class="nav-text">多字段分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">9.6.1.</span> <span class="nav-text">创建分区表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.6.2.</span> <span class="nav-text">添加静态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-2"><span class="nav-number">9.6.2.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE-1"><span class="nav-number">9.6.2.2.</span> <span class="nav-text">insert插入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">9.6.2.3.</span> <span class="nav-text">导入数据文件添加数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA-1"><span class="nav-number">9.6.3.</span> <span class="nav-text">添加动态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E5%8C%BA-3"><span class="nav-number">9.6.3.1.</span> <span class="nav-text">查看分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">9.6.3.2.</span> <span class="nav-text">查看数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E5%8C%BA"><span class="nav-number">9.7.</span> <span class="nav-text">删除分区</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%A1%B6"><span class="nav-number">10.</span> <span class="nav-text">分桶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%A1%B6"><span class="nav-number">10.1.</span> <span class="nav-text">创建分桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E8%87%AA%E5%8A%A8%E5%88%86%E6%A1%B6"><span class="nav-number">10.2.</span> <span class="nav-text">开启自动分桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">10.3.</span> <span class="nav-text">添加数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive-f%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84sql%E8%AF%AD%E5%8F%A5%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">11.</span> <span class="nav-text">hive -f执行文件中的sql语句创建数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hive%E4%B8%ADDML%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E8%AF%AD%E8%A8%80"><span class="nav-number">12.</span> <span class="nav-text">hive中DML数据操作语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.</span> <span class="nav-text">装载数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%9C%AC%E5%9C%B0%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.1.</span> <span class="nav-text">从本地装载数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8EHDFS%E8%A3%85%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.2.</span> <span class="nav-text">从HDFS装载数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">12.2.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE"><span class="nav-number">12.3.</span> <span class="nav-text">导出数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E5%88%B0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">12.3.1.</span> <span class="nav-text">导出到本地文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E5%88%B0HDFS"><span class="nav-number">12.3.2.</span> <span class="nav-text">导出到HDFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">12.4.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.</span> <span class="nav-text">删除表中所有数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%86%85%E9%83%A8%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.1.</span> <span class="nav-text">删除内部表数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%96%E9%83%A8%E8%A1%A8%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.1.2.</span> <span class="nav-text">删除外部表数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE"><span class="nav-number">12.4.2.</span> <span class="nav-text">删除表中部分数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">12.4.2.1.</span> <span class="nav-text">分区表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E8%A1%A8-%E5%88%86%E6%A1%B6%E8%A1%A8"><span class="nav-number">12.4.2.2.</span> <span class="nav-text">普通表&#x2F;分桶表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">12.4.3.</span> <span class="nav-text">删除表</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -146,7 +146,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -211,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【数据分析】第四阶段：大数据查询利器Hive（二）
+          【数据分析】第四阶段：大数据查询利器Hive（二）上
         </h1>
 
         <div class="post-meta-container">
@@ -229,7 +229,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-01 20:05:16" itemprop="dateModified" datetime="2021-06-01T20:05:16+08:00">2021-06-01</time>
+        <time title="修改时间：2021-06-02 15:38:05" itemprop="dateModified" datetime="2021-06-02T15:38:05+08:00">2021-06-02</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -244,7 +244,7 @@
   
 </div>
 
-            <div class="post-description">hive、hql</div>
+            <div class="post-description">hive简介，hql简介，hive中数据类型，hive中DDL、DML</div>
         </div>
       </header>
 
@@ -315,7 +315,7 @@
 
 <h2 id="查看表创建语句"><a href="#查看表创建语句" class="headerlink" title="查看表创建语句"></a>查看表创建语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">show create table test_create_table;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;test_create_table&#96;(</span><br><span class="line">	  &#96;id&#96; int, </span><br><span class="line">	  &#96;name&#96; string)</span><br><span class="line">	ROW FORMAT SERDE </span><br><span class="line">	  &#39;org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe&#39; </span><br><span class="line">	STORED AS INPUTFORMAT </span><br><span class="line">	  &#39;org.apache.hadoop.mapred.TextInputFormat&#39; </span><br><span class="line">	OUTPUTFORMAT </span><br><span class="line">	  &#39;org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat&#39;</span><br><span class="line">	LOCATION</span><br><span class="line">	  &#39;hdfs:&#x2F;&#x2F;hadoop1:9000&#x2F;apps&#x2F;bigdata&#x2F;hive&#x2F;warehouse&#x2F;lagou.db&#x2F;test_create_table&#39;</span><br><span class="line">	TBLPROPERTIES (</span><br><span class="line">	  &#39;bucketing_version&#39;&#x3D;&#39;2&#39;, </span><br><span class="line">	  &#39;transient_lastDdlTime&#39;&#x3D;&#39;1622201439&#39;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="insert插入数据"><a href="#insert插入数据" class="headerlink" title="insert插入数据"></a>insert插入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into test_create_table values (1,&#39;test&#39;);</span><br><span class="line"></span><br><span class="line">insert into test_external_1 values(1,&#39;test&#39;);</span><br></pre></td></tr></table></figure>
+<h2 id="insert插入数据"><a href="#insert插入数据" class="headerlink" title="insert插入数据"></a>insert插入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">insert into test_create_table values (1,&#39;test&#39;);</span><br><span class="line"></span><br><span class="line">insert into test_external_1 values(1,&#39;test&#39;);</span><br><span class="line"></span><br><span class="line">-- array类型可以insert直接插入，struct好像不行</span><br><span class="line">insert into test_array values(1, array(&#39;a&#39;,&#39;b&#39;)); </span><br><span class="line">-- map类型也可以直接insert插入</span><br><span class="line">insert into mapkeys values(其他基本类型字段, map(&#39;key1&#39;,&#39;val1&#39;,&#39;key2&#39;,&#39;val2&#39;,&#39;key3&#39;,&#39;val3&#39;...)); </span><br></pre></td></tr></table></figure>
 
 <h1 id="分隔符-创建表"><a href="#分隔符-创建表" class="headerlink" title="分隔符-创建表"></a>分隔符-创建表</h1><p>和把csv、txt等文本类型的数据导入至mySql、excel中一样，需要设定分隔符来解析文本中的数据。</p>
 <p>hive中默认的分隔符有很多，主要介绍三个：</p>
@@ -371,6 +371,19 @@
 <p>查看导入结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select * from mapKeys;</span><br><span class="line">-- </span><br><span class="line"> 	mapkeys.sku_id	mapkeys.sku_name	mapkeys.state_map</span><br><span class="line">1	123	华为Mate10	&#123;&quot;id&quot;:&quot;1111&quot;,&quot;token&quot;:&quot;2222&quot;,&quot;user_name&quot;:&quot;zhangsan1 &quot;&#125;</span><br><span class="line">2	456	华为Mate30	&#123;&quot;id&quot;:&quot;1113&quot;,&quot;token&quot;:&quot;2224&quot;,&quot;user_name&quot;:&quot;zhangsan3 &quot;&#125;</span><br><span class="line">3	789	小米5	&#123;&quot;id&quot;:&quot;1114&quot;,&quot;token&quot;:&quot;2225&quot;,&quot;user_name&quot;:&quot;zhangsan4 &quot;&#125;</span><br><span class="line">4	1235	小米6	&#123;&quot;id&quot;:&quot;1115&quot;,&quot;token&quot;:&quot;2226&quot;,&quot;user_name&quot;:&quot;zhangsan5 &quot;&#125;</span><br><span class="line">5	4562	OPPO Findx	&#123;&quot;id&quot;:&quot;1116&quot;,&quot;token&quot;:&quot;2227&quot;,&quot;user_name&quot;:&quot;zhangsan6&quot;&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="指定struct分隔符"><a href="#指定struct分隔符" class="headerlink" title="指定struct分隔符"></a>指定struct分隔符</h2><p>准备数据文件data3.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1|张三-001-110</span><br><span class="line">2|李四-002-120</span><br><span class="line">3|王五-003-119</span><br></pre></td></tr></table></figure>
+
+<p>创建test_struct表，info字段为struct类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table test_struct(</span><br><span class="line">id int,</span><br><span class="line">info struct&lt;name:string,user_id:int,phone:bigint&gt;)</span><br><span class="line">row format delimited</span><br><span class="line">fields terminated by &#39;|&#39;</span><br><span class="line">collection items terminated by &#39;-&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>数据上传到服务器后，加载数据到test_struct表中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load data inpath &#39;&#x2F;user&#x2F;Hl18011401591&#x2F;data3.txt&#39; into table test_struct;</span><br></pre></td></tr></table></figure>
+
+<p>查看导入结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test_struct.id	test_struct.info</span><br><span class="line">1	&#123;&quot;name&quot;:&quot;张三&quot;,&quot;user_id&quot;:1,&quot;phone&quot;:110&#125;</span><br><span class="line">2	&#123;&quot;name&quot;:&quot;李四&quot;,&quot;user_id&quot;:2,&quot;phone&quot;:120&#125;</span><br><span class="line">3	&#123;&quot;name&quot;:&quot;王五&quot;,&quot;user_id&quot;:3,&quot;phone&quot;:119&#125;</span><br></pre></td></tr></table></figure>
+
+<p>struct类型，数据中只有值，在create定义字段时，要定义好每个值的key名:以及值类型，还要根据数据中struct部分设置各元素的分隔符。最后导入到表中，生成类似map一样的数据。</p>
 <h2 id="行分隔符默认换行不能修改"><a href="#行分隔符默认换行不能修改" class="headerlink" title="行分隔符默认换行不能修改"></a>行分隔符默认换行不能修改</h2><p>hive行分隔符默认是’\n’换行，且不能修改。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines terminated by &#39;\n&#39;</span><br></pre></td></tr></table></figure>
 
@@ -545,597 +558,6 @@
 
 <h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><p>drop table 表名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table test_external;</span><br></pre></td></tr></table></figure>
-
-<h1 id="hive运算符和函数"><a href="#hive运算符和函数" class="headerlink" title="hive运算符和函数"></a>hive运算符和函数</h1><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>操作</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A =B</td>
-<td>所有基本类型</td>
-<td>如果表达A等于表达B，结果TRUE ，否则FALSE。</td>
-</tr>
-<tr>
-<td>A != B</td>
-<td>所有基本类型</td>
-<td>如果A不等于表达式B表达返回TRUE ，否则FALSE。</td>
-</tr>
-<tr>
-<td>A &lt;B</td>
-<td>所有基本类型</td>
-<td>如果表达式A小于表达式B为TRUE，否则FALSE。</td>
-</tr>
-<tr>
-<td>A &lt;= B</td>
-<td>所有基本类型</td>
-<td>如果表达式A小于或等于表达式B为TRUE，否则FALSE</td>
-</tr>
-<tr>
-<td>A &gt;B</td>
-<td>所有基本类型</td>
-<td>如果表达式A大于表达式B为TRUE，否则FALSE。</td>
-</tr>
-<tr>
-<td>A &gt;= B</td>
-<td>所有基本类型</td>
-<td>如果表达式A大于或等于表达式B为TRUE，否则FALSE。</td>
-</tr>
-<tr>
-<td>A [NOT] BETWEEN B AND C</td>
-<td>基本数据类型</td>
-<td>如果A，B或者C任一为NULL，则结果为NULL。<br />如果A的值大于等于B而且 小于或等于C，则结果为TRUE，反之为FALSE。<br />如果使用NOT关键字则可 达到相反的效果。</td>
-</tr>
-<tr>
-<td>A IS [NOT] NULL</td>
-<td>所有类型</td>
-<td>如果A等于NULL，则返回TRUE，反之返回FALSE, NOT 正好相反。</td>
-</tr>
-<tr>
-<td>A IN(数值 1, 数值2)</td>
-<td>所有类型</td>
-<td>如果A存在指定的数据中，则返回TRUE，反之返回FALSE</td>
-</tr>
-<tr>
-<td>A [NOT] LIKE B</td>
-<td>字符串</td>
-<td>如果A与B匹配的话，则返回TRUE;反之返回FALSE。<br />%代表任意多个字 符，_代表一个字符</td>
-</tr>
-<tr>
-<td>A RLIKE B</td>
-<td>字符串</td>
-<td>如果A或B为NULL;如果A任何子字符串匹配Java正则表达式B;否则 FALSE。</td>
-</tr>
-<tr>
-<td>A REGEXP B</td>
-<td>字符串</td>
-<td>等同于RLIKE.</td>
-</tr>
-</tbody></table>
-<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>操作</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A +B</td>
-<td>所有数字类型</td>
-<td>A加B的结果</td>
-</tr>
-<tr>
-<td>A -B</td>
-<td>所有数字类型</td>
-<td>A减去B的结果</td>
-</tr>
-<tr>
-<td>A /B</td>
-<td>所有数字类型</td>
-<td>A除以B的结果</td>
-</tr>
-<tr>
-<td>A %B</td>
-<td>所有数字类型</td>
-<td>A除以B.产生的余数</td>
-</tr>
-</tbody></table>
-<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>操作</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A AND B</td>
-<td>boolean</td>
-<td>如果A和B都是TRUE，否则FALSE。</td>
-</tr>
-<tr>
-<td>A &amp;&amp; B</td>
-<td>boolean</td>
-<td>类似于 A AND B.</td>
-</tr>
-<tr>
-<td>A OR B</td>
-<td>boolean</td>
-<td>TRUE，如果A或B或两者都是TRUE，否则FALSE。</td>
-</tr>
-<tr>
-<td>A ||B</td>
-<td>boolean</td>
-<td>类似于 A OR B.</td>
-</tr>
-<tr>
-<td>NOT A</td>
-<td>boolean</td>
-<td>TRUE，如果A是FALSE，否则FALSE。</td>
-</tr>
-<tr>
-<td>!A</td>
-<td>boolean</td>
-<td>类似于 NOT A.</td>
-</tr>
-</tbody></table>
-<h3 id="复杂运算符"><a href="#复杂运算符" class="headerlink" title="复杂运算符"></a>复杂运算符</h3><table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>操作</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>A[n]</td>
-<td>A是一个数组，n是一个int</td>
-<td>它返回数组A的第n个元素，第一个元素的索引0。</td>
-</tr>
-<tr>
-<td>M[key]</td>
-<td>M是一个 Map&lt;K, V&gt;，并且key 的类型为K</td>
-<td>它返回对应于映射中关键字的值。</td>
-</tr>
-<tr>
-<td>S.x</td>
-<td>S是一个结构</td>
-<td>它返回S的s字段</td>
-</tr>
-</tbody></table>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>round(double a) <br />round(double a, int d)</td>
-<td>BIGINT <br />DOUBLE</td>
-<td>返回double类型的整数值部分 (遵循四舍五入) 返回 指定精度d的double类型</td>
-</tr>
-<tr>
-<td>floor(double a)</td>
-<td>BIGINT</td>
-<td>返回等于或者小于该double变量的最大的整数</td>
-</tr>
-<tr>
-<td>ceil(double a)</td>
-<td>BIGINT</td>
-<td>返回等于或者大于该double变量的最小的整数</td>
-</tr>
-<tr>
-<td>rand()<br /> rand(int seed)</td>
-<td>DOUBLE</td>
-<td>返回一个0到1范围内的随机数。如果指定种子seed， 则会得到一个稳定的随机数序列.</td>
-</tr>
-<tr>
-<td>pow(double a, double p)</td>
-<td>DOUBLE</td>
-<td>返回a的p次幂</td>
-</tr>
-<tr>
-<td>sqrt(double a)</td>
-<td>DOUBLE</td>
-<td>返回a的平方根</td>
-</tr>
-<tr>
-<td>abs(double a) <br />abs(int a)</td>
-<td>DOUBLE <br />INT</td>
-<td>返回数值a的绝对值</td>
-</tr>
-</tbody></table>
-<h3 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>from_unixtime(bigint unixtime[, string format])</td>
-<td>STRING</td>
-<td>转化UNIX时间戳(从1970-01-01 00:00:00 UTC到指 定时间的秒数) 到当前时区的时间格式</td>
-</tr>
-<tr>
-<td>unix_timestamp() unix_timestamp(string date) unix_timestamp(string date, string pattern)</td>
-<td>BIGINT</td>
-<td>获得当前时区的UNIX时间戳 转换格式为”yyyy-MM-dd HH:mm:ss”的日期到UNIX时间戳。如果转化失败，则 返回0 转换pattern格式的日期到UNIX时间戳。如果转 化失败，则返回0</td>
-</tr>
-<tr>
-<td>to_date(string timestamp)</td>
-<td>STRING</td>
-<td>返回日期时间字段中的日期部分</td>
-</tr>
-<tr>
-<td>year(string date) <br />month (string date) <br />day (string date)</td>
-<td>INT</td>
-<td>分别返回日期中的年 月 天</td>
-</tr>
-<tr>
-<td>hour (string date) <br />minute (string date) <br />second (string date)</td>
-<td>INT</td>
-<td>分别返回日期中的时 分 秒</td>
-</tr>
-<tr>
-<td>weekofyear (string date)</td>
-<td>INT</td>
-<td>返回日期在当年的第几周</td>
-</tr>
-<tr>
-<td>datediff(string enddate, string startdate)</td>
-<td>INT</td>
-<td>返回结束日期减去开始日期的天数 日期有格式要求 yyyy-mm-dd hh:MM:ss 或 yyyy-mm-dd</td>
-</tr>
-<tr>
-<td>date_add(string startdate, int days)</td>
-<td>STRING</td>
-<td>days为正数，返回开始日期startdate增加days天后的日期。<br />days为负数，返回开始日期startdate减少days天前的日期。</td>
-</tr>
-<tr>
-<td>date_sub (string startdate, int days)</td>
-<td>STRING</td>
-<td>返回开始日期startdate减少days天后的日期</td>
-</tr>
-<tr>
-<td>add_months(string startdate, int months)</td>
-<td>STRING</td>
-<td>months为正数，返回开始日期startdate增加months月后的日期。<br />months为负数，返回开始日期startdate减少months月前的日期。</td>
-</tr>
-</tbody></table>
-<h3 id="条件判断函数"><a href="#条件判断函数" class="headerlink" title="条件判断函数"></a>条件判断函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>if(boolean testCondition, T valueTrue, T valueFalseOrNull)</td>
-<td>T</td>
-<td>当条件testCondition为TRUE时，返回 valueTrue;否则返回valueFalseOrNull</td>
-</tr>
-<tr>
-<td>coalesce(T v1, T v2, …)</td>
-<td>T</td>
-<td>返回参数中的第一个非空值;如果所有值都为 NULL，那么返回NULL</td>
-</tr>
-<tr>
-<td>CASE a WHEN b THEN c [WHEN d THEN e] [ELSE f] END</td>
-<td>T</td>
-<td>如果a等于b，那么返回c;如果a等于d，那么返 回e;否则返回f</td>
-</tr>
-<tr>
-<td>CASE WHEN a THEN b [WHEN c THEN d] [ELSE e] END</td>
-<td>T</td>
-<td>如果a为TRUE,则返回b;如果c为TRUE，则返回d;否则返回e</td>
-</tr>
-</tbody></table>
-<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>length(string A)</td>
-<td>INT</td>
-<td>返回字符串A的长度</td>
-</tr>
-<tr>
-<td>reverse(string A)</td>
-<td>STRING</td>
-<td>返回字符串A的反转结果</td>
-</tr>
-<tr>
-<td>concat(string A, string B…)</td>
-<td>STRING</td>
-<td>返回输入字符串连接后的结果，支持任意 个输入字符串</td>
-</tr>
-<tr>
-<td>concat_ws(string SEP, string A, string B…)</td>
-<td>STRING</td>
-<td>返回输入字符串连接后的结果，SEP表示各个字符串间的分隔符</td>
-</tr>
-<tr>
-<td>substr(string A, int start)<br />substring(string A, int start) <br />substr(string A, int start, int len)<br />substring(string A, int start, int len)</td>
-<td>STRING</td>
-<td>返回字符串A从start位置到结尾的字符串 返回字符串A从start位置开始，长度为 len的字符串</td>
-</tr>
-<tr>
-<td>upper(string A) ucase(string A)</td>
-<td>STRING</td>
-<td>返回字符串A的大写格式</td>
-</tr>
-<tr>
-<td>lower(string A) lcase(string A)</td>
-<td>STRING</td>
-<td>返回字符串A的小写格式</td>
-</tr>
-<tr>
-<td>trim(string A) <br />ltrim(string A)<br />rtrim(string A)</td>
-<td>STRING</td>
-<td>去除字符串两边的空格 除字符串左边的空格 去除字符串右边的空格</td>
-</tr>
-<tr>
-<td>regexp_replace(string A, string B, string C)</td>
-<td>STRING</td>
-<td>将字符串A中的符合java正则表达式B的 部分替换为C</td>
-</tr>
-<tr>
-<td>regexp_extract(string subject, string pattern, int index)</td>
-<td>STRING</td>
-<td>将字符串subject按照pattern正则表达式的规则拆分，返回index指定的字符</td>
-</tr>
-<tr>
-<td>parse_url(string urlString, string partToExtract [, string keyToExtract])</td>
-<td>STRING</td>
-<td>返回URL中指定的部分。partToExtract 的有效值为:HOST, PATH, QUERY, REF, PROTOCOL, AUTHORITY, FILE, and USERINFO.</td>
-</tr>
-<tr>
-<td>get_json_object(string json_string, string path)</td>
-<td>STRING</td>
-<td>解析json的字符串json_string,返回path 指定的内容。如果输入的json字符串无 效，那么返回NULL</td>
-</tr>
-<tr>
-<td>space(int n)</td>
-<td>STRING</td>
-<td>返回长度为n的空格字符串</td>
-</tr>
-<tr>
-<td>repeat(string str, int n)</td>
-<td>STRING</td>
-<td>返回重复n次后的str字符串</td>
-</tr>
-<tr>
-<td>lpad(string str, int len, string pad) rpad(string str, int len, string pad)</td>
-<td>STRING</td>
-<td>将str进行用pad进行左补足到len位 将str 进行用pad进行右补足到len位</td>
-</tr>
-<tr>
-<td>split(string str, string pat)</td>
-<td>ARRAY</td>
-<td>按照pat字符串分割str，会返回分割后的 字符串数组</td>
-</tr>
-<tr>
-<td>find_in_set(string str, string strList) find_in_set(‘ab’,’aa,ab,ac’)</td>
-<td>INT</td>
-<td>返回str在strlist第一次出现的位置， strlist是用逗号分割的字符串。如果没有 找该str字符，则返回0</td>
-</tr>
-<tr>
-<td>instr(string str, string substr) instr(“abcde”,”ab”)</td>
-<td>INT</td>
-<td>返回substr在str中第一次出现的位置， 未出现则返回0(如果参数为NULL则返 回NULL;位置从1开始)</td>
-</tr>
-</tbody></table>
-<h3 id="统计函数"><a href="#统计函数" class="headerlink" title="统计函数"></a>统计函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>count(*)<br />count(expr)<br />count(DISTINCT expr[, expr_.])</td>
-<td>INT</td>
-<td>count(*)统计检索出的行的个数，包括NULL值的行;<br />count(expr)返回指定字段的非空值的个数;<br />count(DISTINCT expr[, expr_.])返回指定字段的不同的非空值的个数</td>
-</tr>
-<tr>
-<td>sum(col), sum(DISTINCT col)</td>
-<td>DOUBLE</td>
-<td>sum(col)统计结果集中col的相加的结果;sum(DISTINCT col)统计结果中col不同值相加的结果</td>
-</tr>
-<tr>
-<td>avg(col), avg(DISTINCT col)</td>
-<td>DOUBLE</td>
-<td>avg(col)统计结果集中col的平均值;avg(DISTINCT col)统计 结果中col不同值相加的平均值</td>
-</tr>
-<tr>
-<td>min(col) max(col)</td>
-<td>DOUBLE</td>
-<td>统计结果集中col字段的最小值 统计结果集中col字段的最大 值</td>
-</tr>
-<tr>
-<td>var_pop(col) var_samp (col)</td>
-<td>DOUBLE</td>
-<td>统计结果集中col非空集合的总体方差 统计结果集中col非空 集合的样本变量</td>
-</tr>
-<tr>
-<td>stddev_pop(col) stddev_samp (col)</td>
-<td>DOUBLE</td>
-<td>统计结果集中col非空集合的总体标准差 统计结果集中col非 空集合的样本标准差</td>
-</tr>
-<tr>
-<td>percentile(BIGINT col, p)</td>
-<td>DOUBLE</td>
-<td>求准确的第p个百分位数，p必须介于0和1之间，但是col字段 目前只支持整数，不支持浮点数类型</td>
-</tr>
-<tr>
-<td>percentile(BIGINT col, array(p1 [, p2]…))</td>
-<td>ARRAY</td>
-<td>功能和上述类似，之后后面可以输入多个百分位数，返回类 型也为array，其中为对应的百分位数</td>
-</tr>
-</tbody></table>
-<h3 id="复合类型构建访问函数"><a href="#复合类型构建访问函数" class="headerlink" title="复合类型构建访问函数"></a>复合类型构建访问函数</h3><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>返回类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>map (key1, value1, key2, value2, …)</td>
-<td>MAP</td>
-<td>根据输入的key和value对构建map类型</td>
-</tr>
-<tr>
-<td>struct(val1, val2, val3, …)</td>
-<td>STRUCT</td>
-<td>根据输入的参数构建结构体struct类型</td>
-</tr>
-<tr>
-<td>array(val1, val2, …)</td>
-<td>ARRAY</td>
-<td>根据输入的参数构建数组array类型</td>
-</tr>
-<tr>
-<td>A[n]</td>
-<td></td>
-<td>返回数组A中的第n个变量值。数组的起始下标 为0。</td>
-</tr>
-<tr>
-<td>M[key]</td>
-<td></td>
-<td>返回map类型M中，key值为指定值的value值</td>
-</tr>
-<tr>
-<td>S.x</td>
-<td></td>
-<td>返回结构体S中的x字段</td>
-</tr>
-<tr>
-<td>size(Map&lt;K.V&gt;) size(Array)</td>
-<td>INT</td>
-<td>返回map类型的长度 返回array类型的长度</td>
-</tr>
-<tr>
-<td>explode(map|array)</td>
-<td></td>
-<td>列变行</td>
-</tr>
-<tr>
-<td>collect_set ( col)</td>
-<td>Array</td>
-<td>对col行变列并 去重</td>
-</tr>
-<tr>
-<td>collect_list ( col)</td>
-<td>Array</td>
-<td>对col行变列并 不去重</td>
-</tr>
-<tr>
-<td>map_keys(map)</td>
-<td>Array</td>
-<td>取map类型的所有Key</td>
-</tr>
-<tr>
-<td>map_values(map)</td>
-<td>Array</td>
-<td>取map类型的所有value</td>
-</tr>
-<tr>
-<td>array_contains(array,obj)</td>
-<td>T</td>
-<td>判断指定的obj 是否在数组中</td>
-</tr>
-</tbody></table>
-<h1 id="hive中DQL数据查询语言"><a href="#hive中DQL数据查询语言" class="headerlink" title="hive中DQL数据查询语言"></a>hive中DQL数据查询语言</h1><h2 id="Select语句结构"><a href="#Select语句结构" class="headerlink" title="Select语句结构"></a>Select语句结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT [ALL | DISTINCT] select_expr, select_expr, ... FROM table_reference</span><br><span class="line">[WHERE where_condition]</span><br><span class="line">[GROUP BY col_list]</span><br><span class="line">[HAVING having_condition]</span><br><span class="line">[CLUSTER BY col_list | [DISTRIBUTE BY col_list] [SORT BY col_list]][ORDER BY</span><br><span class="line">col_list]</span><br><span class="line">[LIMIT number];</span><br></pre></td></tr></table></figure>
-
-<p>语句的顺序不能错。</p>
-<h2 id="hive中语句执行顺序"><a href="#hive中语句执行顺序" class="headerlink" title="hive中语句执行顺序"></a>hive中语句执行顺序</h2><p>可以通过explain关键字查看执行顺序：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain select * from sales_info;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 例如</span><br><span class="line">explain</span><br><span class="line">select basic_info.age, count(1) as renshu </span><br><span class="line">from test_student</span><br><span class="line">where id &gt;3</span><br><span class="line">group by basic_info.age</span><br><span class="line">having renshu &gt; 1</span><br><span class="line">order by renshu desc</span><br><span class="line">limit 10;</span><br></pre></td></tr></table></figure>
-
-<p>hive语句的执行顺序:<br> <strong>from –&gt;where –&gt; select –&gt; group by –&gt;聚合函数–&gt; having –&gt; order by –&gt;limit</strong></p>
-<p>除了select的顺序和mysql不一样，其他都一样。</p>
-<h2 id="hive参数介绍"><a href="#hive参数介绍" class="headerlink" title="hive参数介绍"></a>hive参数介绍</h2><h2 id="严格模式hive-mapred-mode"><a href="#严格模式hive-mapred-mode" class="headerlink" title="严格模式hive.mapred.mode"></a>严格模式hive.mapred.mode</h2><h3 id="查看当前是否为严格模式"><a href="#查看当前是否为严格模式" class="headerlink" title="查看当前是否为严格模式"></a>查看当前是否为严格模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set hive.mapred.mode</span><br><span class="line">-- </span><br><span class="line">hive.mapred.mode &#x3D; strict</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改为非严格模式或严格模式"><a href="#修改为非严格模式或严格模式" class="headerlink" title="修改为非严格模式或严格模式"></a>修改为非严格模式或严格模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set hive.mapred.mode &#x3D; strict </span><br><span class="line">set hive.mapred.mode &#x3D; nostrict</span><br></pre></td></tr></table></figure>
-
-<p>严格模式下，这三种情况会报错</p>
-<ul>
-<li>笛卡尔积不能查询(表关联join不写关联条件)</li>
-<li>order by排序，必须加limit语句</li>
-<li> 读取partitioned table，但没有指定partition</li>
-</ul>
-<h2 id="hive-remove-orderby-in-subquery"><a href="#hive-remove-orderby-in-subquery" class="headerlink" title="hive.remove.orderby.in.subquery"></a>hive.remove.orderby.in.subquery</h2><p>Hive 3.0.0以上 hive.remove.orderby.in.subquery为true，subqueries和views中没有limit的Order by将会被optimizer(优化器)移除。</p>
-<p>在子查询和查询视图的时候需要设置为false。</p>
-<h2 id="普通查询"><a href="#普通查询" class="headerlink" title="普通查询"></a>普通查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from sales_info;</span><br><span class="line"></span><br><span class="line">select sku_id from sales_info;</span><br><span class="line"></span><br><span class="line">select sku_id as id from salse_info;</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询array"><a href="#查询array" class="headerlink" title="查询array"></a>查询array</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- sales_info表数据</span><br><span class="line"> 	sku_id	sku_name	id_array</span><br><span class="line">1	123	华为Mate10	[&quot;1235&quot;,&quot;345&quot;]</span><br><span class="line">2	456	华为Mate30	[&quot;89&quot;,&quot;635&quot;]</span><br><span class="line">3	789	小米5	[&quot;452&quot;,&quot;63&quot;]</span><br><span class="line">4	1235	小米6	[&quot;785&quot;,&quot;36&quot;]</span><br><span class="line">5	4562	OPPO Findx	[&quot;7875&quot;,&quot;3563&quot;]</span><br></pre></td></tr></table></figure>
-
-<h3 id="返回array字段的某个元素"><a href="#返回array字段的某个元素" class="headerlink" title="返回array字段的某个元素"></a>返回array字段的某个元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 查询数组字段的第一个元素</span><br><span class="line">select id_array[0] from sales_info;</span><br><span class="line"></span><br><span class="line">1	1235</span><br><span class="line">2	89</span><br><span class="line">3	452</span><br><span class="line">4	785</span><br><span class="line">5	7875</span><br></pre></td></tr></table></figure>
-
-<h3 id="explode-展开array成一行"><a href="#explode-展开array成一行" class="headerlink" title="explode()展开array成一行"></a>explode()展开array成一行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- 查询数组字段所有数据，并且将数组展开，每个元素在一行展示</span><br><span class="line">select explode(id_array) from sales_info;</span><br><span class="line"></span><br><span class="line">1	1235</span><br><span class="line">2	345</span><br><span class="line">3	89</span><br><span class="line">4	635</span><br><span class="line">5	452</span><br><span class="line">6	63</span><br><span class="line">7	785</span><br><span class="line">8	36</span><br><span class="line">9	7875</span><br><span class="line">10	3563</span><br></pre></td></tr></table></figure>
-
-<h3 id="lateral-view测试图搭配explode-输出array字段完整展开结果"><a href="#lateral-view测试图搭配explode-输出array字段完整展开结果" class="headerlink" title="lateral view测试图搭配explode()输出array字段完整展开结果"></a>lateral view测试图搭配explode()输出array字段完整展开结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-- 在explode的基础上，每行数组元素还要展示对应的sku_id, sku_name</span><br><span class="line">select sku_id, sku_name, id_list from sales_info lateral view explode(id_array) ids as id_list;</span><br><span class="line"></span><br><span class="line">1 123	华为Mate10	1235</span><br><span class="line">2	123	华为Mate10	345</span><br><span class="line">3	456	华为Mate30	89</span><br><span class="line">4	456	华为Mate30	635</span><br><span class="line">5	789	小米5	452</span><br><span class="line">6	789	小米5	63</span><br><span class="line">7	1235	小米6	785</span><br><span class="line">8	1235	小米6	36</span><br><span class="line">9	4562	OPPO Findx	7875</span><br><span class="line">10	4562	OPPO Findx	3563</span><br><span class="line"></span><br><span class="line">语法：select 原表字段1, 原表字段2, 虚拟表字段名 from 原表 lateral view explode(原表数组字段名) 虚拟表名 as 虚拟表字段名。</span><br><span class="line">lateral view explode(id_array)ids相当于一个虚拟表，与原表sales_info笛卡尔积关联。也可以多重使用</span><br><span class="line">select ...from ... lateral view ... lateral view ...</span><br><span class="line">lateral view 测试图。侧视图的意义是配合explode（或者其他的UDTF），一个语句生成把单行数据拆解成多行后的数据结果集。</span><br></pre></td></tr></table></figure>
-
-<h3 id="collect-set-collect-list-还原展开后的array"><a href="#collect-set-collect-list-还原展开后的array" class="headerlink" title="collect_set(),collect_list()还原展开后的array"></a>collect_set(),collect_list()还原展开后的array</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-- sales_info_explode表，sales_info展开后的结果，并且插入了一条重复数据 789 小米5 63</span><br><span class="line"> 	sku_id sku_name	id_list</span><br><span class="line">1	123	华为Mate10	1235</span><br><span class="line">2	123	华为Mate10	345</span><br><span class="line">3	456	华为Mate30	89</span><br><span class="line">4	456	华为Mate30	635</span><br><span class="line">5	789	小米5	452</span><br><span class="line">6	789	小米5	63</span><br><span class="line">7	1235	小米6	785</span><br><span class="line">8	1235	小米6	36</span><br><span class="line">9	4562	OPPO Findx	7875</span><br><span class="line">10	4562	OPPO Findx	3563</span><br><span class="line">11	789	小米5	63</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">-- 通过letaral view explode能将数组展开，也可以通过collect_set() collect_list()将展开的数组元素再合并回去</span><br><span class="line"></span><br><span class="line">-- collect_set()函数 去重</span><br><span class="line">select sku_id,sku_name, collect_set(id_list) from sales_info_explode group by sku_id,sku_name;</span><br><span class="line">-- 结果</span><br><span class="line"> 	sku_id	sku_name	_c2</span><br><span class="line">1	123	华为Mate10	[&quot;1235&quot;,&quot;345&quot;]</span><br><span class="line">2	1235	小米6	[&quot;785&quot;,&quot;36&quot;]</span><br><span class="line">3	456	华为Mate30	[&quot;89&quot;,&quot;635&quot;]</span><br><span class="line">4	4562	OPPO Findx	[&quot;7875&quot;,&quot;3563&quot;]</span><br><span class="line">5	789	小米5	[&quot;452&quot;,&quot;63&quot;] --数据中有两条789 小米5 63，这里去重了</span><br><span class="line"></span><br><span class="line">-- collect_list()函数 不去重</span><br><span class="line">select sku_id,sku_name, collect_list(id_list) from sales_info_explode group by sku_id,sku_name;</span><br><span class="line">-- 结果</span><br><span class="line">	sku_id	sku_name	_c2</span><br><span class="line">1	123	华为Mate10	[&quot;1235&quot;,&quot;345&quot;]</span><br><span class="line">2	1235	小米6	[&quot;785&quot;,&quot;36&quot;]</span><br><span class="line">3	456	华为Mate30	[&quot;89&quot;,&quot;635&quot;]</span><br><span class="line">4	4562	OPPO Findx	[&quot;7875&quot;,&quot;3563&quot;]</span><br><span class="line">5	789	小米5	[&quot;452&quot;,&quot;63&quot;,&quot;63&quot;] -- 没去重</span><br></pre></td></tr></table></figure>
-
-<h3 id="concat-ws-数组转字符串，split-字符串转数组"><a href="#concat-ws-数组转字符串，split-字符串转数组" class="headerlink" title="concat_ws()数组转字符串，split()字符串转数组"></a>concat_ws()数组转字符串，split()字符串转数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- concat_ws(分隔字符,字符串1,字符串2...) split(字符串,分隔字符)</span><br><span class="line">select </span><br><span class="line">	sku_id, sku_name, id_array, </span><br><span class="line">	concat_ws(&#39;_&#39;, id_array) as aryToStr, </span><br><span class="line">	split(concat_ws(&#39;_&#39;, id_array), &#39;_&#39;) as strToAry </span><br><span class="line">from sales_info;</span><br><span class="line"></span><br><span class="line"> 	sku_id	sku_name	id_array	arytostr	strtoary</span><br><span class="line">1	123	华为Mate10	[&quot;1235&quot;,&quot;345&quot;]	1235_345	[&quot;1235&quot;,&quot;345&quot;]</span><br><span class="line">2	456	华为Mate30	[&quot;89&quot;,&quot;635&quot;]	89_635	[&quot;89&quot;,&quot;635&quot;]</span><br><span class="line">3	789	小米5	[&quot;452&quot;,&quot;63&quot;]	452_63	[&quot;452&quot;,&quot;63&quot;]</span><br><span class="line">4	1235	小米6	[&quot;785&quot;,&quot;36&quot;]	785_36	[&quot;785&quot;,&quot;36&quot;]</span><br><span class="line">5	4562	OPPO Findx	[&quot;7875&quot;,&quot;3563&quot;]	7875_3563	[&quot;7875&quot;,&quot;3563&quot;]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="查询map"><a href="#查询map" class="headerlink" title="查询map"></a>查询map</h2><h3 id="返回map字段某个key的value"><a href="#返回map字段某个key的value" class="headerlink" title="返回map字段某个key的value"></a>返回map字段某个key的value</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- mapKeys表数据</span><br><span class="line"> 	sku_id	sku_name	state_map</span><br><span class="line">1	123	华为Mate10	&#123;&quot;id&quot;:&quot;1111&quot;,&quot;token&quot;:&quot;2222&quot;,&quot;user_name&quot;:&quot;zhangsan1 &quot;&#125;</span><br><span class="line">2	456	华为Mate30	&#123;&quot;id&quot;:&quot;1113&quot;,&quot;token&quot;:&quot;2224&quot;,&quot;user_name&quot;:&quot;zhangsan3 &quot;&#125;</span><br><span class="line">3	789	小米5	&#123;&quot;id&quot;:&quot;1114&quot;,&quot;token&quot;:&quot;2225&quot;,&quot;user_name&quot;:&quot;zhangsan4 &quot;&#125;</span><br><span class="line">4	1235	小米6	&#123;&quot;id&quot;:&quot;1115&quot;,&quot;token&quot;:&quot;2226&quot;,&quot;user_name&quot;:&quot;zhangsan5 &quot;&#125;</span><br><span class="line">5	4562	OPPO Findx	&#123;&quot;id&quot;:&quot;1116&quot;,&quot;token&quot;:&quot;2227&quot;,&quot;user_name&quot;:&quot;zhangsan6&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">select state_map[&#39;id&#39;] from mapKeys;</span><br><span class="line"></span><br><span class="line"> 	_c0</span><br><span class="line">1	1111</span><br><span class="line">2	1113</span><br><span class="line">3	1114</span><br><span class="line">4	1115</span><br><span class="line">5	1116</span><br><span class="line"></span><br><span class="line">-- 访问不存在的key，会返回null值</span><br><span class="line">select state_map[&#39;user_name&#39;], state_map[&#39;name&#39;] from mapkeys;</span><br><span class="line">1	zhangsan1 	NULL</span><br><span class="line">2	zhangsan3 	NULL</span><br><span class="line">3	zhangsan4 	NULL</span><br><span class="line">4	zhangsan5 	NULL</span><br><span class="line">5	zhangsan6	  NULL</span><br><span class="line"></span><br><span class="line">-- 用if判断，访问不存在的key，返回指定值而非null</span><br><span class="line">select state_map[&#39;user_name&#39;], if(state_map[&#39;name&#39;] is null, &#39;无&#39;, state_map[&#39;name&#39;]) from mapkeys;</span><br><span class="line">1 zhangsan1 	无</span><br><span class="line">2	zhangsan3 	无</span><br><span class="line">3	zhangsan4 	无</span><br><span class="line">4	zhangsan5 	无</span><br><span class="line">5	zhangsan6	  无</span><br></pre></td></tr></table></figure>
-
-<h3 id="explode-展开map，每个元素一行，key、value各一列"><a href="#explode-展开map，每个元素一行，key、value各一列" class="headerlink" title="explode()展开map，每个元素一行，key、value各一列"></a>explode()展开map，每个元素一行，key、value各一列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">select explode(state_map) from mapKeys;</span><br><span class="line"> </span><br><span class="line"> 	key	value</span><br><span class="line">1	id	1111</span><br><span class="line">2	token	2222</span><br><span class="line">3	user_name	zhangsan1 </span><br><span class="line">4	id	1113</span><br><span class="line">5	token	2224</span><br><span class="line">6	user_name	zhangsan3 </span><br><span class="line">7	id	1114</span><br><span class="line">8	token	2225</span><br><span class="line">9	user_name	zhangsan4 </span><br><span class="line">10	id	1115</span><br><span class="line">11	token	2226</span><br><span class="line">12	user_name	zhangsan5 </span><br><span class="line">13	id	1116</span><br><span class="line">14	token	2227</span><br><span class="line">15	user_name	zhangsan6</span><br></pre></td></tr></table></figure>
-
-<h3 id="lateral-view测试图搭配explode-输出map字段完整展开结果"><a href="#lateral-view测试图搭配explode-输出map字段完整展开结果" class="headerlink" title="lateral view测试图搭配explode()输出map字段完整展开结果"></a>lateral view测试图搭配explode()输出map字段完整展开结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">	sku_id, sku_name,stateKey,stateVal </span><br><span class="line">from mapkeys lateral view explode(state_map) lt as stateKey, stateVal;</span><br><span class="line"> </span><br><span class="line"> 	sku_id	sku_name	statekey	stateval</span><br><span class="line">1	123	华为Mate10	id	1111</span><br><span class="line">2	123	华为Mate10	token	2222</span><br><span class="line">3	123	华为Mate10	user_name	zhangsan1 </span><br><span class="line">4	456	华为Mate30	id	1113</span><br><span class="line">5	456	华为Mate30	token	2224</span><br><span class="line">6	456	华为Mate30	user_name	zhangsan3 </span><br><span class="line">7	789	小米5	id	1114</span><br><span class="line">8	789	小米5	token	2225</span><br><span class="line">9	789	小米5	user_name	zhangsan4 </span><br><span class="line">10	1235	小米6	id	1115</span><br><span class="line">11	1235	小米6	token	2226</span><br><span class="line">12	1235	小米6	user_name	zhangsan5 </span><br><span class="line">13	4562	OPPO Findx	id	1116</span><br><span class="line">14	4562	OPPO Findx	token	2227</span><br><span class="line">15	4562	OPPO Findx	user_name	zhangsan6</span><br></pre></td></tr></table></figure>
-
-<h3 id="map-keys-返回map字段全部key数据"><a href="#map-keys-返回map字段全部key数据" class="headerlink" title="map_keys()返回map字段全部key数据"></a>map_keys()返回map字段全部key数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select map_keys(state_map) from mapkeys;</span><br><span class="line"></span><br><span class="line">1	[&quot;id&quot;,&quot;token&quot;,&quot;user_name&quot;]</span><br><span class="line">2	[&quot;id&quot;,&quot;token&quot;,&quot;user_name&quot;]</span><br><span class="line">3	[&quot;id&quot;,&quot;token&quot;,&quot;user_name&quot;]</span><br><span class="line">4	[&quot;id&quot;,&quot;token&quot;,&quot;user_name&quot;]</span><br><span class="line">5	[&quot;id&quot;,&quot;token&quot;,&quot;user_name&quot;]</span><br></pre></td></tr></table></figure>
-
-<h3 id="map-values-返回map字段全部值数据"><a href="#map-values-返回map字段全部值数据" class="headerlink" title="map_values()返回map字段全部值数据"></a>map_values()返回map字段全部值数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select map_values(state_map) from mapkeys;</span><br><span class="line"></span><br><span class="line">1 [&quot;1111&quot;,&quot;2222&quot;,&quot;zhangsan1 &quot;]</span><br><span class="line">2	[&quot;1113&quot;,&quot;2224&quot;,&quot;zhangsan3 &quot;]</span><br><span class="line">3	[&quot;1114&quot;,&quot;2225&quot;,&quot;zhangsan4 &quot;]</span><br><span class="line">4	[&quot;1115&quot;,&quot;2226&quot;,&quot;zhangsan5 &quot;]</span><br><span class="line">5	[&quot;1116&quot;,&quot;2227&quot;,&quot;zhangsan6&quot;]</span><br></pre></td></tr></table></figure>
-
-<h3 id="array-contains-判断map-keys-返回的key数组中是否含有某个key"><a href="#array-contains-判断map-keys-返回的key数组中是否含有某个key" class="headerlink" title="array_contains()判断map_keys()返回的key数组中是否含有某个key"></a>array_contains()判断map_keys()返回的key数组中是否含有某个key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">	array_contains(map_keys(state_map),&quot;id&quot;),</span><br><span class="line">	array_contains(map_keys(state_map),&#39;name&#39;) </span><br><span class="line">from mapkeys;</span><br><span class="line"></span><br><span class="line">1	true	false</span><br><span class="line">2	true	false</span><br><span class="line">3	true	false</span><br><span class="line">4	true	false</span><br><span class="line">5	true	false</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询struct类型中某个字段的值"><a href="#查询struct类型中某个字段的值" class="headerlink" title="查询struct类型中某个字段的值"></a>查询struct类型中某个字段的值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- test_student表中，basic_info字段为struct类型，&#96;basic_info&#96; struct&lt;name:string,age:int&gt;</span><br><span class="line"></span><br><span class="line">select basic_info.name from test_student;</span><br></pre></td></tr></table></figure>
-
-<h2 id="where各种使用"><a href="#where各种使用" class="headerlink" title="where各种使用"></a>where各种使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- sales_info表数据</span><br><span class="line"> 	sku_id sku_name	id_array</span><br><span class="line">1	123	华为Mate10	[&quot;1235&quot;,&quot;345&quot;]</span><br><span class="line">2	456	华为Mate30	[&quot;89&quot;,&quot;635&quot;]</span><br><span class="line">3	789	小米5	[&quot;452&quot;,&quot;63&quot;]</span><br><span class="line">4	1235	小米6	[&quot;785&quot;,&quot;36&quot;]</span><br><span class="line">5	4562	OPPO Findx	[&quot;7875&quot;,&quot;3563&quot;]</span><br></pre></td></tr></table></figure>
-
-<h3 id="like-rlike-instr-字符串中是否包含某个字符"><a href="#like-rlike-instr-字符串中是否包含某个字符" class="headerlink" title="like,rlike,instr()字符串中是否包含某个字符"></a>like,rlike,instr()字符串中是否包含某个字符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- 选出sku_name包含A的</span><br><span class="line">select * from sales_info where sku_name like &#39;%A%&#39;;</span><br><span class="line"></span><br><span class="line">select * from sales_info where instr(sku_name,&#39;A&#39;)&gt;0;</span><br><span class="line">-- instr(字符串,字符) 返回字符在字符串中首次出现的位置，如果没有返回0</span><br><span class="line"></span><br><span class="line">select * from sales_info where sku_name rlike &#39;A&#39;;</span><br><span class="line">-- rlike 正则表达式。这里用的java正则，和js正则在转义符上不同</span><br><span class="line">在其他语言中，\\ 表示：我想要在正则表达式中插入一个普通的（字面上的）反斜杠，请不要给它任何特殊的意义。</span><br><span class="line">在 Java 中，\\ 表示：我要插入一个正则表达式的反斜线，所以其后的字符具有特殊的意义。</span><br><span class="line">-- js中 \d 表示 0-9</span><br><span class="line">-- java中 \\d 表示 0-9</span><br></pre></td></tr></table></figure>
-
-<h3 id="in-or-find-in-set-值是否存在某个集合中"><a href="#in-or-find-in-set-值是否存在某个集合中" class="headerlink" title="in(),or,find_in_set()值是否存在某个集合中"></a>in(),or,find_in_set()值是否存在某个集合中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- sku_name为小米5或小米6的</span><br><span class="line">select * from sales_info where sku_name in(&#39;小米5&#39;,&#39;小米6&#39;);</span><br><span class="line"></span><br><span class="line">select * from sales_info where sku_name&#x3D;&#39;小米5&#39; or sku_name&#x3D;&#39;小米6&#39;;</span><br><span class="line"></span><br><span class="line">select * from sales_info where find_in_set(sku_name,&#39;小米5,小米6&#39;)&gt;0;</span><br><span class="line">-- find_in_set(字符串,字符串集) 返回字符串在字符串集中首次出现的位置，没有返回0；字符串集是多个字符串用,间隔的字符串</span><br></pre></td></tr></table></figure>
-
-<h3 id="is-null-size-1基本类型、数组类型是否为null"><a href="#is-null-size-1基本类型、数组类型是否为null" class="headerlink" title="is null,size()=-1基本类型、数组类型是否为null"></a>is null,size()=-1基本类型、数组类型是否为null</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 基本类型是否为null</span><br><span class="line">select * from sales_info where sku_id is null;</span><br><span class="line"></span><br><span class="line">-- 数组类型是否为null</span><br><span class="line">select * from sales_info where size(id_array)&#x3D; -1;</span><br><span class="line">--size(数组) 返回数组长度，也就是数组元素个数。当值为null时，返回-1</span><br><span class="line">size(array(&#39;&#39;)) &#x3D; 0</span><br><span class="line">size(array(&#39;1&#39;)) &#x3D; 1</span><br><span class="line">size(null) &#x3D; -1</span><br></pre></td></tr></table></figure>
-
-<h3 id="between-and-gt-and-lt-值是否在某个范围内"><a href="#between-and-gt-and-lt-值是否在某个范围内" class="headerlink" title="between and, &gt;= and &lt;=值是否在某个范围内"></a>between and, &gt;= and &lt;=值是否在某个范围内</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from sales_info where sku_id between 100 and 800;</span><br><span class="line"></span><br><span class="line">select * from sales_info where sku_id&gt;&#x3D;100 and sku_id&lt;&#x3D;800;</span><br></pre></td></tr></table></figure>
-
-<h3 id="array-contains-find-in-set-数组中是否含有某个元素"><a href="#array-contains-find-in-set-数组中是否含有某个元素" class="headerlink" title="array_contains(),find_in_set()数组中是否含有某个元素"></a>array_contains(),find_in_set()数组中是否含有某个元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- id_array中含有89这个元素的</span><br><span class="line">select * from sales_info where find_in_set(&#39;89&#39;,concat_ws(&#39;,&#39;,id_array))&gt;0;</span><br><span class="line"></span><br><span class="line">select * from sales_info where array_contains(id_array,&#39;89&#39;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="concat-ws-数组中是否有元素含有某个字符"><a href="#concat-ws-数组中是否有元素含有某个字符" class="headerlink" title="concat_ws()数组中是否有元素含有某个字符"></a>concat_ws()数组中是否有元素含有某个字符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- id_array中有元素含有8这个字符</span><br><span class="line">select * from sales_info where concat_ws(&#39;&#39;,id_array) like &#39;%8%&#39;;</span><br><span class="line">select * from sales_info where concat_ws(&#39;&#39;,id_array) rlike &#39;8&#39;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="array-contains-map中是否含有某个key"><a href="#array-contains-map中是否含有某个key" class="headerlink" title="array_contains()map中是否含有某个key"></a>array_contains()map中是否含有某个key</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- mapkeys表中，state_map列含有&#39;id&#39;这个key的</span><br><span class="line">select * from mapkeys where array_contains(map_keys(state_map),&#39;id&#39;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="not-取反"><a href="#not-取反" class="headerlink" title="not, ! 取反"></a>not, ! 取反</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- mapkeys表中，state_map列 不 含有&#39;id&#39;这个key的</span><br><span class="line">select * from mapkeys where not array_contains(map_keys(state_map),&#39;id&#39;);</span><br><span class="line">select * from mapkeys where ! array_contains(map_keys(state_map),&#39;id&#39;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="map中某个key的值包含某个字符"><a href="#map中某个key的值包含某个字符" class="headerlink" title="map中某个key的值包含某个字符"></a>map中某个key的值包含某个字符</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- mapkeys表中，state_map列，user_name(key)的值包含&#39;zhang&#39;的</span><br><span class="line">select * from mapkeys from state_map[&#39;user_name&#39;] rlike &#39;zhang&#39;;</span><br></pre></td></tr></table></figure>
-
-
     </div>
 
     
@@ -1156,6 +578,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/20210602153407/" rel="next" title="【数据分析】第四阶段：大数据查询利器Hive（二）下">
+                  【数据分析】第四阶段：大数据查询利器Hive（二）下 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
