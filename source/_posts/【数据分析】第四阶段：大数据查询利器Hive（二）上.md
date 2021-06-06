@@ -160,11 +160,11 @@ LOCATION
 
 ```
 create external table test_external_1(id int,name string) 
-location '/users/HI18011401591/test_external_1';
+location '/users/HI1591/test_external_1';
 
 show create table test_external_1;
 LOCATION
-	  'hdfs://hadoop1:9000/users/HI18011401591/test_external_1'
+	  'hdfs://hadoop1:9000/users/HI1591/test_external_1'
 ```
 
 ### like复制表结构创建表
@@ -338,12 +338,12 @@ field.delim         	|
 4562|OPPO Findx|7875,3563
 ```
 
-上传data1.txt数据文件到hue云服务器的/user/Hl18011401591路径下
+上传data1.txt数据文件到hue云服务器的/user/Hl1591路径下
 
 load data语句导入数据
 
 ```
-load data inpath '/user/Hl18011401591/data1.txt' overwrite into table sales_info;
+load data inpath '/user/Hl1591/data1.txt' overwrite into table sales_info;
 ```
 
 如果是本地虚拟机创建的服务器，data1.txt上传到服务器本地目录下，在hive目录下load local data...
@@ -400,12 +400,12 @@ mapkey.delim        	:
 4562|OPPO Findx|id:1116,token:2227,user_name:zhangsan6
 ```
 
-上传data2.txt到hue云服务器/user/Hl18011401591/路径下
+上传data2.txt到hue云服务器/user/Hl1591/路径下
 
 load data语句导入数据到mapKeys表中
 
 ```
-load data inpath '/user/Hl18011401591/data2.txt' into table mapKeys;
+load data inpath '/user/Hl1591/data2.txt' into table mapKeys;
 ```
 
 查看导入结果
@@ -445,7 +445,7 @@ collection items terminated by '-';
 数据上传到服务器后，加载数据到test_struct表中
 
 ```
-load data inpath '/user/Hl18011401591/data3.txt' into table test_struct;
+load data inpath '/user/Hl1591/data3.txt' into table test_struct;
 ```
 
 查看导入结果

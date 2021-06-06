@@ -165,7 +165,7 @@ col_list]
 
 语句的顺序不能错。
 
-## hive中语句执行顺序
+## explain查看hive中语句执行顺序
 
 可以通过explain关键字查看执行顺序：
 
@@ -187,6 +187,12 @@ limit 10;
 
 hive语句的执行顺序:
  **from -->where --> select --> group by -->聚合函数--> having --> order by -->limit**
+
+hive语句是转化为mapReduce语句执行的。 
+
+Map过程：from，where，select。根据每一个map产生一个本地的reduce，也对本地的数据块进行group by，聚合，但并不进行having。
+
+Reduce过程：再次进行group by，聚合。然后进行having，order by，limit等。 把map产生的reduce进行合并，合并为我们指定的reduce个数。reduce会产生文件输出。
 
 除了select的顺序和mysql不一样，其他都一样。
 
@@ -605,7 +611,7 @@ select * from mapkeys from state_map['user_name'] rlike 'zhang';
 
 ### group by用法
 
-与mysql一样，select后面只能写group by的字段和聚合函数。
+与mysql一样，select后面只能写group by的字段和聚合函数。对于字符串类型的数据，可以用字符串函数聚合，比如collect_set()等。
 
 ### 以struct、map类型数据中的某个key分组
 
@@ -658,4 +664,599 @@ from order_data
 where month(order_date)>6
 group by year(order_date);
 ```
+
+## limit
+
+和mysql用法相同
+
+```
+# 查询emp表中的前5条数据
+-- 参数1:起始值,默认是0; 参数2:要查询的条数 
+SELECT * FROM emp LIMIT 5;
+SELECT * FROM emp LIMIT 0 , 5;
+# 查询emp表中 从第4条开始,查询6条 -- 起始值默认是从0开始的.
+SELECT * FROM emp LIMIT 3 , 6;
+```
+
+## hive中排序介绍
+
+分区表、分桶表排序，和普通表没有差异。分区表、分桶表虽然物理上数据文件被分到了不同的目录、分成了不同的文件，但逻辑上还是一整张表。
+
+hive中有几种排序方式
+
+|      | order by                               | sort by                | distribute by                           | cluster by                       |
+| ---- | -------------------------------------- | ---------------------- | --------------------------------------- | -------------------------------- |
+| 作用 | order by对输入做全局排序               | 单独在各自reduce中排序 | 控制map中的输出在reduce中如何划分       | 相当于distribute by和sort by合用 |
+| 缺点 | 只有一个reduce，输入规模较大时耗时较长 | 不能保证全局有序       | 只负责划分，不能排序，要和sort by一起用 | 只能升序                         |
+
+```
+-- 查看当前reduce设置为几个，默认为-1无限制
+set mapred.reduce.tasks
+-- mapred.reduce.tasks=-1
+
+-- 设置reduce个数
+set mapred.reduce.tasks = 2
+
+1个reduce是产生一个文件的
+```
+
+## order by排序
+
+```
+-- 单列排序
+select * from tableName order by 字段1;
+
+-- 多列排序
+select * from tableName order by 字段1,字段2;
+
+-- 别名排序，因为hive中select的执行顺序在order by之前，所以order by可以使用select时字段的别名
+select 字段1, 字段2 as 字段2别名 from tableName order by 字段2别名；
+
+-- 和limit搭配使用
+select * from tableName order by 字段1 limit 2,3; -- 从第3条开始取3条，就是3、4、5这三条
+
+-- order by默认asc升序，
+-- 排序字段中有null时，默认是nulls first将null排在第一位，可以改为nulls last将null排在最后
+select * from tableName order by 字段1 nulls last;
+```
+
+- order by
+
+不管我们设置几个reduce，order by总是用一个reduce输出，来保证全局排序。
+
+```
+-- 设置reduce为2
+set mapred.reduce.tasks = 2;
+
+-- 导出数据，reduce设为2，路径下会有2个数据文件。(由于表中数据量太小，这里用group by，让reduce按着设置值生成2个文件)
+insert overwrite directory '/user/Hl1591/test_reduce2/' 
+select sku_id from sales_info group by sku_id;
+
+-- 加上order by，发现只生成一个数据文件
+insert overwrite directory '/user/Hl1591/test_reduce2_orderBy/'
+select sku_id from sales_info group by sku_id
+order by sku_id;
+```
+
+## sort by排序
+
+sort by只对各reduce内数据排序，全局不排序。
+
+但当我们数据量足够小只生成了1个reduce，或reduce指定为1个的时候，sort by就相当于全局排序了。
+
+## distribute by划分reduce
+
+distribute by只有划分reduce功能，没有排序功能。如果要排序，需要和sort by连用。
+
+举例：
+
+```
+-- 设置reduce为6个
+set mapred.reduce.tasks=6;
+
+-- order_data表中，order_date字段为日期类型，且只有2018和2019年的数据
+-- 现在对order_data表，以order_date的年份使用distribute by划分reduce
+-- 并且使用sort by 按 sales销售额字段降序排序
+select * from order_data
+distribute by year(order_date)
+sort by sales desc;
+
+-- 把查询结构导出成文件，看看reduce为6个，且使用了distribute by，数据文件时如何划分的
+insert overwrite directory '/user/Hl1591/test_distribute'
+row format delimited
+fields ternimated by '\t'
+select * from order_data
+distribute by year(order_date)
+sort by sales desc;
+
+在test_distribute目录下，可以看到由于reduce被设为6，生成了6个数据文件。
+但其中只有两个文件是有数据的，其他文件都没有数据。
+这两个数据文件，一个全部是2018年的数据，另一个全部是2019年的数据。
+并且，两个文件各自按照sales字段降序排序。
+```
+
+对分区表、分桶表使用distribute by，和普通表完全一样。
+
+## cluster by
+
+当distribute by和sort by使用同一个字段，且升序排序时，可以简写为cluster by。
+
+```
+select * from order_data distribute by quantity sort by quantity;
+-- 等于
+select * from order_data cluster by quantity;
+
+通过将查询结果导出成数据文件，发现两种写法结果完全一致。
+```
+
+# 表关联查询
+
+hive中关联查询和mysql基本一样，只有以下几点区别：
+
+- hive只支持等值连接。即hive中不支持join on A != B
+- on后面的表达式不支持or
+
+## inner join内连接
+
+和mysql一样，inner可省略，起别名时as可省略
+
+也可以select from a,b where a.xx = b.xx
+
+## left join左连接，right join右连接
+
+和mysql一样。
+
+```
+select * from 
+a left join b
+on a.xx = b.xx
+where a.xx=XX and b.xx!=XX;
+
+join和where一起使用，先将表通过on条件join在一起，再对合并后的结果集where过滤。
+```
+
+## full join全连接
+
+mysql中不支持full outer join，但可以通过 左连接union右连接实现。
+
+full join就是数据横向的维度的并集。
+
+```
+select * from
+a full join b
+on a.xx = b.xx;
+```
+
+# 结果集的合并
+
+## union,union all并集
+
+和mysql一样，union去重按查询顺序排序，union all不去重不排序
+
+union，union all是数据纵向的记录的并集。
+
+```
+select * from a
+union
+select * from b;
+```
+
+## intersect交集
+
+取两个结果集的交集，去重，排序
+
+```
+select * from a
+intersect
+select * from b;
+```
+
+## minus差集
+
+取两个结果集的差集（第一个减去第二个），去重，排序
+
+```
+select * from a minus select * from b; -- a-b，得出a有b没有的
+
+select * from b minus select * from a; -- b-a，得出b有a没有的
+```
+
+# 视图
+
+和mysql的视图基本一样的。
+
+```
+CREATE VIEW [IF NOT EXISTS] [db_name.]view_name -- 视图名称 
+[(column_name [COMMENT column_comment], ...) ] --列名 
+[COMMENT view_comment] --视图注释
+[TBLPROPERTIES (property_name = property_value, ...)] --额外信息 
+AS SELECT ...;
+
+-- 不写其他参数
+create view 视图名 as
+select ...;
+```
+
+视图还可以通过视图创建。
+
+```
+create view view2 as
+select * from view1;
+```
+
+查看视图：
+
+```
+-- 查看视图是否创建成功
+show tables;
+
+-- 查看视图
+desc 视图名;
+
+-- 查看视图详细信息
+desc formatted 视图名;
+```
+
+删除视图
+
+```
+drop view [if exists] 视图名;
+```
+
+修改视图
+
+```
+alter view 视图名 as
+selec...
+```
+
+在修改指定列的视图后，指定的列名失效 
+
+当基表的数据记录增删时，视图也会生变化 
+
+当基表删除视图引用的列后，视图会失效 
+
+当基表添加列后，视图还是原有的列，对新列不做引用。
+
+ 当基表或基视图被删除后，此视图失效
+
+- 视图是只读的，不能用作 LOAD / INSERT / ALTER 的目标; 
+
+- 在创建视图时候视图就已经固定，对基表的增加列操作将不会反映在视图，删除视图引用的列，视图会失效;
+- 删除基表并不会删除视图，需要手动删除视图;
+- 视图可能包含 ORDER BY 和 LIMIT 子句。如果引用视图的查询语句也包含这类子句，其执行优先 级低于视图对应字句
+- 创建视图时，如果未提供列名，则将从 SELECT 语句中自动派生列名;
+- 创建视图时，如果 SELECT 语句中包含其他表达式，例如 x + y，则列名称将以*C0* C1 等形式生成;
+
+# 窗口函数
+
+和mysql中的窗口函数基本一样。
+
+## 聚合窗口函数
+
+```
+-- 和mysql一样
+sum/max/min/avg/count(字段名) over(partition by 分组字段名 order by 排序字段名 rows between and )
+
+rows between: unbounded,preceding,followning,current row
+```
+
+## 偏移窗口函数
+
+lag()，lead()和mysql一样
+
+hive多了个两个：first_value()，last_value()
+
+```
+-- 取分组内，排序后，截止到当前行，第一个值
+first_value(col,default) over(......)
+
+-- 取分组内，排序后，截止到当前行，最后一个值
+last_value(col,default) over(......)
+```
+
+## 排序窗口函数
+
+row_number()，rank()，dense_rank()，ntile()和mysql一样
+
+nitle()是等频切片，比如有20条数据，ntile(5)，每片就是4条数据。
+
+hive多了两个：cume_dist()，percent_rank()
+
+- cume_dist()：小于等于当前值的行数/分组内总行数
+- percent_rank()：分组内当前行的RANK值-1/分组内总行数-1
+
+# hive中的子查询
+
+hive 3.1 支持select，from，where 子句中的子查询 
+
+select 子查询限制：不支持 if / case when 里的子查询 
+
+where 子查询限制：
+
+​	IN/NOT IN 子查询只能选择一列
+
+​	EXISTS/NOT EXISTS 必须有一个或多个相关谓词
+
+​	对父查询的引用仅在子查询的WHERE子句中支持（mysql中支持子查询的其他地方引用父查询）
+
+集合中如果含null数据，不可使用not in, 可以使用in 
+
+主查询和子查询可以不是同一张表
+
+
+
+```
+-- 正常运行
+select 
+	user_info.customer_id,
+	(select 
+			count(distinct order_id) 
+		from test_join_order 
+		where user_info.customer_id = test_join_order.customer_id ) as count 
+from user_info
+where (
+	select 
+		count(distinct order_id) 
+	from test_join_order 
+	where user_info.customer_id = test_join_order.customer_id )>0;
+
+-- 报错，父查询where那里使用了子查询的别名count，因为hive执行顺序from-where-select
+select 
+	user_info.customer_id,
+	(select 
+			count(distinct order_id) 
+		from test_join_order 
+		where user_info.customer_id = test_join_order.customer_id ) as count 
+from user_info
+where count>0;
+```
+
+# 抽样查询
+
+在海量数据下进行数据分析任务时，如果对全量数据进行分析会非常耗时耗费资源，因此一般情况下抽取一小部分数据进行分析建模。
+
+当然数据越多，分析肯定越准确，在条件允许的情况下，全量数据分析肯定更好。
+
+hive中三种抽样方式：
+
+## 随机抽样 rand()函数
+
+使用rand()函数，与distribute by，sort by，order by结合进行随机抽样。
+
+原理就是通过distribute by，sort by，order by对rand()生成的随机数排序，最后通过limit取部分数据达到随机抽样的效果。
+
+```
+select * from order_data order by rand() limit 30;
+
+select * from order_data distribute by rand() sort by rand() limit 30;
+```
+
+## 数据块抽样 tablesample()函数
+
+### 用法一：tablesample(n percent)
+
+tablesampe(n percent)根据数据文件的大小按百分比抽样。由于hive使用hdfs存储数据文件，hdfs中默认一个数据块大小是128M，所以当数据文件本身小于128M时，使用tablesample无论设置n为多少百分比，都会抽取出全部数据。
+
+可以简单理解为，在hive中，数据文件大小小于128M时，tablesample(n percen)函数抽样不起作用，会抽出全部数据。
+
+```
+--select语句不能带where条件且不支持子查询
+select * from order_data tablesample(10 percent) --抽取数据文件大小10%的数据
+```
+
+### 用法二：tablesample(nM)
+
+和percent一样，还是按照数据文件大小抽样，只不过不是按百分比，而是按具体的多少M(兆)抽样。也存在数据大小小于hive默认数据块大小128M时，不起作用抽出全部数据的问题。
+
+```
+select * from order_data tablesample(1M) --抽取1M大小的数据
+```
+
+### 用法三：tablesample(n rows)
+
+指定抽样数据的行数，其中n代表每个map任务均取n行数据。
+
+如果现在有3个mapreduce，虽然n设置为1，但是取得的行数是3。
+
+```
+select * from order_data tablesample(1 rows) --每个map任务抽取1行
+```
+
+## 分桶抽样
+
+语法：tablesample(bucket x out of y) 。从第x个桶开始取，取总桶数/y个桶。
+
+y必须是table总bucket数的倍数或者因子。hive根据y的大小，决定抽样的比例
+
+- 未分桶表
+
+  ```
+  -- 未分桶表使用tablesample(bucket x out of y)时，
+  -- y就是总桶数，后面跟 on 字段名 对表以某个字段分桶
+  -- x依旧表示从第几个桶开始取
+  -- 案例里on rand()表示不按某个字段分桶，按rand()产生的随机数分桶，y是10，就是分10个桶
+  select * from order_data1 tablesample(bucket 1 out of 10 on rand())
+  ```
+
+- 分桶表
+
+  ```
+  -- test_bucket分了3个桶
+  select * from test_bucket 
+  tablesample(bucket 1 out of 6 on sku_id) -- 从第1个桶开始取，取3/6=0.5个桶的数据
+  
+  --test_bucket分了6个桶
+  select * from test_bucket 
+  tablesample(bucket 1 out of 3 on sku_id) -- 从第1个桶开始取，取6/3=2个桶的数据，第二个桶是 1+3
+  ```
+
+# 自定义函数
+
+自定义函数分为三个类别:
+
+UDF(User Defined Function):一进一出(upper(), lower())
+
+UDAF(User Defined Aggregation Function):聚集函数，多进一出(例如count/max/min)
+
+UDTF(User Defined Table Generating Function):一进多出，如lateral view explode()
+
+hive中创建自定义函数 需要用java来编写，而不是用传统的SQL来完成
+
+# hive语句优化
+
+## group by代替distinct去重
+
+```
+select  distinct customer_id
+from test_join_order;
+
+select  customer_id
+from test_join_order;
+group by customer_id
+```
+
+## grouping sets()函数
+
+grouping sets是一种将多个group by 逻辑写在一个sql语句中的便利写法。
+
+```
+-- 假设表中有a,b,num三个字段，现在要按照a，b，a,b三种方式分组统计num总和，并将结果集合并
+SELECT a,b,sum(num) AS total_num
+  FROM DW_AAA.BBB
+ GROUP BY a,b
+ UNION ALL
+SELECT a,sum(num) AS total_num
+  FROM DW_AAA.BBB
+ GROUP BY a
+ UNION ALL 
+SELECT b,sum(num) AS total_num
+  FROM DW_AAA.BBB
+ GROUP BY b
+ 
+ -- 等价于
+SELECT a
+      ,b
+      ,sum(num) AS total_num
+  FROM DW_AAA.BBB
+ GROUP BY a,b
+ GROUPING SETS (a,b),(a),(b)
+```
+
+## grouping sets()函数（转）
+
+GROUPING SETS作为GROUP BY的子句，允许开发人员在GROUP BY语句后面指定多个统计选项，可以简单理解为多条group by语句通过union all把查询结果聚合起来结合起来。
+
+几个demo帮助大家了解：
+
+| grouping sets语句                                            | 等价hive语句                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| select device_id,os_id,app_id,count(user_id) from  test_xinyan_reg group by device_id,os_id,app_id grouping sets((device_id)) | SELECT device_id,null,null,count(user_id) FROM test_xinyan_reg group by device_id |
+| select device_id,os_id,app_id,count(user_id) from  test_xinyan_reg group by device_id,os_id,app_id grouping sets((device_id,os_id)) | SELECT device_id,os_id,null,count(user_id) FROM test_xinyan_reg group by device_id,os_id |
+| select device_id,os_id,app_id,count(user_id) from  test_xinyan_reg group by device_id,os_id,app_id grouping sets((device_id,os_id),(device_id)) | SELECT device_id,os_id,null,count(user_id) FROM test_xinyan_reg group by device_id,os_id <br/>UNION ALL <br/>SELECT device_id,null,null,count(user_id) FROM test_xinyan_reg group by device_id |
+| select device_id,os_id,app_id,count(user_id) from  test_xinyan_reg group by device_id,os_id,app_id grouping sets((device_id),(os_id),(device_id,os_id),()) | SELECT device_id,null,null,count(user_id) FROM test_xinyan_reg group by device_id <br/>UNION ALL <br/>SELECT null,os_id,null,count(user_id) FROM test_xinyan_reg group by os_id <br/>UNION ALL <br/>SELECT device_id,os_id,null,count(user_id) FROM test_xinyan_reg group by device_id,os_id  <br/>UNION ALL <br/>SELECT null,null,null,count(user_id) FROM test_xinyan_reg |
+
+## CUBE函数
+
+cube简称数据魔方，可以实现hive多个任意维度的查询，cube(a,b,c)则首先会对(a,b,c)进行group by，然后依次是(a,b),(a,c),(a),(b,c),(b),(c),最后在对全表进行group by，他会统计所选列中值的所有组合的聚合
+
+```
+select device_id,os_id,app_id,client_version,from_id,count(user_id) 
+from test_xinyan_reg 
+group by device_id,os_id,app_id,client_version,from_id with cube;
+```
+
+手工实现需要写的hql语句（写个程序自己生成的，手写累死）：
+
+```
+SELECT device_id,null,null,null,null ,count(user_id) FROM test_xinyan_reg group by device_id
+UNION ALL
+SELECT null,os_id,null,null,null ,count(user_id) FROM test_xinyan_reg group by os_id
+UNION ALL
+SELECT device_id,os_id,null,null,null ,count(user_id) FROM test_xinyan_reg group by device_id,os_id
+UNION ALL
+SELECT null,null,app_id,null,null ,count(user_id) FROM test_xinyan_reg group by app_id
+UNION ALL
+SELECT device_id,null,app_id,null,null ,count(user_id) FROM test_xinyan_reg group by device_id,app_id
+UNION ALL
+SELECT null,os_id,app_id,null,null ,count(user_id) FROM test_xinyan_reg group by os_id,app_id
+UNION ALL
+SELECT device_id,os_id,app_id,null,null ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,app_id
+UNION ALL
+SELECT null,null,null,client_version,null ,count(user_id) FROM test_xinyan_reg group by client_version
+UNION ALL
+SELECT device_id,null,null,client_version,null ,count(user_id) FROM test_xinyan_reg group by device_id,client_version
+UNION ALL
+SELECT null,os_id,null,client_version,null ,count(user_id) FROM test_xinyan_reg group by os_id,client_version
+UNION ALL
+SELECT device_id,os_id,null,client_version,null ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,client_version
+UNION ALL
+SELECT null,null,app_id,client_version,null ,count(user_id) FROM test_xinyan_reg group by app_id,client_version
+UNION ALL
+SELECT device_id,null,app_id,client_version,null ,count(user_id) FROM test_xinyan_reg group by device_id,app_id,client_version
+UNION ALL
+SELECT null,os_id,app_id,client_version,null ,count(user_id) FROM test_xinyan_reg group by os_id,app_id,client_version
+UNION ALL
+SELECT device_id,os_id,app_id,client_version,null ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,app_id,client_version
+UNION ALL
+SELECT null,null,null,null,from_id ,count(user_id) FROM test_xinyan_reg group by from_id
+UNION ALL
+SELECT device_id,null,null,null,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,from_id
+UNION ALL
+SELECT null,os_id,null,null,from_id ,count(user_id) FROM test_xinyan_reg group by os_id,from_id
+UNION ALL
+SELECT device_id,os_id,null,null,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,from_id
+UNION ALL
+SELECT null,null,app_id,null,from_id ,count(user_id) FROM test_xinyan_reg group by app_id,from_id
+UNION ALL
+SELECT device_id,null,app_id,null,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,app_id,from_id
+UNION ALL
+SELECT null,os_id,app_id,null,from_id ,count(user_id) FROM test_xinyan_reg group by os_id,app_id,from_id
+UNION ALL
+SELECT device_id,os_id,app_id,null,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,app_id,from_id
+UNION ALL
+SELECT null,null,null,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by client_version,from_id
+UNION ALL
+SELECT device_id,null,null,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,client_version,from_id
+UNION ALL
+SELECT null,os_id,null,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by os_id,client_version,from_id
+UNION ALL
+SELECT device_id,os_id,null,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,client_version,from_id
+UNION ALL
+SELECT null,null,app_id,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by app_id,client_version,from_id
+UNION ALL
+SELECT device_id,null,app_id,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,app_id,client_version,from_id
+UNION ALL
+SELECT null,os_id,app_id,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by os_id,app_id,client_version,from_id
+UNION ALL
+SELECT device_id,os_id,app_id,client_version,from_id ,count(user_id) FROM test_xinyan_reg group by device_id,os_id,app_id,client_version,from_id
+UNION ALL
+SELECT null,null,null,null,null ,count(user_id) FROM test_xinyan_reg
+```
+
+
+看着很蛋疼是不是，体会到cube的强大了吗！(低版本hive可以通过union all方式解决，算是没有办法的办法)
+
+## ROLL UP函数
+
+rollup可以实现从右到左递减多级的统计，显示统计某一层次结构的聚合。
+
+```
+select device_id,os_id,app_id,client_version,from_id,count(user_id) 
+from test_xinyan_reg 
+group by device_id,os_id,app_id,client_version,from_id with rollup;
+```
+
+等价以下sql语句：
+
+```
+select device_id,os_id,app_id,client_version,from_id,count(user_id) 
+from test_xinyan_reg 
+group by device_id,os_id,app_id,client_version,from_id 
+grouping sets ((device_id,os_id,app_id,client_version,from_id),(device_id,os_id,app_id,client_version),(device_id,os_id,app_id),(device_id,os_id),(device_id),());
+```
+
+————————————————
+版权声明：本文为CSDN博主「扫大街的程序员」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/moon_yang_bj/article/details/17200367
 

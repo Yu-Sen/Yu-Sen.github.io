@@ -168,7 +168,7 @@ GROUP BY
 
 ntile(**n**)，用于将分组数据按照顺序切分成n片，返回当前切片值。
 
-Ntile(n) over(partition by <分组字段A> order by <排序字段B>)函数简单的说，就是对将个分组（没有分组就是整张表）的数据，先按照order by字段排序，然后分成n组，然后按照排序给每个组排名。
+Ntile(n) over(partition by <分组字段A> order by <排序字段B>)函数简单的说，就是对各分组（没有分组就是整张表）的数据，先按照order by字段排序，然后分成n组，然后按照排序给每个组排名。
 
 ```sql
 # 需求6: 查询出将2020年2月的支付用户，按照支付金额分成5组后的结果
@@ -203,9 +203,9 @@ lead() 函数，允许您向下看多行并从当前行访问偏移行的数据�
 
 ```
 # 向上偏移
-lag(<expression>[,offset[, default_value]]) over (partition by expr,... order by expr [asc|desc],...) 
+lag(<expression>[,offset[, default_value]]) over (partition by expr... order by expr [asc|desc]...) 
 # 向下偏移
-lead(<expression>[,offset[, default_value]]) over (partition by expr,... order by expr [asc|desc],...) 
+lead(<expression>[,offset[, default_value]]) over (partition by expr... order by expr [asc|desc]...) 
 ```
 
 执行到当前分组的某一行时，返回偏移offset行的行的expression字段的值，如果偏移量超过了分组或窗口范围，返回default_value。
