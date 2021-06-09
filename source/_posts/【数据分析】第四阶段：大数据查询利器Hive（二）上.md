@@ -20,7 +20,7 @@ hive没有存储数据的能力，只有使用数据的能力。
 
 ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-28_00-21-46.jpg)
 
-Hive 通过给用户提供的一系列交互接口，接收到用户的指令(SQL)，使用自己的 Driver， 结合元数据(MetaStore)，将这些指令翻译成 MapReduce，提交到 Hadoop 中执行，最后，将 执行返回的结果输出到用户交互接口。
+Hive 通过给用户提供的一系列交互接口，接收到用户的指令(SQL)，使用自己的 Driver， 结合元数据(MetaStore)，将这些指令翻译成 MapReduce，提交到 Hadoop 中执行，最后，将执行返回的结果输出到用户交互接口。
 
 # HQL和SQL区别
 

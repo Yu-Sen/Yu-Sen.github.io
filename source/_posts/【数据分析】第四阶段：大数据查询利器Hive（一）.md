@@ -5,7 +5,7 @@ tags:
 - 数据分析
 categories:
 - 学习笔记
-description: 了解大数据、hadoop
+description: 了解大数据、hadoop、HDFS、MapReduce、数仓分层
 ---
 
 excel一个工作表可以存住104万条记录。
@@ -144,5 +144,69 @@ js，埋点
 
 核心组件是HDFS（分布式存储）和MapReduce（分布式计算）
 
-![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-27_23-51-09.jpg) ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-27_23-51-28.jpg)
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-27_23-51-09.jpg) ![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-05-27_23-51-28.jpg )
 
+# HDFS分布式存储系统
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-09_22-17-37.jpg)
+
+hadoop distributed file system，使用多台计算机存储文件，提供统一访问接口NameNode。NameNode存放的是元数据。
+
+HDFS客户端发出请求到NameNode，NameNode会映射到相应的DataNode上进行存取文件。
+
+HDFS默认128M每块，每块备份3个。
+
+HDFS基本组件：
+
+- HDFS Client：提供HDFS管理命令
+- NameNode：管理元数据
+- DataNode：复制文件块
+- SecondaryNameNode：NameNode的备份
+
+HDFS四大机制
+
+- 心跳机制：NameNode和DataNode之间每隔多少秒就发送请求，确认彼此还在。我这台服务器还活着呢，你要是想取数据想干嘛的可以到我这台服务器上。
+- 安全模式：1. 文件存储的时候要有备份；2. HDFS冷启动的时候，NameNode还没有加载完元数据，所以操作时不能动的，要等加载完后安全模式才会取消。
+- 副本存放策略：每一个文件是怎样备份的。
+- 负载均衡：最高容量机器和最低容量机器不能差距太多，这个机器存100M，那个机器存1M。
+
+# MapReduce分布式计算
+
+分而治之
+
+计算向数据靠拢。而不是数据向计算靠拢。
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-09_22-54-15.jpg)
+
+从每个DataNode中取出不同数据块，得到完整数据。完整数据又根据设置的Map个数被分成几个split，一个split只交给一个Map处理。每个Map处理完自己的split后，结果再交给Reduce合并到一起处理，最后由Reduce输出最终完整结果。
+
+# Hive数据仓库工具
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-09_23-07-09.jpg)
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-09_23-07-26.jpg)
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-09_23-10-09.jpg)
+
+# 数仓分层
+
+数仓分层的好处
+
+- 清晰数据结构：每一层都分开了，每一层的指责都划分好了，分工明确。比如这一层负责统计每一天的，这一层负责统计每一周的，这一层负责展示可视化的。
+- 减少重复开发：空间置换时间。把经常重复用的中间数据层都写好放在集群上，这样以后需要用的时候就不需要每次都重新写了。
+- 统一数据口径：中间层的汇总是为了输出一些指标一些计算。我们把这些指标都计算好了放在中间层上，之后直接用就可以了。作为应用层的人员没有权限修改中间层，这样指标口径就统一些。
+- 复杂问题简单化：例如很多子查询，分层后就不需要子查询，第一层就做最里层的子查询，第二层就做第二层的查询，以此类推，到了应用层直接select *就可以了，因为数据分层已经一层一层把前面子查询的步骤完成好了。
+
+通用的分层设计，一般都是四层
+
+- 第一层数据运营层ODS：Mysql、Oracle中的数据直接拿来存储，原始数据。
+- 第二层数据明细层DWD：数据维度退化，不用的列去掉，编码恢复，比如01恢复成男女。
+- 第三层数据服务层DWS：根据分析业务，对表进行一些汇总操作。
+- 第四层数据应用层APP：针对汇总好的数据，进行简单的运算，就能投入业务中使用了。
+
+维表层DIM
+
+- 高基数维度数据：一般是用户资料表，商品资料表类似的资料表。比如姓名、性别、等等。
+- 低基数维度数据：一般是配置表。枚举类型的中文含义。字典。比如0-浏览，1-收藏，2-加入购物车等等。
+
+维表层可以单独建立，也可以放在数据运营层里。一般是放在数据运营层里。
