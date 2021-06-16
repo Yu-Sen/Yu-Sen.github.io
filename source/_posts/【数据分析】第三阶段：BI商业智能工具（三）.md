@@ -480,3 +480,5 @@ k = i * conv% 或者 成功分享的人数/分享的总次数
 # 指标搭建方法论
 
 OSM模型+UJM模型
+
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-16_19-59-14.jpg)
