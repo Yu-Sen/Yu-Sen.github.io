@@ -110,7 +110,7 @@ DROP DATABASE db1_1;
 字段名称2 字段类型 注意 最后一列不要加逗号
 );*/
 CREATE TABLE category(
-cid INT,
+		cid INT,
     cname VARCHAR(20)
 );
 
@@ -151,7 +151,7 @@ ALTER TABLE category CHANGE cdesc description VARCHAR(30);
 -- 删除列 alter table 表名 drop 列名;
 ALTER TABLE category DROP description;
 
--- 插入数据，插入数据是插入一行数据
+-- 插入数据
 -- insert into 表名 (字段名1，字段名2...) values(字段值1，字段值2...);
 -- 方式1: 插入全部字段， 将所有字段名都写出来
 INSERT INTO student (sid,sname,age,sex,address) VALUES(1,'孙悟 空 ',20,'男 ','花 果 山 ');
@@ -1007,5 +1007,13 @@ case
  end
 ```
 
-
+```sql
+# 使用DELETE JOIN语句删除重复的行
+# 以下语句删除重复行并保留最高ID：
+DELETE t1 FROM contacts_test t1
+        INNER JOIN
+    contacts_test t2 
+WHERE
+    t1.id < t2.id AND t1.email = t2.email;
+```
 

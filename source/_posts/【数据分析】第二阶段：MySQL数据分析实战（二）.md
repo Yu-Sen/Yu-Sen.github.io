@@ -448,7 +448,7 @@ alter table 表名 drop index 索引名;
 - 视图向用户提供基表（实体表或者其他视图）数据的另一种表现形式。
 
 ```sql
-create view 视图名 [column_list] as select语句;
+create view 视图名 [(column_list)] as select语句;
 view: 表示视图
 column_list: 可选参数，表示属性清单，指定视图中各个属性的名称，默认情况下，与 SELECT语句中查询的属性相同
 as : 表示视图要执行的操作
