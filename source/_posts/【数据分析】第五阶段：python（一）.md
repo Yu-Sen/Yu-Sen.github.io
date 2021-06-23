@@ -1,5 +1,5 @@
 ---
-title: 【数据分析】第五阶段：python（一）
+title: 【数据分析】第五阶段：python（一）Python基础
 date: 2021-06-10 20:32:47
 tags:
 - 数据分析
