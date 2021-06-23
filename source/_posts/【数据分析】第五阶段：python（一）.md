@@ -6,7 +6,7 @@ tags:
 - python
 categories:
 - 学习笔记
-description: python基础语法
+description: 本模块全面系统地讲授Python语法基础，面向对象，高阶函数，模块化运用。为后面的数据分析编程打下基础，同时具备自动化处理数据的基础。
 ---
 
 # 变量
