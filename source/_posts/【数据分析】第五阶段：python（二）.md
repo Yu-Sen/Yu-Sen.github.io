@@ -716,7 +716,6 @@ with open('./data_files/daily_report.pdf', 'rb') as f:
         interpreter.process_page(page)
 # 打印出缓冲区的内容
 print(output_string.getvalue())
-
 ```
 
 ### PDF添加水印
