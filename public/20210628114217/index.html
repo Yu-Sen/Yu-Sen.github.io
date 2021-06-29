@@ -22,13 +22,13 @@
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yu-sen.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
 <meta name="description" content="本模块基于Pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）">
+<meta property="og:title" content="【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）(上)">
 <meta property="og:url" content="https://yu-sen.github.io/20210628114217/index.html">
 <meta property="og:site_name" content="昱森笔记">
 <meta property="og:description" content="本模块基于Pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-28T03:42:17.000Z">
-<meta property="article:modified_time" content="2021-06-28T03:43:20.618Z">
+<meta property="article:modified_time" content="2021-06-29T13:04:46.165Z">
 <meta property="article:author" content="昱森">
 <meta property="article:tag" content="数据分析">
 <meta property="article:tag" content="python">
@@ -39,10 +39,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20210628114217&#x2F;&quot;,&quot;path&quot;:&quot;20210628114217&#x2F;&quot;,&quot;title&quot;:&quot;【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;yu-sen.github.io&#x2F;20210628114217&#x2F;&quot;,&quot;path&quot;:&quot;20210628114217&#x2F;&quot;,&quot;title&quot;:&quot;【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）(上)&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库） | 昱森笔记</title><script src="/js/config.js"></script>
+<title>【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）(上) | 昱森笔记</title><script src="/js/config.js"></script>
   
 
 
@@ -107,7 +107,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -120,6 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas%E4%BB%8B%E7%BB%8D%E5%92%8C%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">pandas介绍和安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pandas%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">pandas数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Series"><span class="nav-number">2.1.</span> <span class="nav-text">Series</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataFrame"><span class="nav-number">2.2.</span> <span class="nav-text">DataFrame</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E6%9F%A5%E7%9C%8B%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">常用数据查看属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">数据的输入与输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#csv"><span class="nav-number">4.1.</span> <span class="nav-text">csv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Excel"><span class="nav-number">4.2.</span> <span class="nav-text">Excel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HDF5"><span class="nav-number">4.3.</span> <span class="nav-text">HDF5</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%91"><span class="nav-number">4.3.1.</span> <span class="nav-text">坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL"><span class="nav-number">4.4.</span> <span class="nav-text">SQL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%80%89%E5%8F%96"><span class="nav-number">5.</span> <span class="nav-text">数据选取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">5.1.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9"><span class="nav-number">5.2.</span> <span class="nav-text">标签选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E9%80%89%E6%8B%A9"><span class="nav-number">5.3.</span> <span class="nav-text">位置选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boolean%E7%B4%A2%E5%BC%95"><span class="nav-number">5.4.</span> <span class="nav-text">boolean索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.5.</span> <span class="nav-text">赋值操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%88%90"><span class="nav-number">6.</span> <span class="nav-text">数据集成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#concat%E6%95%B0%E6%8D%AE%E4%B8%B2%E8%81%94"><span class="nav-number">6.1.</span> <span class="nav-text">concat数据串联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#append%E8%BF%BD%E5%8A%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">6.2.</span> <span class="nav-text">append追加数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#insert%E6%95%B0%E6%8D%AE%E6%8F%92%E5%85%A5"><span class="nav-number">6.3.</span> <span class="nav-text">insert数据插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge%E6%96%B9%E6%B3%95sql%E9%A3%8E%E6%A0%BCjoin%E5%90%88%E5%B9%B6"><span class="nav-number">6.4.</span> <span class="nav-text">merge方法sql风格join合并</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97"><span class="nav-number">7.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2"><span class="nav-number">8.</span> <span class="nav-text">数据转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%B4%E5%92%8C%E5%85%83%E7%B4%A0%E8%BD%AC%E6%8D%A2"><span class="nav-number">8.1.</span> <span class="nav-text">轴和元素转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map%E6%98%A0%E5%B0%84%E5%85%83%E7%B4%A0%E8%BD%AC%E5%8F%98"><span class="nav-number">8.2.</span> <span class="nav-text">map映射元素转变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E6%98%A0%E5%B0%84%E5%85%83%E7%B4%A0%E8%BD%AC%E5%8F%98"><span class="nav-number">8.3.</span> <span class="nav-text">apply映射元素转变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transform%E5%85%83%E7%B4%A0%E8%BD%AC%E5%8F%98"><span class="nav-number">8.4.</span> <span class="nav-text">transform元素转变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E6%8B%8D%E9%9A%8F%E6%9C%BA%E6%8A%BD%E6%A0%B7%E5%93%91%E5%8F%98%E9%87%8F"><span class="nav-number">8.5.</span> <span class="nav-text">重拍随机抽样哑变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%87%8D%E5%A1%91"><span class="nav-number">9.</span> <span class="nav-text">数据重塑</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -200,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）
+          【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）(上)
         </h1>
 
         <div class="post-meta-container">
@@ -210,10 +211,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-06-28 11:42:17 / 修改时间：11:43:20" itemprop="dateCreated datePublished" datetime="2021-06-28T11:42:17+08:00">2021-06-28</time>
+      <time title="创建时间：2021-06-28 11:42:17" itemprop="dateCreated datePublished" datetime="2021-06-28T11:42:17+08:00">2021-06-28</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-29 21:04:46" itemprop="dateModified" datetime="2021-06-29T21:04:46+08:00">2021-06-29</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -235,7 +242,3940 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="pandas介绍和安装"><a href="#pandas介绍和安装" class="headerlink" title="pandas介绍和安装"></a>pandas介绍和安装</h1><ul>
+<li>Python在数据处理和准备方面一直做得很好，但在数据分析和建模方面就差一些。pandas帮助填 补了这一空白，使您能够在Python中执行整个数据分析工作流程，而不必切换到更特定于领域的语 言，如R。</li>
+<li>与出色的 jupyter工具包和其他库相结合，Python中用于进行数据分析的环境在性能、生产率和协 作能力方面都是卓越的。</li>
+<li>pandas是 Python 的核心数据分析支持库，提供了快速、灵活、明确的数据结构，旨在简单、直观 地处理关系型、标记型数据。pandas是Python进行数据分析的必备高级工具。</li>
+<li> pandas的主要数据结构是 **Series(**一维数据)与 <strong>DataFrame</strong> (二维数据)，这两种数据结构足以处理 金融、统计、社会科学、工程等领域里的大多数案例。</li>
+<li>处理数据一般分为几个阶段:数据整理与清洗、数据分析与建模、数据可视化与制表，Pandas 是 处理数据的理想工具。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pandas</span><br></pre></td></tr></table></figure>
+
+<h1 id="pandas数据结构"><a href="#pandas数据结构" class="headerlink" title="pandas数据结构"></a>pandas数据结构</h1><h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><p>In [1]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import pandas as pd # pandas基于numpy，使用pandas必须先引入numpy</span><br></pre></td></tr></table></figure>
+
+<p>In [2]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Series</span></span><br><span class="line">l = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">9</span>]) <span class="comment"># Numpy数组</span></span><br><span class="line"></span><br><span class="line">s1 = pd.Series(data = l)</span><br><span class="line"></span><br><span class="line">display(l,s1)  <span class="comment"># Series是一维的数组，和NumPy数组不一样：Series多了索引，创建的时候没有指明索引，默认从0开始</span></span><br><span class="line">array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>])</span><br><span class="line"><span class="number">0</span>    <span class="number">1</span></span><br><span class="line"><span class="number">1</span>    <span class="number">2</span></span><br><span class="line"><span class="number">2</span>    <span class="number">3</span></span><br><span class="line"><span class="number">3</span>    <span class="number">6</span></span><br><span class="line"><span class="number">4</span>    <span class="number">9</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [3]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s2 = pd.Series(data = l, index = <span class="built_in">list</span>(<span class="string">&#x27;ABCDE&#x27;</span>)) <span class="comment"># 创建的时候指明索引</span></span><br><span class="line">s2</span><br></pre></td></tr></table></figure>
+
+<p>Out[3]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    1</span><br><span class="line">B    2</span><br><span class="line">C    3</span><br><span class="line">D    6</span><br><span class="line">E    9</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [4]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Series也可以以键值对的形式构建，键作为Series的索引，值作为Series的值</span></span><br><span class="line">s3 = pd.Series(data = &#123;<span class="string">&#x27;A&#x27;</span>:<span class="number">149</span>, <span class="string">&#x27;B&#x27;</span>:<span class="number">130</span>, <span class="string">&#x27;C&#x27;</span>:<span class="number">118</span>, <span class="string">&#x27;D&#x27;</span>:<span class="number">99</span>, <span class="string">&#x27;E&#x27;</span>:<span class="number">66</span>&#125;)</span><br><span class="line">s3</span><br></pre></td></tr></table></figure>
+
+<p>Out[4]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    149</span><br><span class="line">B    130</span><br><span class="line">C    118</span><br><span class="line">D     99</span><br><span class="line">E     66</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p>In [6]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Series是一维的，功能比较少</span></span><br><span class="line"><span class="comment"># DataFrame是二维的，多个Series公用索引，组成了DataFrame </span></span><br><span class="line">df1 = pd.DataFrame(</span><br><span class="line">    data = np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">10</span>,<span class="number">3</span>)),</span><br><span class="line">    index = <span class="built_in">list</span>(<span class="string">&#x27;ABCDEFGHIJ&#x27;</span>), <span class="comment"># 行索引</span></span><br><span class="line">    columns = [<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>] <span class="comment"># 列索引</span></span><br><span class="line">)</span><br><span class="line">df1</span><br></pre></td></tr></table></figure>
+
+<p>Out[6]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">133</td>
+<td align="right">30</td>
+<td align="right">132</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">0</td>
+<td align="right">53</td>
+<td align="right">58</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">99</td>
+<td align="right">125</td>
+<td align="right">103</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">30</td>
+<td align="right">28</td>
+<td align="right">11</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">77</td>
+<td align="right">64</td>
+<td align="right">114</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">50</td>
+<td align="right">11</td>
+<td align="right">94</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">91</td>
+<td align="right">15</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">115</td>
+<td align="right">123</td>
+<td align="right">89</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">16</td>
+<td align="right">65</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">64</td>
+<td align="right">40</td>
+<td align="right">18</td>
+</tr>
+</tbody></table>
+<p>In [7]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df2 = pd.DataFrame(data = &#123;<span class="string">&#x27;Python&#x27;</span>:[<span class="number">66</span>,<span class="number">99</span>,<span class="number">128</span>], <span class="string">&#x27;Math&#x27;</span>:[<span class="number">88</span>,<span class="number">65</span>,<span class="number">137</span>], <span class="string">&#x27;En&#x27;</span>:[<span class="number">100</span>,<span class="number">121</span>,<span class="number">45</span>]&#125;)</span><br><span class="line">df2 <span class="comment"># 字典，key作为列索引，index不指定默认从0开始索引</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[7]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">66</td>
+<td align="right">88</td>
+<td align="right">100</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">99</td>
+<td align="right">65</td>
+<td align="right">121</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">128</td>
+<td align="right">137</td>
+<td align="right">45</td>
+</tr>
+</tbody></table>
+<h1 id="常用数据查看属性"><a href="#常用数据查看属性" class="headerlink" title="常用数据查看属性"></a>常用数据查看属性</h1><p>In [8]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data = np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">100</span>,<span class="number">3</span>)),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[8]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">105</td>
+<td align="right">7</td>
+<td align="right">85</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">103</td>
+<td align="right">125</td>
+<td align="right">89</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">59</td>
+<td align="right">94</td>
+<td align="right">112</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">62</td>
+<td align="right">148</td>
+<td align="right">11</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">39</td>
+<td align="right">89</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="right">…</td>
+<td align="right">…</td>
+<td align="right">…</td>
+<td align="right">…</td>
+</tr>
+<tr>
+<td align="right">95</td>
+<td align="right">77</td>
+<td align="right">95</td>
+<td align="right">95</td>
+</tr>
+<tr>
+<td align="right">96</td>
+<td align="right">136</td>
+<td align="right">77</td>
+<td align="right">97</td>
+</tr>
+<tr>
+<td align="right">97</td>
+<td align="right">56</td>
+<td align="right">10</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">98</td>
+<td align="right">114</td>
+<td align="right">11</td>
+<td align="right">84</td>
+</tr>
+<tr>
+<td align="right">99</td>
+<td align="right">141</td>
+<td align="right">42</td>
+<td align="right">39</td>
+</tr>
+</tbody></table>
+<p>100 rows × 3 columns</p>
+<p>In [10]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.shape <span class="comment"># 查看DataFrame的形状</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[10]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(100, 3)</span><br></pre></td></tr></table></figure>
+
+<p>In [13]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.head(n = <span class="number">3</span>) <span class="comment"># 显示前n个，默认n=5</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[13]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">105</td>
+<td align="right">7</td>
+<td align="right">85</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">103</td>
+<td align="right">125</td>
+<td align="right">89</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">59</td>
+<td align="right">94</td>
+<td align="right">112</td>
+</tr>
+</tbody></table>
+<p>In [15]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.tail() <span class="comment"># 显示后n个，默认n=5</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[15]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">95</td>
+<td align="right">77</td>
+<td align="right">95</td>
+<td align="right">95</td>
+</tr>
+<tr>
+<td align="right">96</td>
+<td align="right">136</td>
+<td align="right">77</td>
+<td align="right">97</td>
+</tr>
+<tr>
+<td align="right">97</td>
+<td align="right">56</td>
+<td align="right">10</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">98</td>
+<td align="right">114</td>
+<td align="right">11</td>
+<td align="right">84</td>
+</tr>
+<tr>
+<td align="right">99</td>
+<td align="right">141</td>
+<td align="right">42</td>
+<td align="right">39</td>
+</tr>
+</tbody></table>
+<p>In [16]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.dtypes <span class="comment"># 数据类型</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[16]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python    int64</span><br><span class="line">Math      int64</span><br><span class="line">En        int64</span><br><span class="line">dtype: object</span><br></pre></td></tr></table></figure>
+
+<p>In [17]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">df.info() <span class="comment"># 详细信息</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">pandas</span>.<span class="title">core</span>.<span class="title">frame</span>.<span class="title">DataFrame</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"><span class="title">RangeIndex</span>:</span> <span class="number">100</span> entries, <span class="number">0</span> to <span class="number">99</span></span><br><span class="line">Data columns (total <span class="number">3</span> columns):</span><br><span class="line"> <span class="comment">#   Column  Non-Null Count  Dtype</span></span><br><span class="line">---  ------  --------------  -----</span><br><span class="line"> <span class="number">0</span>   Python  <span class="number">100</span> non-null    int64</span><br><span class="line"> <span class="number">1</span>   Math    <span class="number">100</span> non-null    int64</span><br><span class="line"> <span class="number">2</span>   En      <span class="number">100</span> non-null    int64</span><br><span class="line">dtypes: int64(<span class="number">3</span>)</span><br><span class="line">memory usage: <span class="number">2.5</span> KB</span><br></pre></td></tr></table></figure>
+
+<p>In [18]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.describe() <span class="comment"># 描述数据的统计信息：平均值，标准差，中位数，四等分，最大值，最小值</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[18]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">count</td>
+<td align="right">100.000000</td>
+<td align="right">100.000000</td>
+<td align="right">100.000000</td>
+</tr>
+<tr>
+<td align="right">mean</td>
+<td align="right">74.430000</td>
+<td align="right">78.520000</td>
+<td align="right">71.810000</td>
+</tr>
+<tr>
+<td align="right">std</td>
+<td align="right">41.493642</td>
+<td align="right">44.733437</td>
+<td align="right">42.361288</td>
+</tr>
+<tr>
+<td align="right">min</td>
+<td align="right">0.000000</td>
+<td align="right">0.000000</td>
+<td align="right">1.000000</td>
+</tr>
+<tr>
+<td align="right">25%</td>
+<td align="right">38.750000</td>
+<td align="right">41.250000</td>
+<td align="right">33.250000</td>
+</tr>
+<tr>
+<td align="right">50%</td>
+<td align="right">72.500000</td>
+<td align="right">80.000000</td>
+<td align="right">78.500000</td>
+</tr>
+<tr>
+<td align="right">75%</td>
+<td align="right">108.250000</td>
+<td align="right">118.750000</td>
+<td align="right">106.250000</td>
+</tr>
+<tr>
+<td align="right">max</td>
+<td align="right">147.000000</td>
+<td align="right">150.000000</td>
+<td align="right">146.000000</td>
+</tr>
+</tbody></table>
+<p>In [20]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.values <span class="comment"># 值，返回NumPy数组</span></span><br></pre></td></tr></table></figure>
+
+<p>. . .</p>
+<p>In [21]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.columns <span class="comment"># 列索引</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[21]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Index([&#39;Python&#39;, &#39;Math&#39;, &#39;En&#39;], dtype&#x3D;&#39;object&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>In [22]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.index <span class="comment"># 行索引</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[22]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RangeIndex(start&#x3D;0, stop&#x3D;100, step&#x3D;1)</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据的输入与输出"><a href="#数据的输入与输出" class="headerlink" title="数据的输入与输出"></a>数据的输入与输出</h1><h2 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data = np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">5</span>,<span class="number">3</span>)),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[31]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<p>In [32]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存数据为csv文件</span></span><br><span class="line">df.to_csv(<span class="string">&#x27;./data.csv&#x27;</span>,</span><br><span class="line">          sep=<span class="string">&#x27;,&#x27;</span>, <span class="comment"># 指定分隔符</span></span><br><span class="line">          index=<span class="literal">True</span>, <span class="comment"># 是否保存行索引，默认True</span></span><br><span class="line">          header=<span class="literal">True</span> <span class="comment"># 是否保存列索引，默认True</span></span><br><span class="line">         )</span><br><span class="line"></span><br><span class="line">,Python,Math,En</span><br><span class="line"><span class="number">0</span>,<span class="number">44</span>,<span class="number">30</span>,<span class="number">120</span></span><br><span class="line"><span class="number">1</span>,<span class="number">6</span>,<span class="number">102</span>,<span class="number">108</span></span><br><span class="line"><span class="number">2</span>,<span class="number">142</span>,<span class="number">19</span>,<span class="number">71</span></span><br><span class="line"><span class="number">3</span>,<span class="number">80</span>,<span class="number">146</span>,<span class="number">74</span></span><br><span class="line"><span class="number">4</span>,<span class="number">63</span>,<span class="number">123</span>,<span class="number">57</span></span><br></pre></td></tr></table></figure>
+
+<p>In [33]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取csv文件数据</span></span><br><span class="line">pd.read_csv(<span class="string">&#x27;./data.csv&#x27;</span>,</span><br><span class="line">            index_col=<span class="number">0</span> <span class="comment"># 第一列作为行索引，如果不指定默认会添加行索引，原来的行索引会变成数据列</span></span><br><span class="line">           )</span><br></pre></td></tr></table></figure>
+
+<p>Out[33]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<p>In [39]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(&#39;.&#x2F;data.csv&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>Out[39]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Unnamed: 0</th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<p>In [34]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pd.read_csv(<span class="string">&#x27;./data.csv&#x27;</span>,</span><br><span class="line">            index_col=<span class="number">0</span>,</span><br><span class="line">            header=<span class="literal">None</span> <span class="comment"># 默认第一行作为列索引，指明header=None，原来的列索引变成数据第一行，生成新的列索引</span></span><br><span class="line">           )</span><br></pre></td></tr></table></figure>
+
+<p>Out[34]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="right">NaN</td>
+<td align="right">Python</td>
+<td align="right">Math</td>
+<td align="right">En</td>
+</tr>
+<tr>
+<td align="right">0.0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1.0</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2.0</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3.0</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4.0</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<h2 id="Excel"><a href="#Excel" class="headerlink" title="Excel"></a>Excel</h2><p>In [35]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[35]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<p>In [36]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 存储数据到excel</span><br><span class="line">df.to_excel(&#39;.&#x2F;data.xls&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>In [38]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 读取excel数据</span><br><span class="line">pd.read_excel(&#39;.&#x2F;data.xls&#39;,index_col&#x3D;0)</span><br></pre></td></tr></table></figure>
+
+<p>Out[38]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">44</td>
+<td align="right">30</td>
+<td align="right">120</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">102</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">142</td>
+<td align="right">19</td>
+<td align="right">71</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="right">146</td>
+<td align="right">74</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">63</td>
+<td align="right">123</td>
+<td align="right">57</td>
+</tr>
+</tbody></table>
+<h2 id="HDF5"><a href="#HDF5" class="headerlink" title="HDF5"></a>HDF5</h2><p>HDF5是一个独特的技术套件，可以管理非常大和复杂的数据收集。</p>
+<p> HDF5，可以存储不同类型数据的文件格式，后缀通常是.h5，它的结构是层次性的。 </p>
+<p>一个HDF5文件可以被看作是一个组包含了各类不同的数据集。</p>
+<p>对于HDF5文件中的数据存储，有两个核心概念:group 和 dataset</p>
+<p>dataset 代表数据集，一个文件当中可以存放不同种类的数据集，这些数据集如何管理，就用到了group</p>
+<p>最直观的理解，可以参考我们的文件管理系统，不同的文件位于不同的目录下。</p>
+<p>目录就是HDF5中的group, 描述了数据集dataset的分类信息，通过group 有效的将多种dataset 进行管 理和区分;文件就是HDF5中的dataset, 表示的是具体的数据。</p>
+<p>需要安装tables库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储数据为hdf5</span></span><br><span class="line">df.to_hdf(<span class="string">&#x27;./data.h5&#x27;</span>, key=<span class="string">&#x27;score&#x27;</span>) <span class="comment"># key相当于文件夹名</span></span><br></pre></td></tr></table></figure>
+
+<p>In [27]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df2 = pd.DataFrame(data = np.random.randint(<span class="number">0</span>,<span class="number">100</span>,size=(<span class="number">10</span>,<span class="number">3</span>)),</span><br><span class="line">                   columns=[<span class="string">&#x27;身高&#x27;</span>,<span class="string">&#x27;体重&#x27;</span>,<span class="string">&#x27;视力&#x27;</span>]</span><br><span class="line">                  )</span><br><span class="line">df2.to_hdf(<span class="string">&#x27;./data.h5&#x27;</span>, key=<span class="string">&#x27;info&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>In [28]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取hdf5数据</span></span><br><span class="line">pd.read_hdf(<span class="string">&#x27;./data.h5&#x27;</span>,key=<span class="string">&#x27;score&#x27;</span>) <span class="comment"># 相当于读取对应文件夹下的数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[28]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">61</td>
+<td align="right">53</td>
+<td align="right">144</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">40</td>
+<td align="right">119</td>
+<td align="right">55</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">25</td>
+<td align="right">12</td>
+<td align="right">60</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">57</td>
+<td align="right">70</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">56</td>
+<td align="right">68</td>
+<td align="right">122</td>
+</tr>
+</tbody></table>
+<p>In [29]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.read_hdf(<span class="string">&#x27;./data.h5&#x27;</span>,key=<span class="string">&#x27;info&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[29]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">身高</th>
+<th align="right">体重</th>
+<th align="right">视力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">74</td>
+<td align="right">99</td>
+<td align="right">76</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">34</td>
+<td align="right">23</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">91</td>
+<td align="right">35</td>
+<td align="right">92</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">79</td>
+<td align="right">14</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">71</td>
+<td align="right">12</td>
+<td align="right">96</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">91</td>
+<td align="right">78</td>
+<td align="right">49</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">23</td>
+<td align="right">49</td>
+<td align="right">28</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">40</td>
+<td align="right">8</td>
+<td align="right">23</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">71</td>
+<td align="right">96</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">59</td>
+<td align="right">62</td>
+<td align="right">96</td>
+</tr>
+</tbody></table>
+<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>pip3 install tables报错，could not find a local hdf5之类的，原因是没有安装hdf5，用brew install hdf5即可。</p>
+<p>完成hdf5的安装，再次执行pip3 install tables，依然报错，报错信息error: command ‘/usr/bin/clang’ failed with exit status 1，原因python版本和tables版本不匹配，python版本过高。解决办法：brew重新安装低版本python，使用低版本python作为默认解释器，再重新安装即可成功。</p>
+<p>Mac系统自带python路径为/System/Library/Frameworks/Python.framework/Version 这里可能会有多个python版本，里面Current存放系统当前python版本。</p>
+<p>HomeBrew安装python路径为/usr/local/Cellar/python 里面存放HomeBrew所安装版本。</p>
+<p>系统命令默认路径在/usr/bin，用户命令默认路径在/usr/local/bin（brew安装的命令默认在这个路径下） 。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/44de7261d5b0">Mac使用HomeBrew安装Python3.*并设为默认版本</a></p>
+<h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><p>需要安装三方库：</p>
+<p>pip install sqlalchemy -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>pip install pymysql -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine <span class="comment"># 数据库引擎，构建和数据库的连接</span></span><br></pre></td></tr></table></figure>
+
+<p>In [38]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这就是一个数据库连接</span></span><br><span class="line"><span class="comment"># mysql+pymysql://数据库用户名:密码@数据库地址/数据库名?参数设置</span></span><br><span class="line">engine = create_engine(<span class="string">&#x27;mysql+pymysql://root:6203021412@localhost/pandas?charset=utf8&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>In [39]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储数据到mysql</span></span><br><span class="line"><span class="comment"># name表名，con数据库连接，index是否存储行索引，默认True</span></span><br><span class="line">df2.to_sql(name=<span class="string">&#x27;info&#x27;</span>, con=engine, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>In [40]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取mysql数据</span></span><br><span class="line">pd.read_sql(<span class="string">&#x27;select * from info&#x27;</span>, con=engine)</span><br></pre></td></tr></table></figure>
+
+<p>Out[40]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">身高</th>
+<th align="right">体重</th>
+<th align="right">视力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">74</td>
+<td align="right">99</td>
+<td align="right">76</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">34</td>
+<td align="right">23</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">91</td>
+<td align="right">35</td>
+<td align="right">92</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">79</td>
+<td align="right">14</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">71</td>
+<td align="right">12</td>
+<td align="right">96</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">91</td>
+<td align="right">78</td>
+<td align="right">49</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">23</td>
+<td align="right">49</td>
+<td align="right">28</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">40</td>
+<td align="right">8</td>
+<td align="right">23</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">71</td>
+<td align="right">96</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">59</td>
+<td align="right">62</td>
+<td align="right">96</td>
+</tr>
+</tbody></table>
+<h1 id="数据选取"><a href="#数据选取" class="headerlink" title="数据选取"></a>数据选取</h1><h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><p>In [33]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">5</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABCDE&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[33]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+</tr>
+</tbody></table>
+<p>In [34]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;Python&#x27;</span>] <span class="comment"># 获取Python列数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[34]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A      4</span><br><span class="line">B     72</span><br><span class="line">C    102</span><br><span class="line">D    143</span><br><span class="line">E     11</span><br><span class="line">Name: Python, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [35]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.Python <span class="comment"># 同df[&#x27;Python&#x27;]，DataFrame中，列索引是属性，dir(df)</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[35]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A      4</span><br><span class="line">B     72</span><br><span class="line">C    102</span><br><span class="line">D    143</span><br><span class="line">E     11</span><br><span class="line">Name: Python, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [36]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>]] <span class="comment"># 获取多列数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[36]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+</tr>
+</tbody></table>
+<h2 id="标签选择"><a href="#标签选择" class="headerlink" title="标签选择"></a>标签选择</h2><p>In [37]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标签，就是行索引 location = loc位置，loc[]里只能写行索引值，写列索引值会报错</span></span><br><span class="line">df.loc[<span class="string">&#x27;A&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Out[37]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python      4</span><br><span class="line">Math       47</span><br><span class="line">En        104</span><br><span class="line">Name: A, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [38]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[[<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;C&#x27;</span>]] <span class="comment"># 获取多行数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[38]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+</tbody></table>
+<p>In [39]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;Python&#x27;</span>] <span class="comment"># 获取某行，某列的数据 [[行1,行2...],[列1,列2,...]]</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[39]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>In [40]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[[<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>],[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>Out[40]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+</tr>
+</tbody></table>
+<p>In [41]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[<span class="string">&#x27;A&#x27;</span>::<span class="number">2</span>,<span class="string">&#x27;Python&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Out[41]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A      4</span><br><span class="line">C    102</span><br><span class="line">E     11</span><br><span class="line">Name: Python, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [42]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.loc[<span class="string">&#x27;A&#x27;</span>:<span class="string">&#x27;D&#x27;</span>,:]</span><br></pre></td></tr></table></figure>
+
+<p>Out[42]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+</tbody></table>
+<h2 id="位置选择"><a href="#位置选择" class="headerlink" title="位置选择"></a>位置选择</h2><p>In [43]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 位置就是数字的索引，从0开始</span></span><br><span class="line">df.iloc[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Out[43]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python      4</span><br><span class="line">Math       47</span><br><span class="line">En        104</span><br><span class="line">Name: A, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [44]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[[<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>Out[44]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+</tr>
+</tbody></table>
+<p>In [46]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[[<span class="number">0</span>,<span class="number">2</span>],[<span class="number">1</span>,<span class="number">2</span>]] <span class="comment"># 行列都要用数字</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[46]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+</tbody></table>
+<p>In [45]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.iloc[:<span class="number">4</span>:<span class="number">2</span>,::<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Out[45]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">20</td>
+</tr>
+</tbody></table>
+<h2 id="boolean索引"><a href="#boolean索引" class="headerlink" title="boolean索引"></a>boolean索引</h2><p>In [47]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df &gt; <span class="number">75</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[47]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">False</td>
+<td align="right">False</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">False</td>
+<td align="right">True</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">True</td>
+<td align="right">False</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">True</td>
+<td align="right">False</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">False</td>
+<td align="right">False</td>
+<td align="right">True</td>
+</tr>
+</tbody></table>
+<p>In [48]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[df&gt;<span class="number">75</span>]</span><br></pre></td></tr></table></figure>
+
+<p>Out[48]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">104.0</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">NaN</td>
+<td align="right">108.0</td>
+<td align="right">124.0</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143.0</td>
+<td align="right">NaN</td>
+<td align="right">123.0</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">94.0</td>
+</tr>
+</tbody></table>
+<p>In [49]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选出python成绩&gt;80分的数据</span></span><br><span class="line">df[<span class="string">&#x27;Python&#x27;</span>] &gt; <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[49]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    False</span><br><span class="line">B    False</span><br><span class="line">C     True</span><br><span class="line">D     True</span><br><span class="line">E    False</span><br><span class="line">Name: Python, dtype: bool</span><br></pre></td></tr></table></figure>
+
+<p>In [50]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cond = df[<span class="string">&#x27;Python&#x27;</span>] &gt; <span class="number">80</span></span><br><span class="line">df[cond]</span><br></pre></td></tr></table></figure>
+
+<p>Out[50]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+</tbody></table>
+<p>In [51]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 选出平均成绩 &gt; 75的数据</span></span><br><span class="line">cond = df.mean(axis=<span class="number">1</span>) &gt; <span class="number">75</span></span><br><span class="line">df[cond]</span><br></pre></td></tr></table></figure>
+
+<p>Out[51]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+</tbody></table>
+<p>In [52]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选出python&gt;70 并且 math&gt;70 的数据</span></span><br><span class="line">cond = (df[<span class="string">&#x27;Python&#x27;</span>] &gt; <span class="number">70</span>) &amp; (df[<span class="string">&#x27;Math&#x27;</span>] &gt; <span class="number">70</span>)</span><br><span class="line">df[cond]</span><br></pre></td></tr></table></figure>
+
+<p>Out[52]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+</tbody></table>
+<p>In [53]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.isin() 行索引是否在指定的数组中</span></span><br><span class="line">display(df.index)</span><br><span class="line">display(df.index.isin([<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;D&#x27;</span>]))</span><br><span class="line">cond = df.index.isin([<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;D&#x27;</span>])</span><br><span class="line">df[cond]</span><br><span class="line">Index([<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br><span class="line">array([<span class="literal">False</span>,  <span class="literal">True</span>, <span class="literal">False</span>,  <span class="literal">True</span>, <span class="literal">False</span>])</span><br></pre></td></tr></table></figure>
+
+<p>Out[53]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+</tbody></table>
+<h2 id="赋值操作"><a href="#赋值操作" class="headerlink" title="赋值操作"></a>赋值操作</h2><p>In [54]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[54]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+</tr>
+</tbody></table>
+<p>In [55]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;Python&#x27;</span>][<span class="string">&#x27;A&#x27;</span>] = <span class="number">150</span> <span class="comment"># 修改某个位置的值，列索引是属性可以直接访问,行索引又是列索引属性返回值的属性，可以使用dir查看</span></span><br></pre></td></tr></table></figure>
+
+<p>In [56]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[56]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">150</td>
+<td align="right">47</td>
+<td align="right">104</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+</tr>
+</tbody></table>
+<p>In [57]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;Java&#x27;</span>] = np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size = <span class="number">5</span>) <span class="comment"># 新增加一列</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[57]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">150</td>
+<td align="right">47</td>
+<td align="right">104</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">124</td>
+<td align="right">133</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">50</td>
+<td align="right">20</td>
+<td align="right">39</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">46</td>
+<td align="right">123</td>
+<td align="right">31</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+<td align="right">150</td>
+</tr>
+</tbody></table>
+<p>In [58]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.loc[[<span class="string">&#x27;B&#x27;</span>,<span class="string">&#x27;C&#x27;</span>,<span class="string">&#x27;D&#x27;</span>],<span class="string">&#x27;Math&#x27;</span>] = <span class="number">147</span> <span class="comment"># 修改多个成绩</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[58]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">150</td>
+<td align="right">47</td>
+<td align="right">104</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">147</td>
+<td align="right">124</td>
+<td align="right">133</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">147</td>
+<td align="right">20</td>
+<td align="right">39</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">147</td>
+<td align="right">123</td>
+<td align="right">31</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">94</td>
+<td align="right">150</td>
+</tr>
+</tbody></table>
+<p>In [59]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cond = df &lt; <span class="number">60</span></span><br><span class="line">df[cond] = <span class="number">60</span> <span class="comment"># 小于60的都改为60，不符合的不改变</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[59]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">150</td>
+<td align="right">60</td>
+<td align="right">104</td>
+<td align="right">124</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">72</td>
+<td align="right">147</td>
+<td align="right">124</td>
+<td align="right">133</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">102</td>
+<td align="right">147</td>
+<td align="right">60</td>
+<td align="right">60</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">143</td>
+<td align="right">147</td>
+<td align="right">123</td>
+<td align="right">60</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">94</td>
+<td align="right">150</td>
+</tr>
+</tbody></table>
+<p>In [60]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df += <span class="number">1000</span> <span class="comment"># +=操作</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[60]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1150</td>
+<td align="right">1060</td>
+<td align="right">1104</td>
+<td align="right">1124</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">1072</td>
+<td align="right">1147</td>
+<td align="right">1124</td>
+<td align="right">1133</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">1102</td>
+<td align="right">1147</td>
+<td align="right">1060</td>
+<td align="right">1060</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1143</td>
+<td align="right">1147</td>
+<td align="right">1123</td>
+<td align="right">1060</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">1060</td>
+<td align="right">1060</td>
+<td align="right">1094</td>
+<td align="right">1150</td>
+</tr>
+</tbody></table>
+<h1 id="数据集成"><a href="#数据集成" class="headerlink" title="数据集成"></a>数据集成</h1><h2 id="concat数据串联"><a href="#concat数据串联" class="headerlink" title="concat数据串联"></a>concat数据串联</h2><p>In [71]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># np.concatenate NumPy数据集成</span></span><br><span class="line">df1 = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">3</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABC&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Py&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df2 = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">3</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;XYZ&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Py&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df3 = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">3</span>,<span class="number">2</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABC&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Java&#x27;</span>,<span class="string">&#x27;JS&#x27;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>In [72]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([df1,df2]) <span class="comment"># 默认axis=0，0维方向合并</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[72]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">X</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">Y</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">Z</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<p>In [73]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([df1,df3], axis=<span class="number">1</span>) <span class="comment"># axis=1，1维方向合并</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[73]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+<th align="right">JS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">7</td>
+</tr>
+</tbody></table>
+<p>In [74]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([df1,df3]) <span class="comment"># 合并的两个数据，索引不对齐时，出现空数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[74]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Java</th>
+<th align="right">JS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1.0</td>
+<td align="right">3.0</td>
+<td align="right">8.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7.0</td>
+<td align="right">0.0</td>
+<td align="right">5.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4.0</td>
+<td align="right">2.0</td>
+<td align="right">8.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">A</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">1.0</td>
+<td align="right">6.0</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">5.0</td>
+<td align="right">6.0</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">3.0</td>
+<td align="right">7.0</td>
+</tr>
+</tbody></table>
+<p>In [75]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([df1,df2],axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[75]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1.0</td>
+<td align="right">3.0</td>
+<td align="right">8.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7.0</td>
+<td align="right">0.0</td>
+<td align="right">5.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4.0</td>
+<td align="right">2.0</td>
+<td align="right">8.0</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">X</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">0.0</td>
+<td align="right">2.0</td>
+<td align="right">4.0</td>
+</tr>
+<tr>
+<td align="right">Y</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">0.0</td>
+<td align="right">6.0</td>
+<td align="right">5.0</td>
+</tr>
+<tr>
+<td align="right">Z</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="right">8.0</td>
+<td align="right">0.0</td>
+<td align="right">1.0</td>
+</tr>
+</tbody></table>
+<h2 id="append追加数据"><a href="#append追加数据" class="headerlink" title="append追加数据"></a>append追加数据</h2><p>In [76]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1.append(df2)</span><br></pre></td></tr></table></figure>
+
+<p>Out[76]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">X</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">Y</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">Z</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<h2 id="insert数据插入"><a href="#insert数据插入" class="headerlink" title="insert数据插入"></a>insert数据插入</h2><p>In [77]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1</span><br></pre></td></tr></table></figure>
+
+<p>Out[77]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+</tbody></table>
+<p>In [78]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入列</span></span><br><span class="line">df1.insert(</span><br><span class="line">    loc=<span class="number">1</span>, <span class="comment"># 插入的位置</span></span><br><span class="line">    column=<span class="string">&#x27;Java&#x27;</span>, <span class="comment"># 插入的列索引值</span></span><br><span class="line">    value=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">3</span>) <span class="comment"># 插入列的值</span></span><br><span class="line">)</span><br><span class="line">df1</span><br></pre></td></tr></table></figure>
+
+<p>Out[78]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Py</th>
+<th align="right">Java</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+</tbody></table>
+<h2 id="merge方法sql风格join合并"><a href="#merge方法sql风格join合并" class="headerlink" title="merge方法sql风格join合并"></a>merge方法sql风格join合并</h2><p>In [79]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">df1 = pd.DataFrame(</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>:[<span class="string">&#x27;Peter&#x27;</span>,<span class="string">&#x27;Mike&#x27;</span>,<span class="string">&#x27;Ana&#x27;</span>,<span class="string">&#x27;John&#x27;</span>,<span class="string">&#x27;张三&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;height&#x27;</span>:[<span class="number">189</span>,<span class="number">195</span>,<span class="number">178</span>,<span class="number">177</span>,<span class="number">180</span>]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">df2 = pd.DataFrame(</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>:[<span class="string">&#x27;Peter&#x27;</span>,<span class="string">&#x27;Mike&#x27;</span>,<span class="string">&#x27;Ana&#x27;</span>,<span class="string">&#x27;John&#x27;</span>,<span class="string">&#x27;李四&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;weight&#x27;</span>:[<span class="number">70</span>,<span class="number">63</span>,<span class="number">75</span>,<span class="number">88</span>,<span class="number">67</span>]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">df3 = pd.DataFrame(</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">&#x27;名字&#x27;</span>:[<span class="string">&#x27;Peter&#x27;</span>,<span class="string">&#x27;Mike&#x27;</span>,<span class="string">&#x27;Ana&#x27;</span>,<span class="string">&#x27;John&#x27;</span>,<span class="string">&#x27;张三&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;salary&#x27;</span>:np.random.randint(<span class="number">20</span>,<span class="number">100</span>,size=<span class="number">5</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>In [80]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 根据共同的属性，合并数据</span></span><br><span class="line"><span class="comment"># df1 和 df2 共同属性：name</span></span><br><span class="line"><span class="comment"># 和sql中join合并一样，用共同的列合并</span></span><br><span class="line"></span><br><span class="line">pd.merge(df1,df2) <span class="comment"># 相当于 inner join on a.name=b.name，默认how=&#x27;inner&#x27;可省略不写</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[80]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">name</th>
+<th align="right">height</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">Peter</td>
+<td align="right">189</td>
+<td align="right">70</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">Mike</td>
+<td align="right">195</td>
+<td align="right">63</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">Ana</td>
+<td align="right">178</td>
+<td align="right">75</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">John</td>
+<td align="right">177</td>
+<td align="right">88</td>
+</tr>
+</tbody></table>
+<p>In [81]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df1,df2,how=<span class="string">&#x27;outer&#x27;</span>) <span class="comment"># 相当于 full outer join on a.name=b.name ，没有的位置填充空数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[81]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">name</th>
+<th align="right">height</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">Peter</td>
+<td align="right">189.0</td>
+<td align="right">70.0</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">Mike</td>
+<td align="right">195.0</td>
+<td align="right">63.0</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">Ana</td>
+<td align="right">178.0</td>
+<td align="right">75.0</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">John</td>
+<td align="right">177.0</td>
+<td align="right">88.0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">张三</td>
+<td align="right">180.0</td>
+<td align="right">NaN</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">李四</td>
+<td align="right">NaN</td>
+<td align="right">67.0</td>
+</tr>
+</tbody></table>
+<p>In [82]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df1,df2,how=<span class="string">&#x27;left&#x27;</span>) <span class="comment"># left join 以df1为主表，空的填充空数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[82]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">name</th>
+<th align="right">height</th>
+<th align="right">weight</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">Peter</td>
+<td align="right">189</td>
+<td align="right">70.0</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">Mike</td>
+<td align="right">195</td>
+<td align="right">63.0</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">Ana</td>
+<td align="right">178</td>
+<td align="right">75.0</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">John</td>
+<td align="right">177</td>
+<td align="right">88.0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">张三</td>
+<td align="right">180</td>
+<td align="right">NaN</td>
+</tr>
+</tbody></table>
+<p>In [83]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df1,df3,left_on=<span class="string">&#x27;name&#x27;</span>,right_on=<span class="string">&#x27;名字&#x27;</span>) <span class="comment"># 列名不同，但是列的值形同</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[83]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">name</th>
+<th align="right">height</th>
+<th align="right">名字</th>
+<th align="right">salary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">Peter</td>
+<td align="right">189</td>
+<td align="right">Peter</td>
+<td align="right">45</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">Mike</td>
+<td align="right">195</td>
+<td align="right">Mike</td>
+<td align="right">83</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">Ana</td>
+<td align="right">178</td>
+<td align="right">Ana</td>
+<td align="right">63</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">John</td>
+<td align="right">177</td>
+<td align="right">John</td>
+<td align="right">26</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">张三</td>
+<td align="right">180</td>
+<td align="right">张三</td>
+<td align="right">93</td>
+</tr>
+</tbody></table>
+<p>In [84]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">score = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">5</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABCDE&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">score</span><br></pre></td></tr></table></figure>
+
+<p>Out[84]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">132</td>
+<td align="right">87</td>
+<td align="right">137</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">5</td>
+<td align="right">68</td>
+<td align="right">17</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">7</td>
+<td align="right">13</td>
+<td align="right">62</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">7</td>
+<td align="right">107</td>
+<td align="right">133</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">63</td>
+<td align="right">144</td>
+<td align="right">125</td>
+</tr>
+</tbody></table>
+<p>In [98]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">score_mean = score.mean(axis=<span class="number">1</span>).<span class="built_in">round</span>(<span class="number">1</span>)</span><br><span class="line">score_mean.name = <span class="string">&#x27;平均分&#x27;</span></span><br><span class="line">score_mean</span><br></pre></td></tr></table></figure>
+
+<p>Out[98]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    118.7</span><br><span class="line">B     30.0</span><br><span class="line">C     27.3</span><br><span class="line">D     82.3</span><br><span class="line">E    110.7</span><br><span class="line">Name: 平均分, dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>In [91]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># score和score_mean 列名不相同，列的值也不相同，只有行索引相同，因此利用 行索引相同合并</span></span><br><span class="line">pd.merge(score,score_mean,left_index=<span class="literal">True</span>,right_index=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[91]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+<th align="right">平均分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">132</td>
+<td align="right">87</td>
+<td align="right">137</td>
+<td align="right">118.7</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">5</td>
+<td align="right">68</td>
+<td align="right">17</td>
+<td align="right">30.0</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">7</td>
+<td align="right">13</td>
+<td align="right">62</td>
+<td align="right">27.3</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">7</td>
+<td align="right">107</td>
+<td align="right">133</td>
+<td align="right">82.3</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">63</td>
+<td align="right">144</td>
+<td align="right">125</td>
+<td align="right">110.7</td>
+</tr>
+</tbody></table>
+<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">&#x27;color&#x27;</span>:[<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="string">&#x27;red&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;blue&#x27;</span>,<span class="literal">None</span>,np.NaN],</span><br><span class="line">        <span class="string">&#x27;price&#x27;</span>:[<span class="number">20</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">18</span>,<span class="number">18</span>,<span class="number">22</span>,<span class="number">30</span>,<span class="number">30</span>]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[99]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">color</th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">blue</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">blue</td>
+<td align="right">22</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">None</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">NaN</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>In [100]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除重复数据</span></span><br><span class="line">df.drop_duplicates() <span class="comment"># NaN和None是一回事 都表示空数据 也是重复数据</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[100]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">color</th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">blue</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">blue</td>
+<td align="right">22</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">None</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>In [101]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除空数据</span></span><br><span class="line">df.dropna() <span class="comment"># None和NaN 都被删除</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[101]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">color</th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">blue</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">blue</td>
+<td align="right">22</td>
+</tr>
+</tbody></table>
+<p>In [102]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除行</span></span><br><span class="line">df.drop(labels=[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>]) <span class="comment"># 默认axis=0省略，0维方向删除，就是删除行</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[102]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">color</th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">red</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">blue</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">green</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">blue</td>
+<td align="right">22</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">NaN</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>In [103]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除列</span></span><br><span class="line">df.drop(labels=<span class="string">&#x27;price&#x27;</span>,axis=<span class="number">1</span>) <span class="comment"># 指明axis=1，1维方向删除，就是删除列</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[103]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">color</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">red</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">blue</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">red</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">green</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">green</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">blue</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">None</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">NaN</td>
+</tr>
+</tbody></table>
+<p>In [105]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤数据</span></span><br><span class="line">df.<span class="built_in">filter</span>(items=[<span class="string">&#x27;price&#x27;</span>]) <span class="comment"># 保留数据price</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[105]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">15</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">20</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">22</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>In [ ]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Examples</span><br><span class="line">--------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.DataFrame(np.array(([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])),</span><br><span class="line"><span class="meta">... </span>                  index=[<span class="string">&#x27;mouse&#x27;</span>, <span class="string">&#x27;rabbit&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>                  columns=[<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df</span><br><span class="line">        one  two  three</span><br><span class="line">mouse     <span class="number">1</span>    <span class="number">2</span>      <span class="number">3</span></span><br><span class="line">rabbit    <span class="number">4</span>    <span class="number">5</span>      <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># select columns by name</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.<span class="built_in">filter</span>(items=[<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;three&#x27;</span>])</span><br><span class="line">         one  three</span><br><span class="line">mouse     <span class="number">1</span>      <span class="number">3</span></span><br><span class="line">rabbit    <span class="number">4</span>      <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># select columns by regular expression</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.<span class="built_in">filter</span>(regex=<span class="string">&#x27;e$&#x27;</span>, axis=<span class="number">1</span>)</span><br><span class="line">         one  three</span><br><span class="line">mouse     <span class="number">1</span>      <span class="number">3</span></span><br><span class="line">rabbit    <span class="number">4</span>      <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># select rows containing &#x27;bbi&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.<span class="built_in">filter</span>(like=<span class="string">&#x27;bbi&#x27;</span>, axis=<span class="number">0</span>)</span><br><span class="line">         one  two  three</span><br><span class="line">rabbit    <span class="number">4</span>    <span class="number">5</span>      <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p>In [119]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 异常值过滤</span></span><br><span class="line">a = np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">10</span>)</span><br><span class="line">cond = (a&lt;<span class="number">8</span>) &amp; (a&gt;<span class="number">2</span>) <span class="comment"># 规定大于8，小于2是异常值</span></span><br><span class="line">a[cond]</span><br></pre></td></tr></table></figure>
+
+<p>Out[119]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([4, 6, 4])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 正态分布异常值，大于3sigma就是异常值</span></span><br><span class="line"><span class="comment"># 3sigma准则：数值分布在(μ-3σ,μ+3σ)中的概率为0.9974，μ是平均值，σ是标准差</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h1><h2 id="轴和元素转换"><a href="#轴和元素转换" class="headerlink" title="轴和元素转换"></a>轴和元素转换</h2><p>In [121]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">5</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABCDE&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[121]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">17</td>
+<td align="right">20</td>
+<td align="right">56</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">100</td>
+<td align="right">8</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">57</td>
+<td align="right">9</td>
+<td align="right">122</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">108</td>
+<td align="right">31</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">89</td>
+<td align="right">106</td>
+<td align="right">126</td>
+</tr>
+</tbody></table>
+<p>In [122]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改索引</span></span><br><span class="line">df.rename(</span><br><span class="line">    index=&#123;<span class="string">&#x27;A&#x27;</span>:<span class="string">&#x27;K&#x27;</span>,<span class="string">&#x27;C&#x27;</span>:<span class="string">&#x27;P&#x27;</span>&#125;, <span class="comment"># 修改行索引</span></span><br><span class="line">    columns=&#123;<span class="string">&#x27;Math&#x27;</span>:<span class="string">&#x27;Java&#x27;</span>&#125;, <span class="comment"># 修改列索引</span></span><br><span class="line">    inplace=<span class="literal">True</span> <span class="comment"># True修改原数组，默认False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Out[122]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Java</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">K</td>
+<td align="right">17</td>
+<td align="right">20</td>
+<td align="right">56</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">100</td>
+<td align="right">8</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="right">P</td>
+<td align="right">57</td>
+<td align="right">9</td>
+<td align="right">122</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">108</td>
+<td align="right">31</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">89</td>
+<td align="right">106</td>
+<td align="right">126</td>
+</tr>
+</tbody></table>
+<p>In [123]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改元素</span></span><br><span class="line">df.replace(<span class="number">8</span>,<span class="number">88</span>,inplace=<span class="literal">True</span>) <span class="comment"># 所有8都改成了88, inplace=True修改原数组，默认False</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[123]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">17</td>
+<td align="right">20</td>
+<td align="right">56</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">100</td>
+<td align="right">88</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">57</td>
+<td align="right">9</td>
+<td align="right">122</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">108</td>
+<td align="right">31</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">89</td>
+<td align="right">106</td>
+<td align="right">126</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">Examples</span><br><span class="line">--------</span><br><span class="line"></span><br><span class="line">**Scalar `to_replace` <span class="keyword">and</span> `value`**</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = pd.Series([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.replace(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line"><span class="number">0</span>    <span class="number">5</span></span><br><span class="line"><span class="number">1</span>    <span class="number">1</span></span><br><span class="line"><span class="number">2</span>    <span class="number">2</span></span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">4</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line"><span class="meta">... </span>                   <span class="string">&#x27;B&#x27;</span>: [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>],</span><br><span class="line"><span class="meta">... </span>                   <span class="string">&#x27;C&#x27;</span>: [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">0</span>  <span class="number">5</span>  <span class="number">5</span>  a</span><br><span class="line"><span class="number">1</span>  <span class="number">1</span>  <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line">**<span class="type">List</span>-like `to_replace`**</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">4</span>)</span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">0</span>  <span class="number">4</span>  <span class="number">5</span>  a</span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>  <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>  <span class="number">4</span>  <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>  <span class="number">4</span>  <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>])</span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">0</span>  <span class="number">4</span>  <span class="number">5</span>  a</span><br><span class="line"><span class="number">1</span>  <span class="number">3</span>  <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>  <span class="number">1</span>  <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.replace([<span class="number">1</span>, <span class="number">2</span>], method=<span class="string">&#x27;bfill&#x27;</span>)</span><br><span class="line"><span class="number">0</span>    <span class="number">0</span></span><br><span class="line"><span class="number">1</span>    <span class="number">3</span></span><br><span class="line"><span class="number">2</span>    <span class="number">3</span></span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">4</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">**<span class="built_in">dict</span>-like `to_replace`**</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(&#123;<span class="number">0</span>: <span class="number">10</span>, <span class="number">1</span>: <span class="number">100</span>&#125;)</span><br><span class="line">     A  B  C</span><br><span class="line"><span class="number">0</span>   <span class="number">10</span>  <span class="number">5</span>  a</span><br><span class="line"><span class="number">1</span>  <span class="number">100</span>  <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>    <span class="number">2</span>  <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>    <span class="number">3</span>  <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>    <span class="number">4</span>  <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(&#123;<span class="string">&#x27;A&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;B&#x27;</span>: <span class="number">5</span>&#125;, <span class="number">100</span>)</span><br><span class="line">     A    B  C</span><br><span class="line"><span class="number">0</span>  <span class="number">100</span>  <span class="number">100</span>  a</span><br><span class="line"><span class="number">1</span>    <span class="number">1</span>    <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>    <span class="number">2</span>    <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>    <span class="number">3</span>    <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>    <span class="number">4</span>    <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(&#123;<span class="string">&#x27;A&#x27;</span>: &#123;<span class="number">0</span>: <span class="number">100</span>, <span class="number">4</span>: <span class="number">400</span>&#125;&#125;)</span><br><span class="line">     A  B  C</span><br><span class="line"><span class="number">0</span>  <span class="number">100</span>  <span class="number">5</span>  a</span><br><span class="line"><span class="number">1</span>    <span class="number">1</span>  <span class="number">6</span>  b</span><br><span class="line"><span class="number">2</span>    <span class="number">2</span>  <span class="number">7</span>  c</span><br><span class="line"><span class="number">3</span>    <span class="number">3</span>  <span class="number">8</span>  d</span><br><span class="line"><span class="number">4</span>  <span class="number">400</span>  <span class="number">9</span>  e</span><br><span class="line"></span><br><span class="line">**Regular expression `to_replace`**</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;bat&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bait&#x27;</span>],</span><br><span class="line"><span class="meta">... </span>                   <span class="string">&#x27;B&#x27;</span>: [<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;xyz&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(to_replace=<span class="string">r&#x27;^ba.$&#x27;</span>, value=<span class="string">&#x27;new&#x27;</span>, regex=<span class="literal">True</span>)</span><br><span class="line">      A    B</span><br><span class="line"><span class="number">0</span>   new  abc</span><br><span class="line"><span class="number">1</span>   foo  new</span><br><span class="line"><span class="number">2</span>  bait  xyz</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(&#123;<span class="string">&#x27;A&#x27;</span>: <span class="string">r&#x27;^ba.$&#x27;</span>&#125;, &#123;<span class="string">&#x27;A&#x27;</span>: <span class="string">&#x27;new&#x27;</span>&#125;, regex=<span class="literal">True</span>)</span><br><span class="line">      A    B</span><br><span class="line"><span class="number">0</span>   new  abc</span><br><span class="line"><span class="number">1</span>   foo  bar</span><br><span class="line"><span class="number">2</span>  bait  xyz</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(regex=<span class="string">r&#x27;^ba.$&#x27;</span>, value=<span class="string">&#x27;new&#x27;</span>)</span><br><span class="line">      A    B</span><br><span class="line"><span class="number">0</span>   new  abc</span><br><span class="line"><span class="number">1</span>   foo  new</span><br><span class="line"><span class="number">2</span>  bait  xyz</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(regex=&#123;<span class="string">r&#x27;^ba.$&#x27;</span>: <span class="string">&#x27;new&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>: <span class="string">&#x27;xyz&#x27;</span>&#125;)</span><br><span class="line">      A    B</span><br><span class="line"><span class="number">0</span>   new  abc</span><br><span class="line"><span class="number">1</span>   xyz  new</span><br><span class="line"><span class="number">2</span>  bait  xyz</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.replace(regex=[<span class="string">r&#x27;^ba.$&#x27;</span>, <span class="string">&#x27;foo&#x27;</span>], value=<span class="string">&#x27;new&#x27;</span>)</span><br><span class="line">      A    B</span><br><span class="line"><span class="number">0</span>   new  abc</span><br><span class="line"><span class="number">1</span>   new  new</span><br><span class="line"><span class="number">2</span>  bait  xyz</span><br><span class="line"></span><br><span class="line">Compare the behavior of ``s.replace(&#123;<span class="string">&#x27;a&#x27;</span>: <span class="literal">None</span>&#125;)`` <span class="keyword">and</span></span><br><span class="line">``s.replace(<span class="string">&#x27;a&#x27;</span>, <span class="literal">None</span>)`` to understand the peculiarities</span><br><span class="line">of the `to_replace` parameter:</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = pd.Series([<span class="number">10</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line"></span><br><span class="line">When one uses a <span class="built_in">dict</span> <span class="keyword">as</span> the `to_replace` value, it <span class="keyword">is</span> like the</span><br><span class="line">value(s) <span class="keyword">in</span> the <span class="built_in">dict</span> are equal to the `value` parameter.</span><br><span class="line">``s.replace(&#123;<span class="string">&#x27;a&#x27;</span>: <span class="literal">None</span>&#125;)`` <span class="keyword">is</span> equivalent to</span><br><span class="line">``s.replace(to_replace=&#123;<span class="string">&#x27;a&#x27;</span>: <span class="literal">None</span>&#125;, value=<span class="literal">None</span>, method=<span class="literal">None</span>)``:</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.replace(&#123;<span class="string">&#x27;a&#x27;</span>: <span class="literal">None</span>&#125;)</span><br><span class="line"><span class="number">0</span>      <span class="number">10</span></span><br><span class="line"><span class="number">1</span>    <span class="literal">None</span></span><br><span class="line"><span class="number">2</span>    <span class="literal">None</span></span><br><span class="line"><span class="number">3</span>       b</span><br><span class="line"><span class="number">4</span>    <span class="literal">None</span></span><br><span class="line">dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">When ``value=<span class="literal">None</span>`` <span class="keyword">and</span> `to_replace` <span class="keyword">is</span> a scalar, <span class="built_in">list</span> <span class="keyword">or</span></span><br><span class="line"><span class="built_in">tuple</span>, `replace` uses the method parameter (default <span class="string">&#x27;pad&#x27;</span>) to do the</span><br><span class="line">replacement. So this <span class="keyword">is</span> why the <span class="string">&#x27;a&#x27;</span> values are being replaced by <span class="number">10</span></span><br><span class="line"><span class="keyword">in</span> rows <span class="number">1</span> <span class="keyword">and</span> <span class="number">2</span> <span class="keyword">and</span> <span class="string">&#x27;b&#x27;</span> <span class="keyword">in</span> row <span class="number">4</span> <span class="keyword">in</span> this case.</span><br><span class="line">The command ``s.replace(<span class="string">&#x27;a&#x27;</span>, <span class="literal">None</span>)`` <span class="keyword">is</span> actually equivalent to</span><br><span class="line">``s.replace(to_replace=<span class="string">&#x27;a&#x27;</span>, value=<span class="literal">None</span>, method=<span class="string">&#x27;pad&#x27;</span>)``:</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.replace(<span class="string">&#x27;a&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line"><span class="number">0</span>    <span class="number">10</span></span><br><span class="line"><span class="number">1</span>    <span class="number">10</span></span><br><span class="line"><span class="number">2</span>    <span class="number">10</span></span><br><span class="line"><span class="number">3</span>     b</span><br><span class="line"><span class="number">4</span>     b</span><br><span class="line">dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="map映射元素转变"><a href="#map映射元素转变" class="headerlink" title="map映射元素转变"></a>map映射元素转变</h2><p>In [124]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[124]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">17</td>
+<td align="right">20</td>
+<td align="right">56</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">100</td>
+<td align="right">8</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">57</td>
+<td align="right">9</td>
+<td align="right">122</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">108</td>
+<td align="right">31</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">89</td>
+<td align="right">106</td>
+<td align="right">126</td>
+</tr>
+</tbody></table>
+<p>In [127]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># map 只能针对一列，就是Series</span></span><br><span class="line"><span class="comment"># 根据字典对数据进行改变，不在字典中的数据就返回NaN</span></span><br><span class="line">df[<span class="string">&#x27;Python&#x27;</span>].<span class="built_in">map</span>(&#123;<span class="number">17</span>:<span class="number">1717</span>, <span class="number">57</span>:<span class="number">5757</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Out[127]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    1717.0</span><br><span class="line">B       NaN</span><br><span class="line">C    5757.0</span><br><span class="line">D       NaN</span><br><span class="line">E       NaN</span><br><span class="line">Name: Python, dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>In [129]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;Math&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x &gt; <span class="number">10</span>) <span class="comment"># lambda表达式，Math列，大于10返回True，否则返回False</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[129]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A     True</span><br><span class="line">B    False</span><br><span class="line">C    False</span><br><span class="line">D     True</span><br><span class="line">E     True</span><br><span class="line">Name: Math, dtype: bool</span><br></pre></td></tr></table></figure>
+
+<p>In [130]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">if</span> x &gt; <span class="number">60</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">df[<span class="string">&#x27;En&#x27;</span>].<span class="built_in">map</span>(convert) <span class="comment"># 自定义函数，map将En列每一行值传给convert</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[130]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A    False</span><br><span class="line">B     True</span><br><span class="line">C     True</span><br><span class="line">D    False</span><br><span class="line">E     True</span><br><span class="line">Name: En, dtype: bool</span><br></pre></td></tr></table></figure>
+
+<h2 id="apply映射元素转变"><a href="#apply映射元素转变" class="headerlink" title="apply映射元素转变"></a>apply映射元素转变</h2><p>In [131]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apply既可以操作Series，又可以操作DataFrame</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[131]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">17</td>
+<td align="right">20</td>
+<td align="right">56</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">100</td>
+<td align="right">8</td>
+<td align="right">67</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">57</td>
+<td align="right">9</td>
+<td align="right">122</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">108</td>
+<td align="right">31</td>
+<td align="right">46</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">89</td>
+<td align="right">106</td>
+<td align="right">126</td>
+</tr>
+</tbody></table>
+<p>In [132]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.apply(<span class="keyword">lambda</span> x: x+<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[132]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">117</td>
+<td align="right">120</td>
+<td align="right">156</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">200</td>
+<td align="right">108</td>
+<td align="right">167</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">157</td>
+<td align="right">109</td>
+<td align="right">222</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">208</td>
+<td align="right">131</td>
+<td align="right">146</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">189</td>
+<td align="right">206</td>
+<td align="right">226</td>
+</tr>
+</tbody></table>
+<p>In [135]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (x.<span class="built_in">min</span>(),x.<span class="built_in">max</span>(),x.mean(),x.std())</span><br><span class="line"></span><br><span class="line">df.apply(convert) <span class="comment"># 默认axis=0，对每一列进行聚合统计，指定axis=1，会对每一行进行聚合统计</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[135]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">Python</th>
+<th align="right">Math</th>
+<th align="right">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">17.000000</td>
+<td align="right">8.000000</td>
+<td align="right">46.000000</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">108.000000</td>
+<td align="right">106.000000</td>
+<td align="right">126.000000</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">74.200000</td>
+<td align="right">34.800000</td>
+<td align="right">83.400000</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">37.399198</td>
+<td align="right">40.886428</td>
+<td align="right">37.825917</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">Signature: df.apply(func, axis=<span class="number">0</span>, raw=<span class="literal">False</span>, result_type=<span class="literal">None</span>, args=(), **kwds)</span><br><span class="line">    </span><br><span class="line">Examples</span><br><span class="line">--------</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df = pd.DataFrame([[<span class="number">4</span>, <span class="number">9</span>]] * <span class="number">3</span>, columns=[<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df</span><br><span class="line">   A  B</span><br><span class="line"><span class="number">0</span>  <span class="number">4</span>  <span class="number">9</span></span><br><span class="line"><span class="number">1</span>  <span class="number">4</span>  <span class="number">9</span></span><br><span class="line"><span class="number">2</span>  <span class="number">4</span>  <span class="number">9</span></span><br><span class="line"></span><br><span class="line">Using a numpy universal function (<span class="keyword">in</span> this case the same <span class="keyword">as</span></span><br><span class="line">``np.sqrt(df)``):</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(np.sqrt)</span><br><span class="line">     A    B</span><br><span class="line"><span class="number">0</span>  <span class="number">2.0</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>  <span class="number">2.0</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">2</span>  <span class="number">2.0</span>  <span class="number">3.0</span></span><br><span class="line"></span><br><span class="line">Using a reducing function on either axis</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(np.<span class="built_in">sum</span>, axis=<span class="number">0</span>)</span><br><span class="line">A    <span class="number">12</span></span><br><span class="line">B    <span class="number">27</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(np.<span class="built_in">sum</span>, axis=<span class="number">1</span>)</span><br><span class="line"><span class="number">0</span>    <span class="number">13</span></span><br><span class="line"><span class="number">1</span>    <span class="number">13</span></span><br><span class="line"><span class="number">2</span>    <span class="number">13</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">Returning a <span class="built_in">list</span>-like will result <span class="keyword">in</span> a Series</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(<span class="keyword">lambda</span> x: [<span class="number">1</span>, <span class="number">2</span>], axis=<span class="number">1</span>)</span><br><span class="line"><span class="number">0</span>    [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="number">1</span>    [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="number">2</span>    [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">Passing ``result_type=<span class="string">&#x27;expand&#x27;</span>`` will expand <span class="built_in">list</span>-like results</span><br><span class="line">to columns of a Dataframe</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(<span class="keyword">lambda</span> x: [<span class="number">1</span>, <span class="number">2</span>], axis=<span class="number">1</span>, result_type=<span class="string">&#x27;expand&#x27;</span>)</span><br><span class="line">   <span class="number">0</span>  <span class="number">1</span></span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Returning a Series inside the function <span class="keyword">is</span> similar to passing</span><br><span class="line">``result_type=<span class="string">&#x27;expand&#x27;</span>``. The resulting column names</span><br><span class="line">will be the Series index.</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(<span class="keyword">lambda</span> x: pd.Series([<span class="number">1</span>, <span class="number">2</span>], index=[<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]), axis=<span class="number">1</span>)</span><br><span class="line">   foo  bar</span><br><span class="line"><span class="number">0</span>    <span class="number">1</span>    <span class="number">2</span></span><br><span class="line"><span class="number">1</span>    <span class="number">1</span>    <span class="number">2</span></span><br><span class="line"><span class="number">2</span>    <span class="number">1</span>    <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Passing ``result_type=<span class="string">&#x27;broadcast&#x27;</span>`` will ensure the same shape</span><br><span class="line">result, whether <span class="built_in">list</span>-like <span class="keyword">or</span> scalar <span class="keyword">is</span> returned by the function,</span><br><span class="line"><span class="keyword">and</span> broadcast it along the axis. The resulting column names will</span><br><span class="line">be the originals.</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df.apply(<span class="keyword">lambda</span> x: [<span class="number">1</span>, <span class="number">2</span>], axis=<span class="number">1</span>, result_type=<span class="string">&#x27;broadcast&#x27;</span>)</span><br><span class="line">   A  B</span><br><span class="line"><span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1</span>  <span class="number">2</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1</span>  <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="transform元素转变"><a href="#transform元素转变" class="headerlink" title="transform元素转变"></a>transform元素转变</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">10</span>,<span class="number">3</span>)),</span><br><span class="line">    index=<span class="built_in">list</span>(<span class="string">&#x27;ABCDEFGHIJ&#x27;</span>),</span><br><span class="line">    columns=[<span class="string">&#x27;python&#x27;</span>,<span class="string">&#x27;tensorflow&#x27;</span>,<span class="string">&#x27;keras&#x27;</span>]</span><br><span class="line">)</span><br><span class="line">display(df)</span><br><span class="line"><span class="comment"># 可以针对Series进行运算</span></span><br><span class="line">df[<span class="string">&#x27;python&#x27;</span>].transform(<span class="keyword">lambda</span> x: <span class="number">1024</span> <span class="keyword">if</span> x &gt; <span class="number">5</span> <span class="keyword">else</span> -<span class="number">1024</span>) <span class="comment"># 三目运算符 x if a&gt;b else y。如果a&gt;b返回x，否则y</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">python</th>
+<th align="right">tensorflow</th>
+<th align="right">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<p>Out[136]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A   -1024</span><br><span class="line">B    1024</span><br><span class="line">C   -1024</span><br><span class="line">D   -1024</span><br><span class="line">E   -1024</span><br><span class="line">F    1024</span><br><span class="line">G   -1024</span><br><span class="line">H    1024</span><br><span class="line">I    1024</span><br><span class="line">J    1024</span><br><span class="line">Name: python, dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [137]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;tensorflow&#x27;</span>].transform([np.sqrt,np.square,np.cumsum]) <span class="comment"># 针对一列进行不同的操作，apply也可以</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[137]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">sqrt</th>
+<th align="right">square</th>
+<th align="right">cumsum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">1.000000</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">2.645751</td>
+<td align="right">49</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">2.000000</td>
+<td align="right">16</td>
+<td align="right">12</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">2.449490</td>
+<td align="right">36</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">0.000000</td>
+<td align="right">0</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">2.828427</td>
+<td align="right">64</td>
+<td align="right">26</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">2.000000</td>
+<td align="right">16</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">1.732051</td>
+<td align="right">9</td>
+<td align="right">33</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">1.732051</td>
+<td align="right">9</td>
+<td align="right">36</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">2.449490</td>
+<td align="right">36</td>
+<td align="right">42</td>
+</tr>
+</tbody></table>
+<p>In [138]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span> <span class="keyword">if</span> x&gt;<span class="number">5</span> <span class="keyword">else</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以针对DataFrame进行运算</span></span><br><span class="line">df.transform(&#123;<span class="string">&#x27;python&#x27;</span>:np.cumsum,<span class="string">&#x27;tensorflow&#x27;</span>:np.square,<span class="string">&#x27;keras&#x27;</span>:convert&#125;) <span class="comment"># 对不同的列，执行不同的操作，apply也可以</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[138]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">python</th>
+<th align="right">tensorflow</th>
+<th align="right">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">12</td>
+<td align="right">49</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">16</td>
+<td align="right">16</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">17</td>
+<td align="right">36</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">18</td>
+<td align="right">0</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">25</td>
+<td align="right">64</td>
+<td align="right">True</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">26</td>
+<td align="right">16</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">33</td>
+<td align="right">9</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">40</td>
+<td align="right">9</td>
+<td align="right">False</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">47</td>
+<td align="right">36</td>
+<td align="right">False</td>
+</tr>
+</tbody></table>
+<h2 id="重拍随机抽样哑变量"><a href="#重拍随机抽样哑变量" class="headerlink" title="重拍随机抽样哑变量"></a>重拍随机抽样哑变量</h2><p>In [139]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[139]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">python</th>
+<th align="right">tensorflow</th>
+<th align="right">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<p>In [141]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index = np.random.permutation(<span class="number">10</span>) <span class="comment"># 0到10，打乱顺序</span></span><br><span class="line">index</span><br></pre></td></tr></table></figure>
+
+<p>Out[141]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([3, 1, 2, 5, 9, 7, 6, 0, 4, 8])</span><br></pre></td></tr></table></figure>
+
+<p>In [142]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重拍 索引打乱</span></span><br><span class="line">df.take(index)</span><br></pre></td></tr></table></figure>
+
+<p>Out[142]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">python</th>
+<th align="right">tensorflow</th>
+<th align="right">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">9</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+</tbody></table>
+<p>In [144]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机抽样10个数据</span></span><br><span class="line">df.take(np.random.randint(<span class="number">0</span>,<span class="number">10</span>,size=<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+
+<p>Out[144]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">python</th>
+<th align="right">tensorflow</th>
+<th align="right">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">A</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">8</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+</tbody></table>
+<p>In [145]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 哑变量</span></span><br><span class="line">df2 = pd.DataFrame(data=&#123;<span class="string">&#x27;key&#x27;</span>:[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>]&#125;)</span><br><span class="line">df2</span><br></pre></td></tr></table></figure>
+
+<p>Out[145]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">key</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">a</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">b</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">a</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">b</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">c</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">b</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">c</td>
+</tr>
+</tbody></table>
+<p>In [146]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># one-hot，哑变量</span></span><br><span class="line"><span class="comment"># str类型数据，经过哑变量转换，就可以使用数字表示</span></span><br><span class="line">pd.get_dummies(df2,prefix=<span class="string">&#x27;&#x27;</span>,prefix_sep=<span class="string">&#x27;&#x27;</span>) <span class="comment"># 1表示有，0表示没有</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[146]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">a</th>
+<th align="right">b</th>
+<th align="right">c</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<h1 id="数据重塑"><a href="#数据重塑" class="headerlink" title="数据重塑"></a>数据重塑</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+<p>Out[147]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">python</th>
+<th align="left">tensorflow</th>
+<th align="left">keras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="left">8</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">9</td>
+</tr>
+<tr>
+<td align="right">D</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="right">E</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="right">F</td>
+<td align="left">7</td>
+<td align="left">8</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="right">G</td>
+<td align="left">1</td>
+<td align="left">4</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="right">H</td>
+<td align="left">7</td>
+<td align="left">3</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="right">I</td>
+<td align="left">7</td>
+<td align="left">3</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="right">J</td>
+<td align="left">7</td>
+<td align="left">6</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>In [148]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.T <span class="comment"># 行列转置</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[148]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">A</th>
+<th align="left">B</th>
+<th align="left">C</th>
+<th align="left">D</th>
+<th align="left">E</th>
+<th align="left">F</th>
+<th align="left">G</th>
+<th align="left">H</th>
+<th align="left">I</th>
+<th align="left">J</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">python</td>
+<td align="left">4</td>
+<td align="left">8</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">7</td>
+<td align="left">1</td>
+<td align="left">7</td>
+<td align="left">7</td>
+<td align="left">7</td>
+</tr>
+<tr>
+<td align="right">tensorflow</td>
+<td align="left">1</td>
+<td align="left">7</td>
+<td align="left">4</td>
+<td align="left">6</td>
+<td align="left">0</td>
+<td align="left">8</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">3</td>
+<td align="left">6</td>
+</tr>
+<tr>
+<td align="right">keras</td>
+<td align="left">8</td>
+<td align="left">7</td>
+<td align="left">9</td>
+<td align="left">4</td>
+<td align="left">1</td>
+<td align="left">7</td>
+<td align="left">4</td>
+<td align="left">4</td>
+<td align="left">2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>In [149]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df2 = pd.DataFrame(</span><br><span class="line">    data=np.random.randint(<span class="number">0</span>,<span class="number">151</span>,size=(<span class="number">6</span>,<span class="number">3</span>)),</span><br><span class="line">    columns=[<span class="string">&#x27;Python&#x27;</span>,<span class="string">&#x27;Math&#x27;</span>,<span class="string">&#x27;En&#x27;</span>],</span><br><span class="line">    index=pd.MultiIndex.from_product([<span class="built_in">list</span>(<span class="string">&#x27;ABC&#x27;</span>),[<span class="string">&#x27;期中&#x27;</span>,<span class="string">&#x27;期末&#x27;</span>]]) <span class="comment"># 多层索引</span></span><br><span class="line">)</span><br><span class="line">df2</span><br></pre></td></tr></table></figure>
+
+<p>Out[149]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">期中</td>
+<td align="left">6</td>
+<td align="left">29</td>
+<td align="left">87</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">70</td>
+<td align="left">65</td>
+<td align="left">71</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">期中</td>
+<td align="left">97</td>
+<td align="left">144</td>
+<td align="left">40</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">115</td>
+<td align="left">5</td>
+<td align="left">32</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">期中</td>
+<td align="left">7</td>
+<td align="left">79</td>
+<td align="left">30</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">37</td>
+<td align="left">14</td>
+<td align="left">129</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>In [150]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.unstack(level=-<span class="number">1</span>) <span class="comment"># 将行索引，变成列索引，level默认-1，表示最后一层</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[150]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right"></td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+</tr>
+<tr>
+<td align="right">A</td>
+<td align="left">6</td>
+<td align="left">70</td>
+<td align="left">29</td>
+<td align="left">65</td>
+<td align="left">87</td>
+<td align="left">71</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="left">97</td>
+<td align="left">115</td>
+<td align="left">144</td>
+<td align="left">5</td>
+<td align="left">40</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="left">7</td>
+<td align="left">37</td>
+<td align="left">79</td>
+<td align="left">14</td>
+<td align="left">30</td>
+<td align="left">129</td>
+</tr>
+</tbody></table>
+<p>In [152]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.unstack(level=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[152]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right"></td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+<td align="left">期中</td>
+<td align="left">期末</td>
+</tr>
+<tr>
+<td align="right">A</td>
+<td align="left">6</td>
+<td align="left">70</td>
+<td align="left">29</td>
+<td align="left">65</td>
+<td align="left">87</td>
+<td align="left">71</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="left">97</td>
+<td align="left">115</td>
+<td align="left">144</td>
+<td align="left">5</td>
+<td align="left">40</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="left">7</td>
+<td align="left">37</td>
+<td align="left">79</td>
+<td align="left">14</td>
+<td align="left">30</td>
+<td align="left">129</td>
+</tr>
+</tbody></table>
+<p>In [153]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.stack() <span class="comment"># 列变成行</span></span><br></pre></td></tr></table></figure>
+
+<p>Out[153]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">A  期中  Python      6</span><br><span class="line">       Math       29</span><br><span class="line">       En         87</span><br><span class="line">   期末  Python     70</span><br><span class="line">       Math       65</span><br><span class="line">       En         71</span><br><span class="line">B  期中  Python     97</span><br><span class="line">       Math      144</span><br><span class="line">       En         40</span><br><span class="line">   期末  Python    115</span><br><span class="line">       Math        5</span><br><span class="line">       En         32</span><br><span class="line">C  期中  Python      7</span><br><span class="line">       Math       79</span><br><span class="line">       En         30</span><br><span class="line">   期末  Python     37</span><br><span class="line">       Math       14</span><br><span class="line">       En        129</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>In [155]:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.unstack().stack(level=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Out[155]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right"></th>
+<th align="left">期中</th>
+<th align="left">期末</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">En</td>
+<td align="left">87</td>
+<td align="left">71</td>
+</tr>
+<tr>
+<td align="right">Math</td>
+<td align="right">29</td>
+<td align="left">65</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">Python</td>
+<td align="right">6</td>
+<td align="left">70</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">En</td>
+<td align="left">40</td>
+<td align="left">32</td>
+</tr>
+<tr>
+<td align="right">Math</td>
+<td align="right">144</td>
+<td align="left">5</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">Python</td>
+<td align="right">97</td>
+<td align="left">115</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">En</td>
+<td align="left">30</td>
+<td align="left">129</td>
+</tr>
+<tr>
+<td align="right">Math</td>
+<td align="right">79</td>
+<td align="left">14</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">Python</td>
+<td align="right">7</td>
+<td align="left">37</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>In [156]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2</span><br></pre></td></tr></table></figure>
+
+<p>Out[156]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="right">期中</td>
+<td align="left">6</td>
+<td align="left">29</td>
+<td align="left">87</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">70</td>
+<td align="left">65</td>
+<td align="left">71</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="right">期中</td>
+<td align="left">97</td>
+<td align="left">144</td>
+<td align="left">40</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">115</td>
+<td align="left">5</td>
+<td align="left">32</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="right">期中</td>
+<td align="left">7</td>
+<td align="left">79</td>
+<td align="left">30</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="right">37</td>
+<td align="left">14</td>
+<td align="left">129</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>In [157]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.mean() # 计算每一列的平均值</span><br></pre></td></tr></table></figure>
+
+<p>Out[157]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python    55.333333</span><br><span class="line">Math      56.000000</span><br><span class="line">En        64.833333</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>In [158]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.mean(axis&#x3D;1) # 计算每一行的平均值</span><br></pre></td></tr></table></figure>
+
+<p>Out[158]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A  期中    40.666667</span><br><span class="line">   期末    68.666667</span><br><span class="line">B  期中    93.666667</span><br><span class="line">   期末    50.666667</span><br><span class="line">C  期中    38.666667</span><br><span class="line">   期末    60.000000</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>In [159]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.mean(level&#x3D;0)</span><br></pre></td></tr></table></figure>
+
+<p>Out[159]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">A</td>
+<td align="left">38.0</td>
+<td align="left">47.0</td>
+<td align="left">79.0</td>
+</tr>
+<tr>
+<td align="right">B</td>
+<td align="left">106.0</td>
+<td align="left">74.5</td>
+<td align="left">36.0</td>
+</tr>
+<tr>
+<td align="right">C</td>
+<td align="left">22.0</td>
+<td align="left">46.5</td>
+<td align="left">79.5</td>
+</tr>
+</tbody></table>
+<p>In [163]:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df2.mean(level&#x3D;1)</span><br></pre></td></tr></table></figure>
+
+<p>Out[163]:</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="left">Python</th>
+<th align="left">Math</th>
+<th align="left">En</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">期中</td>
+<td align="left">36.666667</td>
+<td align="left">84.0</td>
+<td align="left">52.333333</td>
+</tr>
+<tr>
+<td align="right">期末</td>
+<td align="left">74.000000</td>
+<td align="left">28.0</td>
+<td align="left">77.333333</td>
+</tr>
+</tbody></table>
+
     </div>
 
     
