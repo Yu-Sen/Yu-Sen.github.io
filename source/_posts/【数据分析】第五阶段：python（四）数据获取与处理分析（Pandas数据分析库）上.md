@@ -498,7 +498,7 @@ Out[29]:
 
 pip3 install tables报错，could not find a local hdf5之类的，原因是没有安装hdf5，用brew install hdf5即可。
 
-完成hdf5的安装，再次执行pip3 install tables，依然报错，报错信息error: command '/usr/bin/clang' failed with exit status 1，原因python版本和tables版本不匹配，python版本过高。解决办法：brew重新安装低版本python，使用低版本python作为默认解释器，再重新安装即可成功。
+完成hdf5的安装，再次执行pip3 install tables，依然报错，报错信息error: command '/usr/bin/clang' failed with exit status 1，原因python版本和tables版本不匹配，python版本3.9过高。解决办法：brew重新安装低版本python3.7，使用低版本python3.7作为默认解释器，再重新安装即可成功。
 
 Mac系统自带python路径为/System/Library/Frameworks/Python.framework/Version 这里可能会有多个python版本，里面Current存放系统当前python版本。
 
@@ -1965,7 +1965,7 @@ Out[138]:
 |    I |     40 |          9 | False |
 |    J |     47 |         36 | False |
 
-## 重拍随机抽样哑变量
+## 重排随机抽样哑变量
 
 In [139]:
 
@@ -2004,7 +2004,7 @@ array([3, 1, 2, 5, 9, 7, 6, 0, 4, 8])
 In [142]:
 
 ```python
-# 重拍 索引打乱
+# 重排 索引打乱
 df.take(index)
 ```
 
