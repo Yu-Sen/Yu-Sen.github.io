@@ -1610,7 +1610,7 @@ matplotlib登场
 pip3 install matplotlib
 ```
 
-安装完成后，不需要import，直接使用.plot即可开始绘制图形。
+pandas提供plot方法，安装matplotlib后不用import，可通过plot方法直接绘图。
 
 ## 折线图
 
