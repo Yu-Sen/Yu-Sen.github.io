@@ -1,12 +1,13 @@
 ---
-title: 【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）下
+title: 【数据分析】第五阶段：python（四）Pandas数据分析库 下
 date: 2021-06-30 16:53:36
 tags:
 - 数据分析
 - python
+- Pandas
 categories:
 - 学习笔记
-description: 本模块基于Pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
+description: Pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
 ---
 
 # 数学和统计方法
@@ -1831,3 +1832,254 @@ array([[<AxesSubplot:title={'center':'A'}>,
 ```
 
 ![img](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAh4AAAIYCAYAAAAimuVXAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjQuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8rg+JYAAAACXBIWXMAAAsTAAALEwEAmpwYAAAkB0lEQVR4nO3df7Cld30f9vcniNiK1kVQkRtVUr38oXoiszWGHUIH2lyF1hbIjuSZDAGrIGEy6z/EDCQ7E6+dmdqth1bTWjh1Y9OsgUFMMBs1QNAg7FhRuaVMww+JygghiFWzBO0IKRgsuJg6s+TTP+657vV6V3t/nPM995z7es2cOed8z/M85/Psc57vvu/3ec5zqrsDADDCX5h3AQDAwSF4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggc7VlVrVfXNqvq+edcCLKeqOl1V362q9Ul/c29VXTPvutg7wYMdqarDSf7zJJ3kb863GmDJ/WR3H0pyZZInk/wvc66HKRA82Kk3JPlkkvckuXW+pQAHQXf/v0n+WZLr5l0Le3fJvAtg4bwhyduTfCrJJ6tqpbufnHNNwBKrqr+U5G9n448eFpzgwbZV1SuS/GCSu7v761X1/yT56SS/Ot/KgCX1z6vqbJLLkvzbJD8+53qYAoda2Ilbk/xud3998vy34nALMDs3d/flSb4/yZuT/B9V9VfmWxJ7JXiwLVV1aZLXJPnrVfW1qvpakr+b5Eeq6kfmWx2wzLr7e939wSTfS/KKedfD3ggebNfN2djpr0vyosntryb5P7Nx3gfATNSGm5I8N8mj866HvanunncNLICq+p0kj3T38XPaX5Pk15Jc3d1n51IcsHSq6nSSlWz8wdNJvpLkf+ju982zLvZO8AAAhnGoBQAYRvAAAIYRPACAYQQPAGAYwQMAGGZfXDL9iiuu6MOHD8+7jB37zne+k8suu2zeZczUQVjH5GCs53e+85188Ytf/Hp3P3/etczTFVdc0c9//vOXfntvOgif7U0HaV2T/b2+Dz744AX7mn0RPA4fPpwHHnhg3mXs2NraWlZXV+ddxkwdhHVMDsZ6rq2t5frrr//KvOuYt8OHD+dXfuVXln57bzoIn+1NB2ldk/29vlV1wb7GoRYAYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGH2xQXEGOPwiXt3PM/xI2dz23nmO33HjdMoCeCittt3Xai/Opf+a76MeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMBcNHlV1TVV9rKq+UFWPVNVbJu2/VFVnquqhye3VW+b5+ap6rKq+VFU/PssVAJaH/gaW3yXbmOZskuPd/dmq+oEkD1bVfZPXfrW7f2XrxFV1XZLXJvnhJP9Rkn9ZVf9Jd39vmoUDS0l/A0vuoiMe3f1Ed3928vjbSR5NctUzzHJTklPd/Sfd/eUkjyV56TSKBZab/gaW347O8aiqw0l+NMmnJk1vrqrPVdW7q+q5k7arknx1y2yP55k7DoA/R38Dy2k7h1qSJFV1KMkHkry1u79VVe9I8stJenJ/Z5Kf2cHyjiU5liQrKytZW1vbQdn7w/r6+kLVffzI2R3Ps3Lp+edbpPXejkXblruxvr4+7xK2bdb9zUHY3puWYV2323ddqL8616L/e2xa1G27reBRVc/ORifwvu7+YJJ095NbXv/NJB+ZPD2T5Jots189afszuvtkkpNJcvTo0V5dXd1F+fO1traWRar7thP37nie40fO5s6H//zH5PQtq1OoaP9YtG25G4vSQY3obw4dOrT023vTMny2t9t3Xai/Otey9F+Lum23862WSvKuJI9299u3tF+5ZbKfSvL5yeN7kry2qr6vql6Q5Nokn55eycCy0t/A8tvOiMfLk7w+ycNV9dCk7ReSvK6qXpSNoc/TSX42Sbr7kaq6O8kXsnGG+u3OMAe2SX8DS+6iwaO7P5GkzvPSR59hnrcledse6gIOIP0NLD9XLgUAhhE8AIBhBA8AYBjBAwAYZtsXEIOtDu/imiDP5PQdN051eQDsT0Y8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBh/DotAAeKX9eeLyMeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDXDR4VNU1VfWxqvpCVT1SVW+ZtD+vqu6rqt+f3D930l5V9WtV9VhVfa6qXjzrlQCWg/4Glt92RjzOJjne3dcleVmS26vquiQnktzf3dcmuX/yPEleleTaye1YkndMvWpgWelvYMldNHh09xPd/dnJ428neTTJVUluSnLXZLK7ktw8eXxTkvf2hk8mubyqrpx24cDy0d/A8tvROR5VdTjJjyb5VJKV7n5i8tLXkqxMHl+V5KtbZnt80gawbfobWE7b/pG4qjqU5ANJ3trd36qqP32tu7uqeidvXFXHsjE0mpWVlaytre1k9n1hfX19oeo+fuTsjudZuXR38+3UvP8dF21b7sb6+vq8S9i2Wfc3B2F7b5rHuj585umpLu/4ke1NN6q/Ote8PkuL+jneVvCoqmdnoxN4X3d/cNL8ZFVd2d1PTIY2n5q0n0lyzZbZr560/RndfTLJySQ5evRor66u7m4N5mhtbS2LVPdtu/hFxuNHzubOh2f/I8anb1md+Xs8k0XblruxKB3UiP7m0KFDS7+9N83js72bvmYaRvVX55pX/7Wo/dZ2vtVSSd6V5NHufvuWl+5Jcuvk8a1JPryl/Q2Ts81fluTpLUOkABekv4Hlt51o+PIkr0/ycFU9NGn7hSR3JLm7qt6U5CtJXjN57aNJXp3ksSR/nOSN0yz4IDk8p78aYI70N7DkLho8uvsTSeoCL7/yPNN3ktv3WBdwAOlvYPm5cikAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMNcNHhU1bur6qmq+vyWtl+qqjNV9dDk9uotr/18VT1WVV+qqh+fVeHA8tHfwPLbzojHe5LccJ72X+3uF01uH02SqrouyWuT/PBknt+oqmdNq1hg6b0n+htYahcNHt398STf2Obybkpyqrv/pLu/nOSxJC/dQ33AAaK/geW3l3M83lxVn5sMjT530nZVkq9umebxSRvAXuhvYElcssv53pHkl5P05P7OJD+zkwVU1bEkx5JkZWUla2truyxlftbX12da9/EjZ2e27O1auXRMHfPe/rPelvvB+vr6vEvYran3Nwdhe2+ax7rOq+8a1V+da16fpUX9HO8qeHT3k5uPq+o3k3xk8vRMkmu2THr1pO18yziZ5GSSHD16tFdXV3dTylytra1llnXfduLemS17u44fOZs7H95tPt2+07eszvw9nsmst+V+sIgdVDKb/ubQoUNLv703zeOzPa++a1R/da559V+L2m/t6lBLVV255elPJdk8A/2eJK+tqu+rqhckuTbJp/dWInCQ6W9guVw0GlbV+5OsJrmiqh5P8otJVqvqRdkY+jyd5GeTpLsfqaq7k3whydkkt3f392ZSObB09Dew/C4aPLr7dedpftczTP+2JG/bS1HAwaS/geXnyqUAwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMMwl8y4AkuTwiXunurzTd9w41eUBMB1GPACAYQQPAGAYwQMAGEbwAACGcXIpAFM/wRsuxIgHADCM4AEADCN4AADDXDR4VNW7q+qpqvr8lrbnVdV9VfX7k/vnTtqrqn6tqh6rqs9V1YtnWTywXPQ3sPy2M+LxniQ3nNN2Isn93X1tkvsnz5PkVUmundyOJXnHdMoEDoj3RH8DS+2iwaO7P57kG+c035Tkrsnju5LcvKX9vb3hk0kur6orp1QrsOT0N7D8dvt12pXufmLy+GtJViaPr0ry1S3TPT5peyLnqKpj2fgrJSsrK1lbW9tlKfOzvr4+07qPHzk7s2Vv18ql+6OOndrpdpn1ttwP1tfX513Cbk29vzkI23vTdtd1Effzc82rv5rXZ2lRP8d7vo5Hd3dV9S7mO5nkZJIcPXq0V1dX91rKcGtra5ll3bftg+/VHz9yNnc+vHiXezl9y+qOpp/1ttwPFrGDOte0+ptDhw4t/fbetN3P9n7ob/ZqXv3VTvubaVnUfmu332p5cnNIc3L/1KT9TJJrtkx39aQNYLf0N7BEdhs87kly6+TxrUk+vKX9DZOzzV+W5OktQ6QAu6G/gSVy0TGpqnp/ktUkV1TV40l+MckdSe6uqjcl+UqS10wm/2iSVyd5LMkfJ3njDGoGlpT+BpbfRYNHd7/uAi+98jzTdpLb91oUcDDpb2D5uXIpADCM4AEADLN435MEgH3k8JS/inz6jhunurz9xogHADCMEY8pmnbqBYBlY8QDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGuWQvM1fV6STfTvK9JGe7+2hVPS/JP01yOMnpJK/p7m/urUzgoNPfwHKYxojH9d39ou4+Onl+Isn93X1tkvsnzwGmQX8DC24Wh1puSnLX5PFdSW6ewXsAJPobWDjV3bufuerLSb6ZpJP84+4+WVV/1N2XT16vJN/cfH7OvMeSHEuSlZWVl5w6dWrXdczL+vp6Dh069KfPHz7z9ByrmY2VS5MnvzvvKnbuyFXP2dH0527LZbS+vp6f/MmffHDLaMFCmWZ/8853vnPpt/em7X62l6H/WtT+6lzb7b/2c791/fXXX7Cv2dM5Hkle0d1nquovJ7mvqr649cXu7qo6b7Lp7pNJTibJ0aNHe3V1dY+ljLe2tpatdd924t75FTMjx4+czZ0P7/VjMt7pW1Z3NP2523IZra2tzbuEvZpaf3Po0KGl396btvvZXob+a1H7q3Ntt/9a1H5rT4dauvvM5P6pJB9K8tIkT1bVlUkyuX9qr0UC6G9gOew6eFTVZVX1A5uPk/xYks8nuSfJrZPJbk3y4b0WCRxs+htYHnsZk1pJ8qGNw6q5JMlvdffvVNVnktxdVW9K8pUkr9l7mcABp7+BJbHr4NHdf5DkR87T/odJXrmXogC20t/A8nDlUgBgmMU//RfO4/AOz9A/fuTsM57Vf/qOG/daEgARPABgX9nuH04X+4Np0377w8mhFgBgGMEDABjGoRaABTTt4XgYxYgHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAxzoL9Ou9PLap/L19QAYGeMeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDHOgrlwKMstcrJcOyEDxgG6b9n8bpO26c6vIALmSa/dc0+i6HWgCAYQQPAGCYhTrU4hgpACy2mQWPqrohyf+c5FlJ3tndd8zqvYCDa1Z9jT90YDZmcqilqp6V5NeTvCrJdUleV1XXzeK9gINLXwOLZ1bneLw0yWPd/Qfd/e+SnEpy04zeCzi49DWwYKq7p7/Qqr+V5Ibu/juT569P8te6+81bpjmW5Njk6Q8l+dLUC5m9K5J8fd5FzNhBWMfkYKznFUku6+7nz7uQadlOXzNpP7e/+cMs//bedBA+25sO0rom+3t9f/BCfc3cTi7t7pNJTs7r/aehqh7o7qPzrmOWDsI6JgdjPSfreHjedczDuf3NQdjem6zr8lrU9Z3VoZYzSa7Z8vzqSRvANOlrYMHMKnh8Jsm1VfWCqvqLSV6b5J4ZvRdwcOlrYMHM5FBLd5+tqjcn+RfZ+Irbu7v7kVm815wt9KGibToI65gcjPVcunXcQ1+zdP8Wz8C6Lq+FXN+ZnFwKAHA+LpkOAAwjeAAAwwgeU1JVx6uqq+qKedcybVX1P1XVF6vqc1X1oaq6fN41TUtV3VBVX6qqx6rqxLzrmYWquqaqPlZVX6iqR6rqLfOuaT9Z5n130zLvw5sOwr6cLMf+LHhMQVVdk+THkvybedcyI/cleWF3/6dJ/nWSn59zPVNxgC63fTbJ8e6+LsnLkty+pOu5Ywdg3920lPvwpgO0LydLsD8LHtPxq0n+fpKlPFO3u3+3u89Onn4yG9dKWAYH4nLb3f1Ed3928vjbSR5NctV8q9o3lnrf3bTE+/CmA7EvJ8uxPwsee1RVNyU5092/N+9aBvmZJL897yKm5KokX93y/PEs2A68U1V1OMmPJvnUnEuZuwO4725apn1404Hbl5PF3Z/ndsn0RVJV/zLJXznPS/8gyS9kY6h2oT3TOnb3hyfT/INsDPO9b2RtTEdVHUrygSRv7e5vzbueEQ7CvrvJPnywLPL+LHhsQ3f/l+drr6ojSV6Q5PeqKtkYvvxsVb20u782sMQ9u9A6bqqq25L8RJJX9vJc/OXAXG67qp6djU7qfd39wXnXM8pB2Hc3HdB9eNOB2ZeTxd+fXUBsiqrqdJKj3b1ffy1wV6rqhiRvT/LXu/vfzrueaamqS7Jxot0rs9FJfSbJTy/bVXZr43/Wu5J8o7vfOudy9qVl3Xc3Les+vOmg7MvJcuzPzvFgO/5Rkh9Icl9VPVRV/+u8C5qGycl2m5fbfjTJ3cvYUSV5eZLXJ/kbk+33UFW9et5FMdRS7sObDtC+nCzB/mzEAwAYxogHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgwY5V1U9X1QNVtV5VT1TVb1fVK+ZdFwD7n+DBjlTV30vyD5P890lWkvzHSX4jyU1zLAuABVHdPe8aWBBV9ZwkZ5K8sbv/t3nXA8DiMeLBTvxnSb4/yYfmXQgAi0nwYCf+wyRf7+6z8y4EgMUkeLATf5jkiqq6ZN6FALCYBA924l8l+ZMkN8+5DgAWlODBtnX300n+myS/XlU3V9VfqqpnV9Wrqup/nHd9AOx/vtXCjlXVLUn+bpK/muTbSR5M8rbu/r/mWhgA+57gAQAM41ALADCM4AEADCN4AADDCB4AwDD74kJQV1xxRR8+fHiuNXznO9/JZZddNtcaNu2XWtSxP+tIdl/Lgw8++PXufv4MSgLYln0RPA4fPpwHHnhgrjWsra1ldXV1rjVs2i+1qGN/1pHsvpaq+sr0qwHYPodaAIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACG2RcXEGOMwyfu3dH0x4+czW0XmOf0HTdOoyQADhgjHgDAMIIHADCM4AEADCN4AADDCB4AwDC+1cKu7PQbMhfjWzIAB4MRDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIa5aPCoqmuq6mNV9YWqeqSq3jJpf15V3VdVvz+5f+6kvarq16rqsar6XFW9eNYrAQAshu2MeJxNcry7r0vysiS3V9V1SU4kub+7r01y/+R5krwqybWT27Ek75h61QDAQrpo8OjuJ7r7s5PH307yaJKrktyU5K7JZHcluXny+KYk7+0Nn0xyeVVdOe3CAYDFU929/YmrDif5eJIXJvk33X35pL2SfLO7L6+qjyS5o7s/MXnt/iQ/190PnLOsY9kYEcnKyspLTp06tfe12YP19fUcOnRorjVsmlUtD595ekfTr1yaPPndqZdxXkeues4FX9sv22a/1JHsvpbrr7/+we4+OoOSALZl27/VUlWHknwgyVu7+1sbWWNDd3dVbT/BbMxzMsnJJDl69Givrq7uZPapW1tby7xr2DSrWm7b4e+rHD9yNnc+PObnfE7fsnrB1/bLttkvdST7qxaAndjWt1qq6tnZCB3v6+4PTpqf3DyEMrl/atJ+Jsk1W2a/etIGABxw2/lWSyV5V5JHu/vtW166J8mtk8e3JvnwlvY3TL7d8rIkT3f3E1OsGQBYUNsZR395ktcnebiqHpq0/UKSO5LcXVVvSvKVJK+ZvPbRJK9O8liSP07yxmkWDAAsrosGj8lJonWBl195nuk7ye17rAsAWEKuXAoADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMNv5kTjm5PCJe+ddAgBMlREPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGCYiwaPqnp3VT1VVZ/f0vZLVXWmqh6a3F695bWfr6rHqupLVfXjsyocAFg82xnxeE+SG87T/qvd/aLJ7aNJUlXXJXltkh+ezPMbVfWsaRULACy2iwaP7v54km9sc3k3JTnV3X/S3V9O8liSl+6hPgBgiVR3X3yiqsNJPtLdL5w8/6UktyX5VpIHkhzv7m9W1T9K8snu/ieT6d6V5Le7+5+dZ5nHkhxLkpWVlZecOnVqGuuza+vr6zl06NBca9i0WcvDZ56eax0rlyZPfnfMex256jkXfG2/bJv9Ukey+1quv/76B7v76AxKAtiWS3Y53zuS/HKSntzfmeRndrKA7j6Z5GSSHD16tFdXV3dZynSsra1l3jVs2qzlthP3zrWO40fO5s6Hd/sR2ZnTt6xe8LX9sm32Sx3J/qoFYCd29a2W7n6yu7/X3f8+yW/m/z+ccibJNVsmvXrSBgCwu+BRVVduefpTSTa/8XJPktdW1fdV1QuSXJvk03srEQBYFhcdR6+q9ydZTXJFVT2e5BeTrFbVi7JxqOV0kp9Nku5+pKruTvKFJGeT3N7d35tJ5QDAwrlo8Oju152n+V3PMP3bkrxtL0UBAMvJlUsBgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGOaiv9UCIxw+ce8FXzt+5Gxue4bXz+f0HTfutSQAZsCIBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDB+JG6KnumHznZiNz+KBgCLwIgHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADDMRYNHVb27qp6qqs9vaXteVd1XVb8/uX/upL2q6teq6rGq+lxVvXiWxQMAi2U7Ix7vSXLDOW0nktzf3dcmuX/yPEleleTaye1YkndMp0wAYBlcNHh098eTfOOc5puS3DV5fFeSm7e0v7c3fDLJ5VV15ZRqBQAWXHX3xSeqOpzkI939wsnzP+ruyyePK8k3u/vyqvpIkju6+xOT1+5P8nPd/cB5lnksG6MiWVlZecmpU6ems0a7tL6+nkOHDu1pGQ+feXoqtaxcmjz53aks6sDWceSq50y9jml8RqZlt7Vcf/31D3b30RmUBLAtl+x1Ad3dVXXx9PLn5zuZ5GSSHD16tFdXV/dayp6sra1lrzXcduLeqdRy/MjZ3PnwnjfNga7j9C2rU69jGp+RadlPtQDsxG6/1fLk5iGUyf1Tk/YzSa7ZMt3VkzYAgF0Hj3uS3Dp5fGuSD29pf8Pk2y0vS/J0dz+xxxoBgCVx0fHrqnp/ktUkV1TV40l+MckdSe6uqjcl+UqS10wm/2iSVyd5LMkfJ3njDGoGABbURYNHd7/uAi+98jzTdpLb91oUALCcXLkUABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIYRPACAYQQPAGAYwQMAGEbwAACGETwAgGEEDwBgGMEDABjmkr3MXFWnk3w7yfeSnO3uo1X1vCT/NMnhJKeTvKa7v7m3MgGAZbCn4DFxfXd/fcvzE0nu7+47qurE5PnPTeF9YNsOn7h3qss7fceNU10ewEE1i0MtNyW5a/L4riQ3z+A9AIAFVN29+5mrvpzkm0k6yT/u7pNV9Ufdffnk9Uryzc3n58x7LMmxJFlZWXnJqVOndl3HNKyvr+fQoUN7WsbDZ56eSi0rlyZPfncqi1LHlBy56jlT+YxMy25ruf766x/s7qMzKAlgW/Z6qOUV3X2mqv5ykvuq6otbX+zurqrzJpvuPpnkZJIcPXq0V1dX91jK3qytrWWvNdw2peH940fO5s6Hp3EUTB3TcvqW1al8RqZlP9UCsBN7OtTS3Wcm908l+VCSlyZ5sqquTJLJ/VN7LRIAWA67/jOyqi5L8he6+9uTxz+W5L9Lck+SW5PcMbn/8DQKnYWtJyAeP3J2aiMWAMD57WX8eiXJhzZO48glSX6ru3+nqj6T5O6qelOSryR5zd7LBACWwa6DR3f/QZIfOU/7HyZ55V6KAgCWkyuXAgDDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCCBwAwjOABAAwjeAAAwwgeAMAwggcAMIzgAQAMI3gAAMMIHgDAMIIHADCM4AEADCN4AADDCB4AwDCXzLsAWASHT9yb40fO5rYT905leafvuHEqywFYNEY8AIBhFmrE4/CU/toEAObDiAcAMIzgAQAMI3gAAMMIHgDAMAt1ciksi72eKH3uV3t9PRdYFEY8AIBhBA8AYBjBAwAYZmbBo6puqKovVdVjVXViVu8DACyOmQSPqnpWkl9P8qok1yV5XVVdN4v3AgAWx6xGPF6a5LHu/oPu/ndJTiW5aUbvBQAsiFkFj6uSfHXL88cnbQDAAVbdPf2FVv2tJDd099+ZPH99kr/W3W/eMs2xJMcmT38oyZemXsjOXJHk63OuYdN+qUUdf9Z+qSPZfS0/2N3Pn3YxANs1qwuInUlyzZbnV0/a/lR3n0xyckbvv2NV9UB3H513Hcn+qUUd+7OOZH/VArATszrU8pkk11bVC6rqLyZ5bZJ7ZvReAMCCmMmIR3efrao3J/kXSZ6V5N3d/cgs3gsAWBwz+62W7v5oko/OavkzsG8O+2T/1KKOP2u/1JHsr1oAtm0mJ5cCAJyPS6YDAMMIHtk/l3evqndX1VNV9fk51nBNVX2sqr5QVY9U1VvmWMv3V9Wnq+r3JrX8t/OqZVLPs6rq/66qj8yxhtNV9XBVPVRVD8yrDoDdOvCHWiaXd//XSf6rbFzo7DNJXtfdX5hDLf9FkvUk7+3uF45+/0kNVya5srs/W1U/kOTBJDfP6d+jklzW3etV9ewkn0jylu7+5OhaJvX8vSRHk/wH3f0Tc6rhdJKj3b1fricCsCNGPPbR5d27++NJvjGP995SwxPd/dnJ428neTRzuupsb1ifPH325DaXpFxVVye5Mck75/H+AMtC8HB59wuqqsNJfjTJp+ZYw7Oq6qEkTyW5r7vnVcs/TPL3k/z7Ob3/pk7yu1X14OTqvwALRfDgvKrqUJIPJHlrd39rXnV09/e6+0XZuPrtS6tq+CGoqvqJJE9194Oj3/s8XtHdL87GLz/fPjk8B7AwBI9tXN79oJmcT/GBJO/r7g/Ou54k6e4/SvKxJDfM4e1fnuRvTs6vOJXkb1TVP5lDHenuM5P7p5J8KBuHCgEWhuDh8u5/xuSEznclebS73z7nWp5fVZdPHl+ajROAvzi6ju7++e6+ursPZ+Pz8b939389uo6qumxywm+q6rIkP5Zkbt+AAtiNAx88uvtsks3Luz+a5O55Xd69qt6f5F8l+aGqeryq3jSHMl6e5PXZ+Kv+ocnt1XOoI0muTPKxqvpcNgLifd09t6+y7gMrST5RVb+X5NNJ7u3u35lzTQA7cuC/TgsAjHPgRzwAgHEEDwBgGMEDABhG8AAAhhE8AIBhBA8AYBjBAwAYRvAAAIb5/wC08s4a16imVQAAAABJRU5ErkJggg==)
+
+# 练习-数据预处理
+
+## 1 加载数据
+
+In [314]:
+
+```python
+jobs = pd.read_csv('./lagou2020.csv')
+jobs.shape
+```
+
+Out[314]:
+
+```
+(3683, 12)
+```
+
+In [315]:
+
+```python
+jobs.head()
+```
+
+. . .
+
+In [318]:
+
+```python
+jobs.city.unique()
+```
+
+Out[318]:
+
+```
+array(['北京', '上海', '深圳', '广州', '杭州', '成都', '南京', '武汉', '西安', '厦门', '长沙',
+       '苏州', '天津'], dtype=object)
+```
+
+## 2 数据清洗
+
+In [321]:
+
+```python
+# 原数组上去重
+jobs.drop_duplicates(inplace=True)
+```
+
+In [322]:
+
+```
+jobs.shape
+```
+
+Out[322]:
+
+```
+(3507, 12)
+```
+
+In [323]:
+
+```python
+# 去重后索引缺失，重置索引
+jobs.reset_index(inplace=True)
+```
+
+In [326]:
+
+```python
+# 过滤非数据分析岗位，positionName列.str.contains()方法，包含‘数据分析’的返回True，否则返回False
+cond = jobs['positionName'].str.contains('数据分析')
+jobs = jobs[cond]
+```
+
+In [327]:
+
+```python
+jobs.shape
+```
+
+Out[327]:
+
+```
+(1652, 13)
+```
+
+In [328]:
+
+```python
+jobs.reset_index(inplace=True)
+```
+
+## 3 薪水处理
+
+In [329]:
+
+```python
+jobs.salary
+```
+
+Out[329]:
+
+```
+0       25k-35k
+1       25k-45k
+2       15k-25k
+3       15k-25k
+4       15k-30k
+         ...   
+1647    10k-15k
+1648     6k-12k
+1649     6k-12k
+1650     7k-14k
+1651      4k-6k
+Name: salary, Length: 1652, dtype: object
+```
+
+In [375]:
+
+```python
+# str.lower() 将k全部统一为小写k
+# str.extract() 返回一个DataFrame，列的内容 是 通过正则捕获的字符串
+# applymap将数字字符串转为int类型
+# mean(axis=1) 计算薪水区间的均值
+jobs['salary'].str.lower().str.extract(r'(\d+)k-(\d)+k')\
+              .applymap(lambda x:int(x)).mean(axis=1)
+```
+
+Out[375]:
+
+```
+0       15.0
+1       15.0
+2       10.0
+3       10.0
+4        7.5
+        ... 
+1647     7.5
+1648     4.0
+1649     4.0
+1650     5.5
+1651     5.0
+Length: 1652, dtype: float64
+```
+
+## 4 技能要求
+
+Python SQL Tableau Excel SPSS/SAS
+
+In [394]:
+
+```python
+jobs.head().job_detail
+```
+
+Out[394]:
+
+```
+0    \n1.搭建数据指标框架，完整并准确反映业务趋势和变化，及时发现和定位问题\n2.独立完成数...
+1    \n工作职责：\n1. 负责建立交易平台日常分析体系，包括核心指标体系、报表体系，专题活动分...
+2    \n职位描述：1.对亿计的办公用户数据进行深度挖掘，引导产品、运营，并能实际应用到业务中带来...
+3    \n工作职责：-负责日常运营、业务数据等分析-针对产品需求做深入的数据分析报告，分析用户行为...
+4    \n【数据分析师岗】\n岗位要求：\n1、构建及维护客户体验相关数据报表平台；\n2、与大数...
+Name: job_detail, dtype: object
+```
+
+In [395]:
+
+```python
+# job_detail列 英文统一小写
+jobs['job_detail'] = jobs['job_detail'].str.lower()
+```
+
+In [396]:
+
+```python
+# 新增若干列，列名为要求的技能，判断job_detail中是否包含要求技能，包含的话对应的技能列填1，否则填0
+jobs['Python'] = jobs['job_detail'].map(lambda x:1 if 'python' in x else 0)
+jobs['SQL'] = jobs['job_detail'].map(lambda x:1 if 'sql' in x else 0)
+jobs['Tableau'] = jobs['job_detail'].map(lambda x:1 if 'tableau' in x else 0)
+jobs['Excel'] = jobs['job_detail'].map(lambda x:1 if 'excel' in x else 0)
+jobs['SPSS/SAS'] = jobs['job_detail'].map(lambda x:1 if 'spss/sas' in x else 0)
+```
+
+In [397]:
+
+```
+jobs.head()
+```
+
+## 5 处理行业信息
+
+In [400]:
+
+```python
+jobs['industryField'][:10]
+```
+
+Out[400]:
+
+```
+0          企业服务
+1            金融
+2         移动互联网
+3         移动互联网
+4            电商
+5            教育
+6            金融
+7         移动互联网
+8    移动互联网,消费生活
+9         移动互联网
+Name: industryField, dtype: object
+```
+
+In [402]:
+
+```python
+# 如果industryField字段，包含多个行业标签，并且第一个标签是‘移动互联网’，那么只提取第二个更细分的行业标签作为industryField值
+
+def convert(x):
+    fields = x.split(',')
+    if (fields[0]=='移动互联网') & (len(fields)>1):
+        return fields[1]
+    else:
+        return fields[0]
+    
+jobs['industryField'] = jobs['industryField'].map(convert)
+```
+
+In [403]:
+
+```python
+jobs['industryField'][:10]
+```
+
+Out[403]:
+
+```
+0     企业服务
+1       金融
+2    移动互联网
+3    移动互联网
+4       电商
+5       教育
+6       金融
+7    移动互联网
+8     消费生活
+9    移动互联网
+Name: industryField, dtype: object
+```

@@ -642,7 +642,7 @@ ValueError: incomplete format
 
 ### 字符串索引和切片
 
-![](Xnip2021-06-12_15-13-43)
+![](https://gitee.com/ethan-H/imghost/raw/master/blog/Xnip2021-06-12_15-13-43.jpg)
 
 ```python
 >>> s = 'china'

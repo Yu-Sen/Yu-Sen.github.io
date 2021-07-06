@@ -1,12 +1,13 @@
 ---
-title: 【数据分析】第五阶段：python（四）数据获取与处理分析（Pandas数据分析库）上
+title: 【数据分析】第五阶段：python（四）Pandas数据分析库 上
 date: 2021-06-28 11:42:17
 tags:
 - 数据分析
 - python
+- Pandas
 categories:
 - 学习笔记
-description: 本模块基于Pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
+description: andas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
 ---
 
 # pandas介绍和安装
@@ -177,7 +178,7 @@ Out[10]:
 In [13]:
 
 ```python
-df.head(n = 3) # 显示前n个，默认n=5
+df.head(n = 3) # 显示前n个，默认n=5省略
 ```
 
 Out[13]:
@@ -1326,6 +1327,7 @@ In [100]:
 ```python
 # 删除重复数据
 df.drop_duplicates() # NaN和None是一回事 都表示空数据 也是重复数据
+# drop_duplicates(inplace=True) inplace参数默认False，即不改变全数组，返回去重后的copy，True即在原数组上去重，改变原数组
 ```
 
 Out[100]:
@@ -1462,6 +1464,11 @@ array([4, 6, 4])
 ```python
 # 正态分布异常值，大于3sigma就是异常值
 # 3sigma准则：数值分布在(μ-3σ,μ+3σ)中的概率为0.9974，μ是平均值，σ是标准差
+```
+
+```python
+# 重置行索引，inplace=True表示在原数组上修改
+jobs.reset_index(inplace=True)
 ```
 
 # 数据转换
@@ -1964,6 +1971,41 @@ Out[138]:
 |    H |     33 |          9 | False |
 |    I |     40 |          9 | False |
 |    J |     47 |         36 | False |
+
+## map，apply，applymap的区别
+
+- apply：应用在DataFrame的行或列中，也可以应用到单独一个Series的每个元素中
+- map：应用在单独一个Series的每个元素中
+- applymap：应用在DataFrame的每个元素中
+
+map：
+
+map只能操作一个Series，应用在每个元素上
+
+```python
+df.map(...) # 报错
+df['Python'].map(lambda x:int(x)) # 可运行，Python列每个元素数据类型被转为int
+```
+
+apply：
+
+apply即可操作DataFrame，又可操作一个或多个Series
+
+操作DataFrame时，应用到行或列上；操作Series时，应用到每个元素上
+
+```python
+df.apply(lambda x:int(x)) # 报错 cannot convert the series to <class 'int'>，不能把一个series类型转为int类型
+df['Python'].apply(lambda x:int(x)) # 可运行，应用的是一个元素，lambda接收的是一个具体的数据
+```
+
+applymap：
+
+applymap只能操作DataFrame，并且应用在每个元素上
+
+```python
+df['Python'].applymap(...) # 报错 'Series' object has no attribute 'applymap'
+df.applymap(lambda x:int(x)) # 可运行
+```
 
 ## 重排随机抽样哑变量
 
