@@ -943,7 +943,7 @@ print(df)
 In [150]:
 
 ```python
-# pivot_table()透视表方法，values数据列，index分组列，aggfunc聚合方式
+# pivot_table()透视表方法，values要聚合透视哪列或哪几列数据，index分组列，aggfunc聚合方式
 d1 = df.pivot_table(values=['Python','Math'],index=['sex','class'],aggfunc='mean')
 print(d1)
             Math  Python

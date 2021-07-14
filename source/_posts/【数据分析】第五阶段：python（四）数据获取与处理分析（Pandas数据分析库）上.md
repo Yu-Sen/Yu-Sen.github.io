@@ -28,7 +28,7 @@ pip3 install pandas
 
 In [1]:
 
-```
+```python
 import numpy as np
 import pandas as pd # pandas基于numpy，使用pandas必须先引入numpy
 ```
