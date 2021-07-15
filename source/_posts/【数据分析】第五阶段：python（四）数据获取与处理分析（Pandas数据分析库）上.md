@@ -403,16 +403,16 @@ Out[35]:
 
 In [36]:
 
-```
+```python
 # 存储数据到excel
 df.to_excel('./data.xls')
 ```
 
 In [38]:
 
-```
+```python
 # 读取excel数据
-pd.read_excel('./data.xls',index_col=0)
+pd.read_excel('./data.xls',index_col=0) # index_col=0 指定excel表第1列，为行索引
 ```
 
 Out[38]:
