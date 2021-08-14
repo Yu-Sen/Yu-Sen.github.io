@@ -7,7 +7,7 @@ tags:
 - KNN
 categories:
 - 学习笔记
-description: 有监督学习-KNN算法、决策树算法
+description: 有监督学习-KNN模型、决策树模型、线性回归模型
 ---
 
 # 有监督学习
@@ -22,13 +22,13 @@ description: 有监督学习-KNN算法、决策树算法
 
 回归任务，标签都是连续的。
 
-下面介绍几种有监督学习的算法：
+下面介绍几种有监督学习的模型：
 
-分类算法：KNN算法、决策树
+分类问题：KNN模型、决策树
 
-回归算法：线性回归
+回归问题：线性回归
 
-# KNN/K近邻模型（KNeighbors）
+# KNN/K近邻模型（KNearestNeighbors）
 
 KNN模型是有监督学习算法模型中的一种，同时也是最简单的一种。
 
