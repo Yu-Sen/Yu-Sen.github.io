@@ -16,7 +16,7 @@ description: Pandas科学计算库实现数据预处理和数据分析，创建S
 
 In [165]:
 
-```
+```python
 df = pd.DataFrame(
     data=np.random.randint(0,10,size=(5,3)),
     index=list('ABCDE'),
@@ -38,7 +38,7 @@ Out[165]:
 
 In [167]:
 
-```
+```python
 # 统计非空数据的数量
 df.count()
 ```
@@ -54,7 +54,7 @@ dtype: int64
 
 In [169]:
 
-```
+```python
 display(df.mean(),df.median()) # 平均值，中位数
 Python    2.40
 Math      4.60
@@ -68,7 +68,7 @@ dtype: float64
 
 In [170]:
 
-```
+```python
 display(df.min(),df.max()) # 最小值，最大值
 Python    0.0
 Math      3.0
@@ -82,7 +82,7 @@ dtype: float64
 
 In [171]:
 
-```
+```python
 df['Python'].unique() # 去除重复数据
 ```
 
@@ -94,7 +94,7 @@ array([1, 0, 4, 6])
 
 In [173]:
 
-```
+```python
 df['Math'].value_counts() # 统计出现的频次
 ```
 
@@ -110,7 +110,7 @@ Name: Math, dtype: int64
 
 In [174]:
 
-```
+```python
 df.quantile(q=0.5) # 默认q=0.5相当于获取中位数
 ```
 
@@ -125,7 +125,7 @@ Name: 0.5, dtype: float64
 
 In [175]:
 
-```
+```python
 df.quantile(q=[0,0.25,0.5,0.75,1]) # q=0是获取最小值，0.25是四等分，0.5是中位数，0.75是四分之三等分，1是最大值
 ```
 
@@ -141,7 +141,7 @@ Out[175]:
 
 In [177]:
 
-```
+```python
 df.describe().round(1)
 ```
 
@@ -178,7 +178,7 @@ Out[178]:
 
 In [181]:
 
-```
+```python
 display(df['Python'].argmax(),df['Python'].argminn()) # 返回Python列 最大值的索引，最小值索引
 4
 1
@@ -186,7 +186,7 @@ display(df['Python'].argmax(),df['Python'].argminn()) # 返回Python列 最大�
 
 In [184]:
 
-```
+```python
 display(df.idxmax(),df.idxmin()) # 返回最大值标签，最小值标签
 Python    E
 Math      E
@@ -202,7 +202,7 @@ dtype: object
 
 In [186]:
 
-```
+```python
 df.cumsum() # 累加和，空值自动跳过
 ```
 
@@ -218,7 +218,7 @@ Out[186]:
 
 In [187]:
 
-```
+```python
 df.cumprod() # 累乘和
 ```
 
@@ -234,7 +234,7 @@ Out[187]:
 
 In [188]:
 
-```
+```python
 df.cummin() # 累计最小值
 ```
 
@@ -250,7 +250,7 @@ Out[188]:
 
 In [189]:
 
-```
+```python
 df.cummax() # 累计最大值
 ```
 
@@ -266,7 +266,7 @@ Out[189]:
 
 In [190]:
 
-```
+```python
 df.std() # 标准差
 ```
 
@@ -281,7 +281,7 @@ dtype: float64
 
 In [191]:
 
-```
+```python
 df.var() # 方差
 ```
 
@@ -296,7 +296,7 @@ dtype: float64
 
 In [192]:
 
-```
+```python
 df.diff() # 差分，当前数据减去上一个数据
 ```
 
@@ -312,7 +312,7 @@ Out[192]:
 
 In [193]:
 
-```
+```python
 df.pct_change() # 计算百分比变化，（当前数据-上一个数据）/ 上一个数据，变化幅度百分比
 ```
 
@@ -330,7 +330,7 @@ Out[193]:
 
 In [195]:
 
-```
+```python
 df.cov() # 协方差：自己和别人进行计算，方差是自己和自己进行计算
 ```
 
@@ -344,7 +344,7 @@ Out[195]:
 
 In [196]:
 
-```
+```python
 df['Python'].cov(df['Math'])
 ```
 
@@ -356,7 +356,7 @@ Out[196]:
 
 In [197]:
 
-```
+```python
 df.corr() # 相关性系数
 ```
 
@@ -370,7 +370,7 @@ Out[197]:
 
 In [198]:
 
-```
+```python
 df.corrwith(df['Math']) # 一列的相关性系数
 ```
 
@@ -387,7 +387,7 @@ dtype: float64
 
 In [199]:
 
-```
+```python
 import random
 lst = [chr(i) for i in range(65,65+10)]
 random.shuffle(lst)
@@ -417,7 +417,7 @@ Out[199]:
 
 In [202]:
 
-```
+```python
 df.sort_index(axis=0, ascending=True) # 按索引排序，默认axis=0，ascending=True升序，从小到大
 ```
 
@@ -438,7 +438,7 @@ Out[202]:
 
 In [205]:
 
-```
+```python
 df.sort_values(by='python',ascending=True) # 根据‘python’属性值升序排序
 ```
 
@@ -459,7 +459,7 @@ Out[205]:
 
 In [206]:
 
-```
+```python
 df.sort_values(by=['python','math'],ascending=True) # 'python'值相等时，再按‘math’值升序排序
 ```
 
@@ -480,7 +480,7 @@ Out[206]:
 
 In [208]:
 
-```
+```python
 df.nlargest(n=4,columns='python') # 根据‘python'排序，获取最大的4个数值
 ```
 
@@ -495,7 +495,7 @@ Out[208]:
 
 In [209]:
 
-```
+```python
 df.nsmallest(n=4,columns='math') # 根据‘math’排序，获取最小的4个数值
 ```
 
@@ -516,7 +516,7 @@ Out[209]:
 
 分箱操作也叫面元划分或者离散化。
 
-```
+```python
 df = pd.DataFrame(
     data=np.random.randint(0,151,size=(10,3)),
     columns=['python','math','en']
@@ -541,7 +541,7 @@ Out[60]:
 
 In [59]:
 
-```
+```python
 # 等宽
 pd.cut(
     df['python'], # 对python列数据分箱
@@ -563,7 +563,7 @@ Name: python, dtype: int64
 
 In [62]:
 
-```
+```python
 df['等级'] = pd.cut(
     df['python'],
     bins=[0,30,60,90,120,150],
@@ -589,7 +589,7 @@ Out[62]:
 
 In [63]:
 
-```
+```python
 # 等频
 pd.qcut(df['python'],q=4,labels=['不及格','及格','中等','优秀']).value_counts()
 ```
@@ -667,7 +667,7 @@ for name,group in df.groupby(by=['sex','class']): # 多分组，同一性别、�
 In [102]:
 
 ```python
-for name,group in df['Python'].groupby(by=df['sex']): # 对指定的列分组，by=必须传依据列的值
+for name,group in df['Python'].groupby(by=df['sex']): # 对指定的列分组，by=必须传分组依据列的值
     print(name)
     print(group)
 女
@@ -684,7 +684,7 @@ Name: Python, dtype: int64
 In [103]:
 
 ```python
-for name,group in df[['Python','Math']].groupby(by=df['sex']): # 对指定的多个列分组，by=必须传依据列的值
+for name,group in df[['Python','Math']].groupby(by=df['sex']): # 对指定的多个列分组，by=必须传分组依据列的值
     print(name)
     print(group)
 女
@@ -701,7 +701,7 @@ for name,group in df[['Python','Math']].groupby(by=df['sex']): # 对指定的多
 In [104]:
 
 ```python
-for name,group in df[['Python','Math']].groupby(by=[df['sex'],df['class']]): # 对指定的多个列，多列分组，by=必须传依据列的值
+for name,group in df[['Python','Math']].groupby(by=[df['sex'],df['class']]): # 对指定的多个列，多列分组，by=必须传分组依据列的值
     print(name)
     print(group)
 ('女', 6)

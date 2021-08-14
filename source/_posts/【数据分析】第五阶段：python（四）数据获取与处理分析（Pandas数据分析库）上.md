@@ -7,7 +7,7 @@ tags:
 - Pandas
 categories:
 - 学习笔记
-description: andas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
+description: pandas科学计算库实现数据预处理和数据分析，创建Series和DataFrame用于多种格式的读写以及数据转换。
 ---
 
 # pandas介绍和安装
@@ -334,6 +334,9 @@ In [33]:
 pd.read_csv('./data.csv',
             index_col=0 # 第一列作为行索引，如果不指定默认会添加行索引，原来的行索引会变成数据列
            )
+
+# 如果路径中包含中文，可以在路径前加r来处理中文
+pd.read_csv(r'./中文.csv',index_col=0)
 ```
 
 Out[33]:
@@ -633,6 +636,32 @@ Out[36]:
 |    C |    102 |   50 |
 |    D |    143 |   46 |
 |    E |     11 |   18 |
+
+```python
+# 如果数据的列索引是多层列索引时，假如是2层
+
+# 取一列数据
+df['外层column','内层column']
+
+# 取多列数据
+df[[('外层1','内层1'),('外层1','内层1'),('外层1','内层1')]]
+# 或者
+df[[['外层1','内层1'],['外层1','内层1'],['外层1','内层1']]]
+```
+
+DataFrame索引逻辑：
+
+不使用loc[]，iloc[]的情况下，df只可以直接取列。
+
+取一列：df[]。df['col']或者df.col
+
+取多列：df[ [] ]。df[ ['col1','col2','col3'...] ]
+
+如果列索引是多层嵌套的，原来的col变成(col_out, col_in)
+
+取一列：df[]。df[ (col_out, col_in) ]
+
+取多列：df[ [] ]。df[ [ (col1_out, col1_in), (col2_out, col2_in), (col3_out, col3_in)... ] ] 这里()也可以换成[]
 
 ## 标签选择
 
@@ -1227,7 +1256,7 @@ Out[82]:
 In [83]:
 
 ```python
-pd.merge(df1,df3,left_on='name',right_on='名字') # 列名不同，但是列的值形同
+pd.merge(df1,df3,left_on='name',right_on='名字') # 列名不同，但是列的值相同
 ```
 
 Out[83]:
