@@ -5,6 +5,8 @@ tags:
 - 机器学习
 - 有监督学习
 - KNN
+- 决策树
+- 线性回归
 categories:
 - 学习笔记
 description: 有监督学习-KNN模型、决策树模型、线性回归模型
@@ -1852,6 +1854,191 @@ plt.scatter(range(len(y_test)),y_test_pred[np.argsort(y_test)],s=2,alpha=0.3)
 那么这种多重共线性会有什么不好的影响吗？答案是会的，而且影响非常不好。总结一下就是：会造成回归系数，截距系数的估计非常不稳定，即整个模型是不稳定。
 
 这种不稳定的具体表现是：很可能回归系数原来正，但因为共线性而变为负。这对于一些自变量的可解释性来讲可能是致命的，因为得到错误系数无法解释正常发生的现象。
-————————————————
-版权声明：本文为CSDN博主「Python数据科学」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/yuxiaosmd/article/details/112306519
+
+例如：
+$$
+y=x_1w_1+x_2w_2
+$$
+特征x1和x2高度相关，就有多重共线性问题
+
+解决办法是，加上一个多项式：
+$$
+y=x_1w_1+x_2w_2+x_1x_2
+$$
+
+```python
+```
+
+## 线性、回归
+
+线性：自变量和因变量之间是一次方函数关系，画在xy坐标系中是一条直线
+
+回归：也叫拟合，就是找出自变量和因变量之间的关系，在机器学习中，就是找出一次函数中一组最优的各自变量的权重系数或者叫回归系数，以及截距
+
+## 误差的产生
+
+假设有一份数据集有n个样本，并且只有一种特征x，和标签y。
+
+|      | 特征x | 标签y |
+| ---- | :---: | :---: |
+| 1    | $x_1$ | $y_1$ |
+| 2    | $x_2$ | $y_2$ |
+| ...  |  ...  |  ...  |
+| n    | $x_n$ | $y_n$ |
+
+对这份数据进行线性回归，写出线性方程为$y=w_1x+w_0$，那么我们希望的是有这么一组$w_1,w_0$，使得数据集中所有的$x$带入到方程中都能得到对应的$y$。根据这个逻辑我们可以写出一个线性方程组：
+$$
+y_1=w_{1}x_{1}+w_{0}\\
+y_2=w_1x_{2}+w_0\\
+y_3=w_1x_{3}+w_0\\
+...\\
+y_n=w_1x_{n}+w_0
+$$
+$x,y$是已知的，$w_1,w_0$是我们要求解的未知量，求解2个变量，只需要2个方程就可以，因此$y1,y2$方程联立求解可以得出一组$w_1,w_0$。
+
+这组$w_1,w_0$能保证$x_1,x_2$带入方程得出的$\hat y_1,\hat y_2$等于本来的$y_1,y_2$，但不一定能保证$x_3,x_4,...x_n$带入方程得出的$\hat y_3,\hat y_4,...\hat y_n$等于原来的$y_3,y_4,...y_n$。因此就产生了误差。
+
+## 误差大小的计算——最小二乘法
+
+$y1,y2$两个方程就能求出一组$w_1,w_0$，同理，$y3,y4$、$y1,y3$、...n个方程两两组合，能求出很多组$w_1,w_0$。
+
+我们知道求出的$w_1,w_0$并不能满足全部的$x,y$一一对应，是有误差的
+
+因此，自然而然的，误差最小的那组$w_1,w_0$，就是我们想要的最优解
+
+误差大小的计算方式：$\sum_{i=1}^n(\hat y-y)^2$，即每个样本的预测值和真实值的差的平方和
+
+这种计算误差大小的方式乘坐==最小二乘法==。
+
+为什么计算误差是$(\hat y-y)^2$，而不是1次方、3次方、4次方？这是以概率统计中的理论作为理论支撑，然后通过数学计算推导证明得出的结果
+
+## 最小二乘的证明和推导
+
+### 证明
+
+法国数学家，阿德里安-馬里·勒讓德（1752－1833）提出让总的误差的平方最小的$y$就是真值，这是基于，如果误差是随机的，应该围绕真值上下波动。这就是**最小二乘法**，即：$\epsilon=\sum(y-\hat y_i)^2最小=y最小$
+
+对其求导，导数为0时取得最小值：
+$$
+\frac{d}{d_y}\epsilon=\frac{d}{d_y}\sum(y-\hat y_i)^2=2\sum(y-\hat y_i)\\
+=2((y-y_1)+(y-y_2)+...+(y-y_n))=0
+$$
+进而：
+$$
+ny=y_1+y_2+...+y_n\\
+y=\frac{y_1+y_2+...y_n}{n}=\bar y
+$$
+数学王子高斯（1777－1855）证明了这一理论的合理性。
+
+他认为，每次的测量值$\hat y$和真实值$y$之间都存在一个误差：$\epsilon_i=y-\hat y_i$
+
+这些误差最终会形成一个概率分布，只是现在不知道误差的概率分布是什么。假设概率密度函数为：$p(\epsilon_i)$
+
+再假设一个联合概率密度函数，这样方便把所有的测量数据利用起来：
+$$
+L(y)=p(\epsilon_1)p(\epsilon_2)p(\epsilon_3)...p(\epsilon_n)
+=p(y-\hat y_1)p(y-\hat y_2)p(y-\hat y_3)...p(y-\hat y_n)
+$$
+$L(y)$是关于$y$的一个概率密度函数，根据==极大似然估计==的思想，概率最大的最应该出现
+
+所以，这个式子成立时，取得最大值：$\frac{d}{d_y}L(y)=0$
+
+高斯想最小二乘法给出的答案是$y=\bar y$，如果最小二乘法是对的，那么当$y=\bar y$时应该取得最大值：$\frac{d}{d_y}L(y)|_{y=\bar y}=0$
+
+解这个微分方程，得到：$p(\epsilon)=\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{\epsilon ^2}{2\sigma ^2}}$
+
+这恰好是正态分布的概率密度函数，也就是说，如果误差的分布是正态分布，那么最小二乘法得到的就是最有可能的值
+
+我们相信，误差是由于随机的、无数的、独立的、多个因素造成的，那么根据==中心极限定理==，误差的分布就应该是正态分布。
+
+也就是说，误差是服从正态分布的，高斯通过最小二乘法的结论，证明最终误差是服从正态分布的，因此最小二乘法是正确的。
+
+---
+
+**高斯-马尔可夫定理：**在[统计学](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E7%BB%9F%E8%AE%A1%E5%AD%A6)中，**高斯－马尔可夫定理(Gauss-Markov Theorem)**陈述的是：在[线性回归](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E7%B7%9A%E6%80%A7%E5%9B%9E%E6%AD%B8)模型中，如果误差满足零[均值](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E5%9D%87%E5%80%BC)、[同方差](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E5%8D%8F%E6%96%B9%E5%B7%AE)且[互不相关](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fw%2Findex.php%3Ftitle%3DUncorrelated_random_variables%26action%3Dedit%26redlink%3D1)，则回归系数的最佳线性[无偏](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E5%81%8F%E5%B7%AE)[估计](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E4%BC%B0%E8%AE%A1%E9%87%8F)(**BLUE**, Best Linear unbiased estimator)就是[普通最小二乘法估计](https://link.jianshu.com?t=https%3A%2F%2Fzh.wikipedia.org%2Fwiki%2F%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95)。
+
+作者：Stansosleepy
+链接：https://www.jianshu.com/p/b49f28b1b98c
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+### 推导
+
+一份数据集，有m个样本，n个特征
+
+首先
+$$
+y=\theta_0+\theta_1x_1+\theta_2x_2+...\theta_nx_n\\
+y=\theta_0x_0+\theta_1x_1+\theta_2x_2+...\theta_nx_n，x_0恒等于1\\
+y=\sum_{i=1}^{n}\theta_ix_i=\theta^Tx
+$$
+那么
+$$
+y_i=\hat y_i+\epsilon_i\\
+y_i=\theta^Tx_i+\epsilon_i
+$$
+假设误差$\epsilon_i$服从均值$\mu$为0，方差为$\sigma^2$的正态分布，那么可以写出$\epsilon_i$的概率密度函数：
+$$
+p(\epsilon_i)=\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{\epsilon_i ^2}{2\sigma ^2}}\\
+p(y_i|x_i;\theta)=\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{(y_i-\theta^Tx_i) ^2}{2\sigma ^2}}
+$$
+m个样本的误差联合密度函数$L(\theta)$:
+$$
+L(\theta)=\prod_{i=1}^{m}p(y_i|x_i;\theta)\\
+=\prod_{i=1}^{m}\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{(y_i-\theta^Tx_i) ^2}{2\sigma ^2}}
+$$
+$L(\theta)$就是似然函数，为了方便计算，对$L(\theta)$两边求对数，将累乘转为累加：
+$$
+l(\theta)=log\prod_{i=1}^{m}\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{(y_i-\theta^Tx_i) ^2}{2\sigma ^2}}\\
+=\sum_{i=1}^mlog\frac{1}{\sigma\sqrt[]{2\pi}}e^{-\frac{(y_i-\theta^Tx_i) ^2}{2\sigma ^2}}\\
+=mlog\frac{1}{\sigma\sqrt[]{2\pi}}-\frac{1}{\sigma^2}\frac{1}{2}\sum_{i=1}^m(y_i-\theta^Tx_i) ^2
+$$
+似然函数的值越大，我们假设误差$\epsilon_i$服从均值$\mu$为0，方差为$\sigma^2$的正态分布成立的概率就越大，因此我们希望$l(\theta)$的值越大越好
+
+$l(\theta)$最终的化简式子中，其他都是常数项，只有$\sum_{i=1}^m(y_i-\theta^Tx_i)^2$这项是变量，并且这项是正的，因此，这项的越小，$l(\theta)$的值就越大：
+$$
+最优\theta=J(\theta)最大值=min\sum_{i=1}^m(y_i-\theta^Tx_i)^2
+$$
+到这里，就推导出为什么我们是求$(y-\hat y)^2$的最小值来求最优系数$\theta$
+
+## 最优$\theta$求解过程
+
+先将$J(\theta)$写成矩阵的形式：
+$$
+J(\theta)=\sum_{i=1}^m(y_i-\theta^Tx_i)^2=(X\theta-y)^T(X\theta-y)
+$$
+求$J(\theta)$的最小值，就是对$J(\theta)$求$\theta$的偏导
+$$
+\frac{\delta}{\delta_\theta}J(\theta)=\frac{\delta(X\theta-y)^T(X\theta-y)}{\delta_\theta}\\
+\because(A-B)^T=A^T-B^T,(AB)^T=B^TA^T\\
+\therefore=\frac{\delta((X\theta)^T-y^T)(X\theta-y)}{\delta_\theta}=\frac{\delta(\theta^TX^T-y^T)(X\theta-y)}{\delta_\theta}\\
+=\frac{\delta(\theta^TX^TX\theta-\theta^TX^Ty-y^TX\theta+y^Ty)}{\delta_\theta}\\
+\because矩阵求导中，\alpha为常数时，有如下规则:\\
+\frac{\delta \alpha}{\delta A}=0, \quad \frac{\delta A^TB^TC}{\delta A}=B^TC, \quad \frac{\delta C^TBA}{\delta A}=B^TC,\quad \frac{\delta A^TBA}{\delta A}=(B+B^T)A\\
+\therefore=2X^TX\theta-X^Ty-X^Ty+0\\
+=2X^TX\theta-2X^Ty
+$$
+导数为0时，$J(\theta)$取得最小值：
+$$
+2X^TX\theta-2X^Ty=0\\
+X^TX\theta=X^Ty\\
+\theta=(X^TX)^{-1}X^Ty
+$$
+最终得出结果，==最优回归系数$\theta$，等于$\sum(y-\hat y)^2$取得最小值时的$\theta$，等于$(X^TX)^{-1}X^Ty$==
+
+其中$(X^TX)^{-1}$是$X^TX$的逆矩阵，线性代数中逆矩阵的定义如下：
+
+>如果列向量组线性无关，就称为列满秩
+>
+>对于任意矩阵，始终有列秩等于行秩，所以统称为矩阵的秩
+>
+>如果某个矩阵，既是列满秩，又是行满秩，那么就称该矩阵为满秩矩阵，或者简称为满秩。满秩矩阵必为方阵。
+>
+>当矩阵$A$为满秩矩阵时，对应的矩阵函数为双射，所以此时该矩阵$A$有反函数$A^{-1}$，也称为逆矩阵。
+
+所以，只有当$X^TX$有逆矩阵，也就是$X^TX$线性无关时，最小二乘法能求解最优系数才成立。
+
+## 多重共线性问题
+
+
+
